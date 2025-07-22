@@ -3,6 +3,8 @@
 	"name": "@hugoalh/blake",
 	"version": "0.1.0",
 	"exports": {
+		"./2b": "./2b.ts",
+		"./2s": "./2s.ts",
 		".": "./mod.ts"
 	},
 	"imports": {
