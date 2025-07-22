@@ -1,0 +1,371 @@
+#MARK: {Common}
+*.autosave
+*.bak
+*.cache
+*.diff
+*.dump
+*.eml
+*.gcov
+*.gho
+*.kcov
+*.lcov
+*.log
+*.ori
+*.orig
+*.patch
+*.temp
+*.tmp
+.cache/
+.git/
+.svn/
+.temp/
+.tmp/
+*_cache/
+.env
+.env.dev.local
+.env.development.local
+.env.local
+.env.prod.local
+.env.production.local
+.env.test.local
+
+#MARK: {Archives & Packages}
+*.7z
+*.apfs
+*.apk
+*.app
+*.appx
+*.arj
+*.bin
+*.bz
+*.bz2
+*.bzip
+*.bzip2
+*.cab
+*.cpio
+*.crx
+*.deb
+*.dll
+*.dmg
+*.ear
+*.egg
+*.esd
+*.exe
+*.fat
+*.gem
+*.gz
+*.gzip
+*.hfs
+*.iso
+*.jar
+*.lha
+*.lzh
+*.lzma
+*.msi
+*.msix
+*.msm
+*.msp
+*.nar
+*.ntfs
+*.ova
+*.pkg
+*.ppkg
+*.r[0-9][0-9]
+*.rar
+*.rpm
+*.scs
+*.squashfs
+*.swm
+*.tar
+*.tar.gz
+*.taz
+*.tbz
+*.tbz2
+*.tgz
+*.tpz
+*.txz
+*.tzst
+*.vhd
+*.vhdx
+*.vsix
+*.war
+*.wim
+*.xar
+*.xpi
+*.xz
+*.z
+*.z[0-9][0-9]
+*.zip
+*.zipx
+*.zst
+
+#MARK: {OS Linux}
+.fuse_hidden*
+.nfs*
+.Trash-*
+*~
+
+#MARK: {OS Mac}
+._*
+.apdisk
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.com.apple.timemachine.donotpresent
+.DocumentRevisions-V100
+.DS_Store
+.fseventsd
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+Network Trash Folder
+Temporary Items
+
+#MARK: {OS Windows}
+*.lnk
+*.stackdump
+$RECYCLE.BIN/
+[Dd]esktop.ini
+ehthumbs_vista.db
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+
+#MARK: AL
+.alcache/
+.alpackages/
+
+#MARK: BowerIO
+bower_components/
+
+#MARK: CVS
+CVS/
+.cvsignore
+
+#MARK: Dart
+.dart_tool/
+
+#MARK: Delphi
+__history/
+__recovery/
+
+#MARK: Docusaurus
+.docusaurus
+
+#MARK: Dropbox
+.dropbox
+.dropbox.attr
+.dropbox.cache
+
+#MARK: DynamoDB
+.dynamodb/
+
+#MARK: Eagle
+*.b#?
+*.b$?
+*.l#?
+*.l$?
+*.s#?
+*.s$?
+
+#MARK: Elm
+elm-stuff
+repl-temp-*
+
+#MARK: ESLint
+.eslintcache
+
+#MARK: FuseBox
+.fusebox/
+
+#MARK: Go
+go.work
+go.work.sum
+
+#MARK: Godot
+.godot/
+
+#MARK: Google App Engine
+appengine-generated/
+
+#MARK: Gradle
+.gradle/
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+#MARK: GruntJS
+.grunt/
+
+#MARK: GWT
+.apt_generated/
+.gwt-tmp/
+.gwt/
+gwt-unitCache/
+
+#MARK: Jekyll
+.jekyll-cache/
+.jekyll-metadata
+
+#MARK: KDE
+.directory
+
+#MARK: Leiningen
+.cpcache/
+.lein-plugins/
+.lein-deps-sum
+.lein-failures
+.lein-repl-history
+.nrepl-port
+
+#MARK: LibreOffice
+.~lock.*#
+
+#MARK: MicroBundleJS
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+#MARK: Microsoft Office
+*.~vsd*
+*.xlk
+~$*.doc*
+~$*.ppt*
+~$*.xls*
+Backup of *.doc*
+
+#MARK: Mono
+.mono/
+mono_crash.*.json
+
+#MARK: NextJS
+.next
+
+#MARK: NodeJS
+jspm_packages/
+node_modules/
+.node_history
+.node_repl_history
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+#MARK: NodeWaf
+.lock-wscript
+
+#MARK: NPM
+.npm
+npm-debug.log*
+
+#MARK: NuxtJS
+.nuxt
+
+#MARK: Packer
+packer_cache/
+
+#MARK: ParcelJS
+.cache
+.parcel-cache
+
+#MARK: PNPM
+.pnpm-debug.log*
+
+#MARK: Python
+*.pyc
+*.pyd
+*.pyo
+__pycache__/
+.pybuilder/
+.ipynb_checkpoints
+.Python
+*$py.class
+ipython_config.py
+pip-log.txt
+pip-delete-this-directory.txt
+
+#MARK: Qt
+.qmake.cache
+*_qmlcache.qrc
+
+#MARK: R
+.Rapp.history
+.RData
+.RDataTmp
+.Rhistory
+.Ruserdata
+*-Ex.R
+
+#MARK: Redis
+dump.rdb
+
+#MARK: ROS
+msg_gen/
+srv_gen/
+
+#MARK: Ruby (+ Rails)
+.byebug_history
+
+#MARK: Rust
+*.rs.bk
+
+#MARK: SASS
+.sass-cache/
+
+#MARK: Serverless
+.serverless/
+
+#MARK: Snowpack
+web_modules/
+
+#MARK: StyleLint
+.stylelintcache
+
+#MARK: Sublime Text
+*.stTheme.cache
+*.sublime-workspace
+*.tmlanguage.cache
+*.tmPreferences.cache
+bh_unicode_properties.cache
+
+#MARK: TernJS
+.tern-port
+
+#MARK: Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+#MARK: TypeScript
+*.tsbuildinfo
+
+#MARK: Vim
+Session.vim
+Sessionx.vim
+
+#MARK: Visual Studio
+.localhistory/
+.vs/
+.vshistory/
+
+#MARK: Visual Studio Code
+.history/
+.vscode/
+.vscode-test
+
+#MARK: VuePress
+.vuepress/
+
+#MARK: XCode
+xcuserdata/
+
+#MARK: Yarn
+.yarn/
+.pnp.*
+.yarn-integrity
+yarn-debug.log*
+yarn-error.log*
+
+#MARK: {Custom}

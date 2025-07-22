@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
+name: "Documentation Issue"
+description: "Report a documentation issue."
+labels:
+  - "Type/Documentation 📓"
+body:
+  - type: "textarea"
+    id: "document"
+    attributes:
+      label: "Document"
+      description: |-
+        Which document occur this issue?
+
+        > [!NOTE]
+        > - Accept multiple documents.
+      placeholder: |-
+        README.md
+    validations:
+      required: true
+  - type: "textarea"
+    id: "describe"
+    attributes:
+      label: "Describe"
+      description: |-
+        What the issue is? If needed, use images, videos, or other media type to help for explain this issue.
+
+        > [!NOTE]
+        > - For external media, please ensure we are able to view those without any extra step.
+    validations:
+      required: true
+  - type: "textarea"
+    id: "additional-information"
+    attributes:
+      label: "Additional Information"
+      description: |-
+        If there have information which relevant to this issue but not suitable at other fields, please list those at here.
+    validations:
+      required: false

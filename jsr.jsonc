@@ -1,0 +1,43 @@
+{
+	"$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+	"name": "@hugoalh/blake",
+	"version": "0.1.0",
+	"exports": {
+		".": "./mod.ts"
+	},
+	"imports": {
+	},
+	"publish": {
+		"exclude": [
+			"**/*_bench.ts",
+			"**/*_bench.tsx",
+			"**/*_test.ts",
+			"**/*_test.tsx",
+			"**/*.bench.ts",
+			"**/*.bench.tsx",
+			"**/*.test.ts",
+			"**/*.test.tsx",
+			"**/bench.ts",
+			"**/bench.tsx",
+			"**/test.ts",
+			"**/test.tsx",
+			"_bench/**",
+			"_test/**",
+			".forgejo/**",
+			".git/**",
+			".github/**",
+			".vscode/**",
+			"dist/**",
+			".*.lint.ts",
+			".dnt.ts",
+			".gitattributes",
+			".gitignore",
+			".yamllint.yml",
+			"CITATION.cff",
+			"CODE_OF_CONDUCT.md",
+			"CONTRIBUTING.md",
+			"deno.jsonc",
+			"SECURITY.md"
+		]
+	}
+}

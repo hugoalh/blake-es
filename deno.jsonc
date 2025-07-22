@@ -1,0 +1,62 @@
+{
+	"$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+	"fmt": {
+		"indentWidth": 4,
+		"lineWidth": 800,
+		"proseWrap": "preserve",
+		"semiColons": true,
+		"singleQuote": false,
+		"useTabs": true
+	},
+	"imports": { // IMPORTANT: Only remap development dependencies!
+		"DNT": "https://raw.githubusercontent.com/hugoalh/deno-nodejs-transformer/v0.7.3/mod.ts"
+	},
+	"lint": {
+		"plugins": [
+			"jsr:@hugoalh/deno-lint-rules@^0.10.0/hugoalh/library"
+		],
+		"rules": {
+			"tags": [
+				"recommended"
+			],
+			"include": [
+				"default-param-last",
+				"eqeqeq",
+				"guard-for-in",
+				"no-const-assign",
+				"no-eval",
+				"no-non-null-asserted-optional-chain",
+				"no-self-compare",
+				"no-slow-types",
+				"no-sparse-arrays",
+				"no-sync-fn-in-async-fn",
+				"no-throw-literal",
+				"no-undef",
+				"no-useless-rename",
+				"triple-slash-reference",
+				"verbatim-module-syntax"
+			]
+		}
+	},
+	"lock": false,
+	"tasks": {
+		"jsr-check": {
+			"command": "deno publish --allow-dirty --config jsr.jsonc --dry-run --no-provenance",
+			"description": "Check deployment for JSR."
+		},
+		"jsr-publish": {
+			"command": "deno publish --allow-dirty --config jsr.jsonc --no-provenance",
+			"description": "Publish package to JSR."
+		},
+		"jsr-publish-provenance": {
+			"command": "deno publish --allow-dirty --config jsr.jsonc",
+			"description": "Publish package to JSR (provenance)."
+		},
+		"npm-build": {
+			"command": "deno run --allow-all --no-prompt --quiet .dnt.ts",
+			"description": "Build package for NPM."
+		}
+	},
+	"unstable": [
+	]
+}

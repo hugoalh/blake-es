@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "Platform/GitHubActions"
+      - "Type/Dependency 📦"
+    pull-request-branch-name:
+      separator: "/"
+    cooldown:
+      default-days: 1
