@@ -26,8 +26,6 @@ export class Blake2S {
 	#freezed: boolean = false;
 	#hash: Uint8Array | null = null;
 	#hashBase16: string | null = null;
-	#hashBase32Hex: string | null = null;
-	#hashBase36: string | null = null;
 	#hashBigInt: bigint | null = null;
 	#b: Uint8Array = new Uint8Array(64);
 	/** Pointer within buffer. */
@@ -168,22 +166,6 @@ export class Blake2S {
 		return this.#hashBase16;
 	}
 	/**
-	 * Get the non-cryptographic hash of the data, in Base32Hex ({@link https://datatracker.ietf.org/doc/html/rfc4648#section-7 RFC 4648 §7}).
-	 * @returns {string}
-	 */
-	hashBase32Hex(): string {
-		this.#hashBase32Hex ??= this.hashBigInt().toString(32).toUpperCase();
-		return this.#hashBase32Hex;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Base36.
-	 * @returns {string}
-	 */
-	hashBase36(): string {
-		this.#hashBase36 ??= this.hashBigInt().toString(36).toUpperCase();
-		return this.#hashBase36;
-	}
-	/**
 	 * Get the non-cryptographic hash of the data, in big integer.
 	 * @returns {bigint}
 	 */
@@ -192,18 +174,11 @@ export class Blake2S {
 		return this.#hashBigInt;
 	}
 	/**
-	 * Get the non-cryptographic hash of the data, in hex/hexadecimal without padding.
+	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
 	 * @returns {string}
 	 */
 	hashHex(): string {
-		return this.hashBase16();
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in hex/hexadecimal with padding.
-	 * @returns {string}
-	 */
-	hashHexPadding(): string {
-		return this.hashHex().padStart(this.#length * 2, "0");
+		return this.hashBase16().padStart(this.#length * 2, "0");
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in Uint8Array.

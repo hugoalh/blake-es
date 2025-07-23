@@ -19,7 +19,7 @@ function testerFromHex(params: TesterFromHexParameters): void {
 		key: (typeof key === "undefined") ? undefined : hex.fromHex(key),
 		length
 	});
-	deepStrictEqual(instance.hashHexPadding(), expected.toUpperCase());
+	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
 }
 Deno.test("060B47", { permissions: "none" }, () => {
 	testerFromHex({

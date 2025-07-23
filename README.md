@@ -63,11 +63,8 @@ Currently, only 2B and 2S are supported.
     freeze(): this;
     hash(): Uint8Array;
     hashBase16(): string;
-    hashBase32Hex(): string;
-    hashBase36(): string;
     hashBigInt(): bigint;
     hashHex(): string;
-    hashHexPadding(): string;
     hashUint8Array(): Uint8Array;
     update(data: Blake2AcceptDataType): this;
     updateFromStream(stream: ReadableStream<Blake2AcceptDataType>): Promise<this>;
@@ -81,11 +78,8 @@ Currently, only 2B and 2S are supported.
     freeze(): this;
     hash(): Uint8Array;
     hashBase16(): string;
-    hashBase32Hex(): string;
-    hashBase36(): string;
     hashBigInt(): bigint;
     hashHex(): string;
-    hashHexPadding(): string;
     hashUint8Array(): Uint8Array;
     update(data: Blake2AcceptDataType): this;
     updateFromStream(stream: ReadableStream<Blake2AcceptDataType>): Promise<this>;
@@ -118,6 +112,6 @@ Currently, only 2B and 2S are supported.
 ## ✍️ Examples
 
 - ```ts
-  new Blake2B("hello").hashHexPadding();
+  new Blake2B("hello").hashHex();
   //=> "28D19932"
   ```

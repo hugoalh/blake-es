@@ -25,7 +25,7 @@ function testerFromHex(params: TesterFromHexParameters): void {
 		personal: (typeof personal === "undefined") ? undefined : hex.fromHex(personal),
 		salt: (typeof salt === "undefined") ? undefined : hex.fromHex(salt)
 	});
-	deepStrictEqual(instance.hashHexPadding(), expected.toUpperCase());
+	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
 }
 Deno.test("5E8DE7", { permissions: "none" }, () => {
 	testerFromHex({
