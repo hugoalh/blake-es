@@ -106,6 +106,6 @@ Currently supported variants of 2B and 2S.
 ## ✍️ Examples
 
 - ```ts
-  new Blake2B("hello").hashHex();
-  //=> "28D19932"
+  new Blake2B("The quick brown fox jumps over the lazy dog").hashHex();
+  //=> "A8ADD4BDDDFD93E4877D2746E62817B116364A1FA7BC148D95090BC7333B3673F82401CF7AA2E4CB1ECD90296E3F14CB5413F8ED77BE73045B13914CDCD6A918"
   ```
