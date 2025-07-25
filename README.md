@@ -8,7 +8,7 @@
 
 An ECMAScript (JavaScript & TypeScript) module to get the non-cryptographic hash of the data with algorithm Blake.
 
-Currently, only 2B and 2S are supported.
+Currently supported variants of 2B and 2S.
 
 ## 🔰 Begin
 
@@ -62,10 +62,7 @@ Currently, only 2B and 2S are supported.
     get length(): number;
     freeze(): this;
     hash(): Uint8Array;
-    hashBase16(): string;
-    hashBigInt(): bigint;
     hashHex(): string;
-    hashUint8Array(): Uint8Array;
     update(data: Blake2AcceptDataType): this;
     updateFromStream(stream: ReadableStream<Blake2AcceptDataType>): Promise<this>;
   }
@@ -77,10 +74,7 @@ Currently, only 2B and 2S are supported.
     get length(): number;
     freeze(): this;
     hash(): Uint8Array;
-    hashBase16(): string;
-    hashBigInt(): bigint;
     hashHex(): string;
-    hashUint8Array(): Uint8Array;
     update(data: Blake2AcceptDataType): this;
     updateFromStream(stream: ReadableStream<Blake2AcceptDataType>): Promise<this>;
   }

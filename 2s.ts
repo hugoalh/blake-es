@@ -24,9 +24,8 @@ export class Blake2S {
 		return "Blake2S";
 	}
 	#freezed: boolean = false;
-	#hash: Uint8Array | null = null;
-	#hashBase16: string | null = null;
-	#hashBigInt: bigint | null = null;
+	#hashHex: string | null = null;
+	#hashUint8Array: Uint8Array | null = null;
 	#b: Uint8Array = new Uint8Array(64);
 	/** Pointer within buffer. */
 	#c: number = 0;
@@ -138,7 +137,7 @@ export class Blake2S {
 	 */
 	hash(): Uint8Array {
 		this.#freezed = true;
-		if (this.#hash === null) {
+		if (this.#hashUint8Array === null) {
 			this.#t += this.#c; // Mark last block offset
 			while (this.#c < 64) {
 				// Fill up with zeros
@@ -147,45 +146,22 @@ export class Blake2S {
 			this.#compress(true); // Final block flag = 1
 
 			// Little endian convert and store
-			this.#hash = new Uint8Array(this.#length);
+			this.#hashUint8Array = new Uint8Array(this.#length);
 			for (let i: number = 0; i < this.#length; i++) {
-				this.#hash[i] = this.#h[i >> 2] >> (8 * (i & 3)) & 0xFF;
+				this.#hashUint8Array[i] = this.#h[i >> 2] >> (8 * (i & 3)) & 0xFF;
 			}
 		}
-		return Uint8Array.from(this.#hash);
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Base16.
-	 * @returns {string}
-	 */
-	hashBase16(): string {
-		this.#hashBase16 ??= Array.from(this.hash(), (v: number, index: number): string => {
-			const result: string = v.toString(16).toUpperCase();
-			return ((index === 0) ? result : result.padStart(2, "0"));
-		}).join("");
-		return this.#hashBase16;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in big integer.
-	 * @returns {bigint}
-	 */
-	hashBigInt(): bigint {
-		this.#hashBigInt ??= BigInt(`0x${this.hashBase16()}`);
-		return this.#hashBigInt;
+		return Uint8Array.from(this.#hashUint8Array);
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
 	 * @returns {string}
 	 */
 	hashHex(): string {
-		return this.hashBase16().padStart(this.#length * 2, "0");
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Uint8Array.
-	 * @returns {Uint8Array}
-	 */
-	hashUint8Array(): Uint8Array {
-		return this.hash();
+		this.#hashHex ??= Array.from(this.hash(), (byte: number): string => {
+			return byte.toString(16).toUpperCase().padStart(2, "0");
+		}).join("");
+		return this.#hashHex;
 	}
 	/**
 	 * Append data.

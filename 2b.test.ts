@@ -1,6 +1,9 @@
 import { deepStrictEqual } from "node:assert";
 import * as hex from "./_test/hex.ts";
-import { Blake2B } from "./2b.ts";
+import {
+	Blake2B,
+	type Blake2BOptions
+} from "./2b.ts";
 interface TesterFromHexParameters {
 	data: string;
 	expected: string;
@@ -9,6 +12,20 @@ interface TesterFromHexParameters {
 	personal?: string;
 	salt?: string;
 }
+Deno.test("Direct 1", { permissions: "none" }, () => {
+	const data = "";
+	deepStrictEqual(new Blake2B({
+		data,
+		length: 48
+	}).hashHex(), "B32811423377F52D7862286EE1A72EE540524380FDA1724A6F25D7978C6FD3244A6CAF0498812673C5E05EF583825100");
+	deepStrictEqual(new Blake2B({ data }).hashHex(), "786A02F742015903C6C6FD852552D272912F4740E15847618A86E217F71F5419D25E1031AFEE585313896444934EB04B903A685B1448B755D56F701AFE9BE2CE");
+});
+Deno.test("Direct 2", { permissions: "none" }, () => {
+	deepStrictEqual(new Blake2B({ data: "The quick brown fox jumps over the lazy dog" }).hashHex(), "A8ADD4BDDDFD93E4877D2746E62817B116364A1FA7BC148D95090BC7333B3673F82401CF7AA2E4CB1ECD90296E3F14CB5413F8ED77BE73045B13914CDCD6A918");
+});
+Deno.test("Direct 3", { permissions: "none" }, () => {
+	deepStrictEqual(new Blake2B({ data: "The quick brown fox jumps over the lazy dof" }).hashHex(), "AB6B007747D8068C02E25A6008DB8A77C218D94F3B40D2291A7DC8A62090A744C082EA27AF01521A102E42F480A31E9844053F456B4B41E8AA78BBE5C12957BB");
+});
 function testerFromHex(params: TesterFromHexParameters): void {
 	const {
 		data,
@@ -27,3335 +44,3335 @@ function testerFromHex(params: TesterFromHexParameters): void {
 	});
 	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
 }
-Deno.test("5E8DE7", { permissions: "none" }, () => {
+Deno.test("Hex 5E8DE7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "786a02f742015903c6c6fd852552d272912f4740e15847618a86e217f71f5419d25e1031afee585313896444934eb04b903a685b1448b755d56f701afe9be2ce",
 		data: ""
 	});
 });
-Deno.test("B7C99F", { permissions: "none" }, () => {
+Deno.test("Hex B7C99F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2fa3f686df876995167e7c2e5d74c4c7b6e48f8068fe0e44208344d480f7904c36963e44115fe3eb2a3ac8694c28bcb4f5a0f3276f2e79487d8219057a506e4b",
 		data: "00"
 	});
 });
-Deno.test("421DF3", { permissions: "none" }, () => {
+Deno.test("Hex 421DF3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1c08798dc641aba9dee435e22519a4729a09b2bfe0ff00ef2dcd8ed6f8a07d15eaf4aee52bbf18ab5608a6190f70b90486c8a7d4873710b1115d3debbb4327b5",
 		data: "0001"
 	});
 });
-Deno.test("E3D864", { permissions: "none" }, () => {
+Deno.test("Hex E3D864", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "40a374727302d9a4769c17b5f409ff32f58aa24ff122d7603e4fda1509e919d4107a52c57570a6d94e50967aea573b11f86f473f537565c66f7039830a85d186",
 		data: "000102"
 	});
 });
-Deno.test("F991B8", { permissions: "none" }, () => {
+Deno.test("Hex F991B8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "77ddf4b14425eb3d053c1e84e3469d92c4cd910ed20f92035e0c99d8a7a86cecaf69f9663c20a7aa230bc82f60d22fb4a00b09d3eb8fc65ef547fe63c8d3ddce",
 		data: "00010203"
 	});
 });
-Deno.test("335B8B", { permissions: "none" }, () => {
+Deno.test("Hex 335B8B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cbaa0ba7d482b1f301109ae41051991a3289bc1198005af226c5e4f103b66579f461361044c8ba3439ff12c515fb29c52161b7eb9c2837b76a5dc33f7cb2e2e8",
 		data: "0001020304"
 	});
 });
-Deno.test("E86326", { permissions: "none" }, () => {
+Deno.test("Hex E86326", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f95d45cf69af5c2023bdb505821e62e85d7caedf7beda12c0248775b0c88205eeb35af3a90816f6608ce7dd44ec28db1140614e1ddebf3aa9cd1843e0fad2c36",
 		data: "000102030405"
 	});
 });
-Deno.test("2EA013", { permissions: "none" }, () => {
+Deno.test("Hex 2EA013", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8f945ba700f2530e5c2a7df7d5dce0f83f9efc78c073fe71ae1f88204a4fd1cf70a073f5d1f942ed623aa16e90a871246c90c45b621b3401a5ddbd9df6264165",
 		data: "00010203040506"
 	});
 });
-Deno.test("054E2A", { permissions: "none" }, () => {
+Deno.test("Hex 054E2A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e998e0dc03ec30eb99bb6bfaaf6618acc620320d7220b3af2b23d112d8e9cb1262f3c0d60d183b1ee7f096d12dae42c958418600214d04f5ed6f5e718be35566",
 		data: "0001020304050607"
 	});
 });
-Deno.test("202085", { permissions: "none" }, () => {
+Deno.test("Hex 202085", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6a9a090c61b3410aede7ec9138146ceb2c69662f460c3da53c6515c1eb31f41ca3d280e567882f95cf664a94147d78f42cfc714a40d22ef19470e053493508a2",
 		data: "000102030405060708"
 	});
 });
-Deno.test("0FE7AD", { permissions: "none" }, () => {
+Deno.test("Hex 0FE7AD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "29102511d749db3cc9b4e335fa1f5e8faca8421d558f6a3f3321d50d044a248ba595cfc3efd3d2adc97334da732413f5cbf4751c362ba1d53862ac1e8dabeee8",
 		data: "00010203040506070809"
 	});
 });
-Deno.test("E3128D", { permissions: "none" }, () => {
+Deno.test("Hex E3128D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c97a4779d47e6f77729b5917d0138abb35980ab641bd73a8859eb1ac98c05362ed7d608f2e9587d6ba9e271d343125d40d933a8ed04ec1fe75ec407c7a53c34e",
 		data: "000102030405060708090a"
 	});
 });
-Deno.test("0D663B", { permissions: "none" }, () => {
+Deno.test("Hex 0D663B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "10f0dc91b9f845fb95fad6860e6ce1adfa002c7fc327116d44d047cd7d5870d772bb12b5fac00e02b08ac2a0174d0446c36ab35f14ca31894cd61c78c849b48a",
 		data: "000102030405060708090a0b"
 	});
 });
-Deno.test("AE047C", { permissions: "none" }, () => {
+Deno.test("Hex AE047C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dea9101cac62b8f6a3c650f90eea5bfae2653a4eafd63a6d1f0f132db9e4f2b1b662432ec85b17bcac41e775637881f6aab38dd66dcbd080f0990a7a6e9854fe",
 		data: "000102030405060708090a0b0c"
 	});
 });
-Deno.test("AC12C4", { permissions: "none" }, () => {
+Deno.test("Hex AC12C4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "441ffaa08cd79dff4afc9b9e5b5620eec086730c25f661b1d6fbfbd1cec3148dd72258c65641f2fca5eb155fadbcabb13c6e21dc11faf72c2a281b7d56145f19",
 		data: "000102030405060708090a0b0c0d"
 	});
 });
-Deno.test("72DFDD", { permissions: "none" }, () => {
+Deno.test("Hex 72DFDD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "444b240fe3ed86d0e2ef4ce7d851edde22155582aa0914797b726cd058b6f45932e0e129516876527b1dd88fc66d7119f4ab3bed93a61a0e2d2d2aeac336d958",
 		data: "000102030405060708090a0b0c0d0e"
 	});
 });
-Deno.test("CC17E8", { permissions: "none" }, () => {
+Deno.test("Hex CC17E8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bfbabbef45554ccfa0dc83752a19cc35d5920956b301d558d772282bc867009168e9e98606bb5ba73a385de5749228c925a85019b71f72fe29b3cd37ca52efe6",
 		data: "000102030405060708090a0b0c0d0e0f"
 	});
 });
-Deno.test("E34FBD", { permissions: "none" }, () => {
+Deno.test("Hex E34FBD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9c4d0c3e1cdbbf485bec86f41cec7c98373f0e09f392849aaa229ebfbf397b22085529cb7ef39f9c7c2222a514182b1effaa178cc3687b1b2b6cbcb6fdeb96f8",
 		data: "000102030405060708090a0b0c0d0e0f10"
 	});
 });
-Deno.test("B3BB33", { permissions: "none" }, () => {
+Deno.test("Hex B3BB33", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "477176b3bfcbadd7657c23c24625e4d0d674d1868f006006398af97aa41877c8e70d3d14c3bbc9bbcdcea801bd0e1599af1f3eec67405170f4e26c964a57a8b7",
 		data: "000102030405060708090a0b0c0d0e0f1011"
 	});
 });
-Deno.test("7CFC3A", { permissions: "none" }, () => {
+Deno.test("Hex 7CFC3A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a78c490eda3173bb3f10dee52f110fb1c08e0302230b85ddd7c11257d92de148785ef00c039c0bb8eb9808a35b2d8c080f572859714c9d4069c5bcaf090e898e",
 		data: "000102030405060708090a0b0c0d0e0f101112"
 	});
 });
-Deno.test("E46308", { permissions: "none" }, () => {
+Deno.test("Hex E46308", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "58d023397beb5b4145cb2255b07d74290b36d9fd1e594afbd8eea47c205b2efbfe6f46190faf95af504ab072e36f6c85d767a321bfd7f22687a4abbf494a689c",
 		data: "000102030405060708090a0b0c0d0e0f10111213"
 	});
 });
-Deno.test("1E3BC8", { permissions: "none" }, () => {
+Deno.test("Hex 1E3BC8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4001ec74d5a46fd29c2c3cdbe5d1b9f20e51a941be98d2a4e1e2fbf866a672121db6f81a514cfd10e7358d571bdba48e4ce708b9d124894bc0b5ed554935f73a",
 		data: "000102030405060708090a0b0c0d0e0f1011121314"
 	});
 });
-Deno.test("726221", { permissions: "none" }, () => {
+Deno.test("Hex 726221", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ccd1b22dab6511225d2401ea2d8625d206a12473cc732b615e5640cefff0a4adf971b0e827a619e0a80f5db9ccd0962329010d07e34a2064e731c520817b2183",
 		data: "000102030405060708090a0b0c0d0e0f101112131415"
 	});
 });
-Deno.test("44E90B", { permissions: "none" }, () => {
+Deno.test("Hex 44E90B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b4a0a9e3574edb9e1e72aa31e39cc5f30dbf943f8cabc408449654a39131e66d718a18819143e3ea96b4a1895988a1c0056cf2b6e04f9ac19d657383c2910c44",
 		data: "000102030405060708090a0b0c0d0e0f10111213141516"
 	});
 });
-Deno.test("15D584", { permissions: "none" }, () => {
+Deno.test("Hex 15D584", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "447becab16630608d39f4f058b16f7af95b85a76aa0fa7cea2b80755fb76e9c804f2ca78f02643c915fbf2fce5e19de86000de03b18861815a83126071f8a37b",
 		data: "000102030405060708090a0b0c0d0e0f1011121314151617"
 	});
 });
-Deno.test("BBB31D", { permissions: "none" }, () => {
+Deno.test("Hex BBB31D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "54e6dab9977380a5665822db93374eda528d9beb626f9b94027071cb26675e112b4a7fec941ee60a81e4d2ea3ff7bc52cfc45dfbfe735a1c646b2cf6d6a49b62",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718"
 	});
 });
-Deno.test("A01905", { permissions: "none" }, () => {
+Deno.test("Hex A01905", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3ea62625949e3646704d7e3c906f82f6c028f540f5f72a794b0c57bf97b7649bfeb90b01d3ca3e829de21b3826e6f87014d3c77350cb5a15ff5d468a81bec160",
 		data: "000102030405060708090a0b0c0d0e0f10111213141516171819"
 	});
 });
-Deno.test("C9FBBD", { permissions: "none" }, () => {
+Deno.test("Hex C9FBBD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "213cfe145c54a33691569980e5938c8883a46d84d149c8ff1a67cd287b4d49c6da69d3a035443db085983d0efe63706bd5b6f15a7da459e8d50a19093db55e80",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a"
 	});
 });
-Deno.test("68E2BE", { permissions: "none" }, () => {
+Deno.test("Hex 68E2BE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5716c4a38f38db104e494a0a27cbe89a26a6bb6f499ec01c8c01aa7cb88497e75148cd6eee12a7168b6f78ab74e4be749251a1a74c38c86d6129177e2889e0b6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b"
 	});
 });
-Deno.test("FA2BCD", { permissions: "none" }, () => {
+Deno.test("Hex FA2BCD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "030460a98bdf9ff17cd96404f28fc304f2b7c04eaade53677fd28f788ca22186b8bc80dd21d17f8549c711aff0e514e19d4e15f5990252a03e082f28dc2052f6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c"
 	});
 });
-Deno.test("DAB842", { permissions: "none" }, () => {
+Deno.test("Hex DAB842", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "19e7f1ccee88a10672333e390cf22013a8c734c6cb9eab41f17c3c8032a2e4aca0569ea36f0860c7a1af28fa476840d66011168859334a9e4ef9cc2e61a0e29e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d"
 	});
 });
-Deno.test("BBD46A", { permissions: "none" }, () => {
+Deno.test("Hex BBD46A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "29f8b8c78c80f2fcb4bdf7825ed90a70d625ff785d262677e250c04f3720c888d03f8045e4edf3f5285bd39d928a10a7d0a5df00b8484ac2868142a1e8bea351",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e"
 	});
 });
-Deno.test("E32C93", { permissions: "none" }, () => {
+Deno.test("Hex E32C93", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5c52920a7263e39d57920ca0cb752ac6d79a04fef8a7a216a1ecb7115ce06d89fd7d735bd6f4272555dba22c2d1c96e6352322c62c5630fde0f4777a76c3de2c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
 	});
 });
-Deno.test("DE8026", { permissions: "none" }, () => {
+Deno.test("Hex DE8026", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "83b098f262251bf660064a9d3511ce7687a09e6dfbb878299c30e93dfb43a9314db9a600337db26ebeedaf2256a96dabe9b29e7573ad11c3523d874dde5be7ed",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
 	});
 });
-Deno.test("E50439", { permissions: "none" }, () => {
+Deno.test("Hex E50439", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9447d98aa5c9331352f43d3e56d0a9a9f9581865998e2885cc56dd0a0bd5a7b50595bd10f7529bcd31f37dc16a1465d594079667da2a3fcb70401498837cedeb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021"
 	});
 });
-Deno.test("805CD1", { permissions: "none" }, () => {
+Deno.test("Hex 805CD1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "867732f2feeb23893097561ac710a4bff453be9cfbedba8ba324f9d312a82d732e1b83b829fdcd177b882ca0c1bf544b223be529924a246a63cf059bfdc50a1b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122"
 	});
 });
-Deno.test("523EAC", { permissions: "none" }, () => {
+Deno.test("Hex 523EAC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f15ab26d4cdfcf56e196bb6ba170a8fccc414de9285afd98a3d3cf2fb88fcbc0f19832ac433a5b2cc2392a4ce34332987d8d2c2bef6c3466138db0c6e42fa47b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223"
 	});
 });
-Deno.test("2877CE", { permissions: "none" }, () => {
+Deno.test("Hex 2877CE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2813516d68ed4a08b39d648aa6aacd81e9d655ecd5f0c13556c60fdf0d333ea38464b36c02baccd746e9575e96c63014f074ae34a0a25b320f0fbedd6acf7665",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324"
 	});
 });
-Deno.test("54087A", { permissions: "none" }, () => {
+Deno.test("Hex 54087A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d3259afca8a48962fa892e145acf547f26923ae8d4924c8a531581526b04b44c7af83c643ef5a0bc282d36f3fb04c84e28b351f40c74b69dc7840bc717b6f15f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425"
 	});
 });
-Deno.test("B125C5", { permissions: "none" }, () => {
+Deno.test("Hex B125C5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f14b061ae359fa31b989e30332bfe8de8cc8cdb568e14be214a2223b84caab7419549ecfcc96ce2acec119485d87d157d3a8734fc426597d64f36570ceaf224d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526"
 	});
 });
-Deno.test("C75489", { permissions: "none" }, () => {
+Deno.test("Hex C75489", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "55e70b01d1fbf8b23b57fb62e26c2ce54f13f8fa2464e6eb98d16a6117026d8b90819012496d4071ebe2e59557ece3519a7aa45802f9615374877332b73490b3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627"
 	});
 });
-Deno.test("EF60F6", { permissions: "none" }, () => {
+Deno.test("Hex EF60F6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "25261eb296971d6e4a71b2928e64839c67d422872bf9f3c31993615222de9f8f0b2c4be8548559b4b354e736416e3218d4e8a1e219a4a6d43e1a9a521d0e75fc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728"
 	});
 });
-Deno.test("C02604", { permissions: "none" }, () => {
+Deno.test("Hex C02604", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "08307f347c41294e34bb54cb42b1522d22f824f7b6e5db50fda096798e181a8f026fa27b4ae45d52a62caf9d5198e24a4913c6671775b2d723c1239bfbf016d7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829"
 	});
 });
-Deno.test("9EB4F9", { permissions: "none" }, () => {
+Deno.test("Hex 9EB4F9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1e5c62e7e9bfa1b118747a2de08b3ca10112af96a46e4b22c3fc06f9bfee4eb5c49e057a4a4886234324572576bb9b5ecfde0d99b0de4f98ec16e4d1b85fa947",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a"
 	});
 });
-Deno.test("0D71FE", { permissions: "none" }, () => {
+Deno.test("Hex 0D71FE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c74a77395fb8bc126447454838e561e962853dc7eb49a1e3cb67c3d0851f3e39517be8c350ac910903d49cd2bfdf545c99316d0346170b739f0add5d533c2cfc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b"
 	});
 });
-Deno.test("0DC79E", { permissions: "none" }, () => {
+Deno.test("Hex 0DC79E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0dd57b423cc01eb2861391eb886a0d17079b933fc76eb3fc08a19f8a74952cb68f6bcdc644f77370966e4d13e80560bcf082ef0479d48fbbab4df03b53a4e178",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c"
 	});
 });
-Deno.test("0B756D", { permissions: "none" }, () => {
+Deno.test("Hex 0B756D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4d8dc3923edccdfce70072398b8a3da5c31fcb3ee3b645c85f717cbaeb4b673a19394425a585bfb464d92f1597d0b754d163f97ced343b25db5a70ef48ebb34f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d"
 	});
 });
-Deno.test("7A7369", { permissions: "none" }, () => {
+Deno.test("Hex 7A7369", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f0a50553e4dfb0c4e3e3d3ba82034857e3b1e50918f5b8a7d698e10d242b0fb544af6c92d0c3aaf9932220416117b4e78ecb8a8f430e13b82a5915290a5819c5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e"
 	});
 });
-Deno.test("9612BB", { permissions: "none" }, () => {
+Deno.test("Hex 9612BB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b15543f3f736086627cc5365e7e8988c2ef155c0fd4f428961b00d1526f04d6d6a658b4b8ed32c5d8621e7f4f8e8a933d9ecc9dd1b8333cbe28cfc37d9719e1c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f"
 	});
 });
-Deno.test("33C754", { permissions: "none" }, () => {
+Deno.test("Hex 33C754", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7b4fa158e415fef023247264cbbe15d16d91a44424a8db707eb1e2033c30e9e1e7c8c0864595d2cb8c580eb47e9d16abbd7e44e824f7cedb7def57130e52cfe9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30"
 	});
 });
-Deno.test("37F452", { permissions: "none" }, () => {
+Deno.test("Hex 37F452", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "60424ff23234c34dc9687ad502869372cc31a59380186bc2361c835d972f49666eb1ac69629de646f03f9b4db9e2ace093fbfdf8f20ab5f98541978be8ef549f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031"
 	});
 });
-Deno.test("BAC7F9", { permissions: "none" }, () => {
+Deno.test("Hex BAC7F9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7406018ce704d84f5eb9c79fea97da345699468a350ee0b2d0f3a4bf2070304ea862d72a51c57d3064947286f531e0eaf7563702262e6c724abf5ed8c8398d17",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132"
 	});
 });
-Deno.test("97594A", { permissions: "none" }, () => {
+Deno.test("Hex 97594A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "14ef5c6d647b3bd1e6e32006c231199810de5c4dc88e70240273b0ea18e651a3eb4f5ca3114b8a56716969c7cda27e0c8db832ad5e89a2dc6cb0adbe7d93abd1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233"
 	});
 });
-Deno.test("A49B7F", { permissions: "none" }, () => {
+Deno.test("Hex A49B7F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "38cf6c24e3e08bcf1f6cf3d1b1f65b905239a3118033249e448113ec632ea6dc346feeb2571c38bd9a7398b2221280328002b23e1a45adaffe66d93f6564eaa2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334"
 	});
 });
-Deno.test("CEC4BA", { permissions: "none" }, () => {
+Deno.test("Hex CEC4BA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6cd7208a4bc7e7e56201bbba02a0f489cd384abe40afd4222f158b3d986ee72a54c50fb64fd4ed2530eda2c8af2928a0da6d4f830ae1c9db469dfd970f12a56f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435"
 	});
 });
-Deno.test("D7439B", { permissions: "none" }, () => {
+Deno.test("Hex D7439B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "659858f0b5c9edab5b94fd732f6e6b17c51cc096104f09beb3afc3aa467c2ecf885c4c6541effa9023d3b5738ae5a14d867e15db06fe1f9d1127b77e1aabb516",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536"
 	});
 });
-Deno.test("4E1699", { permissions: "none" }, () => {
+Deno.test("Hex 4E1699", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "26cca0126f5d1a813c62e5c71001c046f9c92095704550be5873a495a999ad010a4f79491f24f286500adce1a137bc2084e4949f5b7294cefe51ecaff8e95cba",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
 	});
 });
-Deno.test("EA2CAD", { permissions: "none" }, () => {
+Deno.test("Hex EA2CAD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4147c1f55172788c5567c561feef876f621fff1ce87786b8467637e70dfbcd0dbdb6415cb600954ab9c04c0e457e625b407222c0fe1ae21b2143688ada94dc58",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738"
 	});
 });
-Deno.test("FEABE2", { permissions: "none" }, () => {
+Deno.test("Hex FEABE2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5b1bf154c62a8af6e93d35f18f7f90abb16a6ef0e8d1aecd118bf70167bab2af08935c6fdc0663ce74482d17a8e54b546d1c296631c65f3b522a515839d43d71",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536373839"
 	});
 });
-Deno.test("771C55", { permissions: "none" }, () => {
+Deno.test("Hex 771C55", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9f600419a4e8f4fb834c24b0f7fc13bf4e279d98e8a3c765ee934917403e3a66097182ea21453cb63ebbe8b73a9c2167596446438c57627f330badd4f569f7d6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a"
 	});
 });
-Deno.test("257E86", { permissions: "none" }, () => {
+Deno.test("Hex 257E86", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "457ef6466a8924fd8011a34471a5a1ac8ccd9bd0d07a97414ac943021ce4b9e4b9c8db0a28f016ed43b1542481990022147b313e194671131e708dd43a3ed7dc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b"
 	});
 });
-Deno.test("C38056", { permissions: "none" }, () => {
+Deno.test("Hex C38056", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9997b2194d9af6dfcb9143f41c0ed83d3a3f4388361103d38c2a49b280a581212715fd908d41c651f5c715ca38c0ce2830a37e00e508ced1bcdc320e5e4d1e2e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c"
 	});
 });
-Deno.test("299B6B", { permissions: "none" }, () => {
+Deno.test("Hex 299B6B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5c6bbf16baa180f986bd40a1287ed4c549770e7284858fc47bc21ab95ebbf3374b4ee3fd9f2af60f3395221b2acc76f2d34c132954049f8a3a996f1e32ec84e5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d"
 	});
 });
-Deno.test("BC45F1", { permissions: "none" }, () => {
+Deno.test("Hex BC45F1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d10bf9a15b1c9fc8d41f89bb140bf0be08d2f3666176d13baac4d381358ad074c9d4748c300520eb026daeaea7c5b158892fde4e8ec17dc998dcd507df26eb63",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e"
 	});
 });
-Deno.test("C836B9", { permissions: "none" }, () => {
+Deno.test("Hex C836B9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2fc6e69fa26a89a5ed269092cb9b2a449a4409a7a44011eecad13d7c4b0456602d402fa5844f1a7a758136ce3d5d8d0e8b86921ffff4f692dd95bdc8e5ff0052",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("234728", { permissions: "none" }, () => {
+Deno.test("Hex 234728", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fcbe8be7dcb49a32dbdf239459e26308b84dff1ea480df8d104eeff34b46fae98627b450c2267d48c0946a697c5b59531452ac0484f1c84e3a33d0c339bb2e28",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40"
 	});
 });
-Deno.test("4FC378", { permissions: "none" }, () => {
+Deno.test("Hex 4FC378", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a19093a6e3bcf5952f850f2030f69b9606f147f90b8baee3362da71d9f35b44ef9d8f0a7712ba1877fddcd2d8ea8f1e5a773d0b745d4725605983a2de901f803",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041"
 	});
 });
-Deno.test("3A3CA7", { permissions: "none" }, () => {
+Deno.test("Hex 3A3CA7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3c2006423f73e268fa59d2920377eb29a4f9a8b462be15983ee3b85ae8a78e992633581a9099893b63db30241c34f643027dc878279af5850d7e2d4a2653073a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142"
 	});
 });
-Deno.test("8BB39B", { permissions: "none" }, () => {
+Deno.test("Hex 8BB39B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d0f2f2e3787653f77cce2fa24835785bbd0c433fc779465a115149905a9dd1cb827a628506d457fcf124a0c2aef9ce2d2a0a0f63545570d8667ff9e2eba07334",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243"
 	});
 });
-Deno.test("C1F3CF", { permissions: "none" }, () => {
+Deno.test("Hex C1F3CF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "78a9fc048e25c6dcb5de45667de8ffdd3a93711141d594e9fa62a959475da6075ea8f0916e84e45ad911b75467077ee52d2c9aebf4d58f20ce4a3a00458b05d4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344"
 	});
 });
-Deno.test("57AFBA", { permissions: "none" }, () => {
+Deno.test("Hex 57AFBA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "45813f441769ab6ed37d349ff6e72267d76ae6bb3e3c612ec05c6e02a12af5a37c918b52bf74267c3f6a3f183a8064ff84c07b193d08066789a01accdb6f9340",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445"
 	});
 });
-Deno.test("FDE0C9", { permissions: "none" }, () => {
+Deno.test("Hex FDE0C9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "956da1c68d83a7b881e01b9a966c3c0bf27f68606a8b71d457bd016d4c41dd8a380c709a296cb4c6544792920fd788835771a07d4a16fb52ed48050331dc4c8b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546"
 	});
 });
-Deno.test("7EB155", { permissions: "none" }, () => {
+Deno.test("Hex 7EB155", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "df186c2dc09caa48e14e942f75de5ac1b7a21e4f9f072a5b371e09e07345b0740c76177b01278808fec025eded9822c122afd1c63e6f0ce2e32631041063145c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344454647"
 	});
 });
-Deno.test("9AFE34", { permissions: "none" }, () => {
+Deno.test("Hex 9AFE34", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "87475640966a9fdcd6d3a3b5a2cca5c08f0d882b10243c0ec1bf3c6b1c37f2cd3212f19a057864477d5eaf8faed73f2937c768a0af415e84bbce6bd7de23b660",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748"
 	});
 });
-Deno.test("0F63E1", { permissions: "none" }, () => {
+Deno.test("Hex 0F63E1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c3b573bbe10949a0fbd4ff884c446f2229b76902f9dfdbb8a0353da5c83ca14e8151bbaac82fd1576a009adc6f1935cf26edd4f1fb8da483e6c5cd9d8923adc3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546474849"
 	});
 });
-Deno.test("D3571D", { permissions: "none" }, () => {
+Deno.test("Hex D3571D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b09d8d0bba8a7286e43568f7907550e42036d674e3c8fc34d8ca46f771d6466b70fb605875f6a863c877d12f07063fdc2e90ccd459b1910dcd52d8f10b2b0a15",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a"
 	});
 });
-Deno.test("4B7B76", { permissions: "none" }, () => {
+Deno.test("Hex 4B7B76", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "af3a22bf75b21abfb0acd54422ba1b7300a952eff02ebeb65b5c234471a98df32f4f9643ce1904108a168767924280bd76c83f8c82d9a79d9259b195362a2a04",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b"
 	});
 });
-Deno.test("D24349", { permissions: "none" }, () => {
+Deno.test("Hex D24349", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bf4ff2221b7e6957a724cd964aa3d5d0d9941f540413752f4699d8101b3e537508bf09f8508b317736ffd265f2847aa7d84bd2d97569c49d632aed9945e5fa5e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c"
 	});
 });
-Deno.test("F9FF49", { permissions: "none" }, () => {
+Deno.test("Hex F9FF49", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9c6b6b78199b1bdacb4300e31479fa622a6b5bc80d4678a6078f88a8268cd7206a2799e8d4621a464ef6b43dd8adffe97caf221b22b6b8778b149a822aefbb09",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d"
 	});
 });
-Deno.test("FF480D", { permissions: "none" }, () => {
+Deno.test("Hex FF480D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "890656f09c99d280b5ecb381f56427b813751bc652c7828078b23a4af83b4e3a61fdbac61f89bee84ea6bee760c047f25c6b0a201c69a38fd6fd971af18588bb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e"
 	});
 });
-Deno.test("01D5E2", { permissions: "none" }, () => {
+Deno.test("Hex 01D5E2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "31a046f7882ffe6f83ce472e9a0701832ec7b3f76fbcfd1df60fe3ea48fde1651254247c3fd95e100f9172731e17fd5297c11f4bb328363ca361624a81af797c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f"
 	});
 });
-Deno.test("9EFF65", { permissions: "none" }, () => {
+Deno.test("Hex 9EFF65", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "27a60b2d00e7a671d47d0aec2a686a0ac04b52f40ab6629028eb7d13f4baa99ac0fe46ee6c814944f2f4b4d20e9378e4847ea44c13178091e277b87ea7a55711",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50"
 	});
 });
-Deno.test("1EC089", { permissions: "none" }, () => {
+Deno.test("Hex 1EC089", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8b5ccef194162c1f19d68f91e0b0928f289ec5283720840c2f73d253111238dcfe94af2b59c2c1ca2591901a7bc060e7459b6c47df0f71701a35cc0aa831b5b6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051"
 	});
 });
-Deno.test("114724", { permissions: "none" }, () => {
+Deno.test("Hex 114724", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "57ab6c4b2229aeb3b70476d803cd63812f107ce6da17fed9b17875e8f86c724f49e024cbf3a1b8b119c50357652b81879d2ade2d588b9e4f7cedba0e4644c9ee",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152"
 	});
 });
-Deno.test("E669AA", { permissions: "none" }, () => {
+Deno.test("Hex E669AA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0190a8dac320a739f322e15731aa140ddaf5bed294d5c82e54fef29f214e18aafaa84f8be99af62950266b8f901f15dd4c5d35516fc35b4cab2e96e4695bbe1c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253"
 	});
 });
-Deno.test("D9F609", { permissions: "none" }, () => {
+Deno.test("Hex D9F609", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d14d7c4c415eeb0e10b159224bea127ebd84f9591c702a330f5bb7bb7aa44ea39de6ed01f18da7adf40cfb97c5d152c27528824b21e239526af8f36b214e0cfb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354"
 	});
 });
-Deno.test("B92DDA", { permissions: "none" }, () => {
+Deno.test("Hex B92DDA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "be28c4be706970488fac7d29c3bd5c4e986085c4c3332f1f3fd30973db614164ba2f31a78875ffdc150325c88327a9443ed04fdfe5be93876d1628560c764a80",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455"
 	});
 });
-Deno.test("FEEFDF", { permissions: "none" }, () => {
+Deno.test("Hex FEEFDF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "031da1069e3a2e9c3382e436ffd79df74b1ca6a8adb2deabe676ab45994cbc054f037d2f0eace858d32c14e2d1c8b46077308e3bdc2c1b53172ecf7a8c14e349",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556"
 	});
 });
-Deno.test("FED47F", { permissions: "none" }, () => {
+Deno.test("Hex FED47F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4665cef8ba4db4d0acb118f2987f0bb09f8f86aa445aa3d5fc9a8b346864787489e8fcecc125d17e9b56e12988eac5ecc7286883db0661b8ff05da2afff30fe4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354555657"
 	});
 });
-Deno.test("124015", { permissions: "none" }, () => {
+Deno.test("Hex 124015", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "63b7032e5f930cc9939517f9e986816cfbec2be59b9568b13f2ead05bae7777cab620c6659404f7409e4199a3be5f7865aa7cbdf8c4253f7e8219b1bd5f46fea",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758"
 	});
 });
-Deno.test("9EE189", { permissions: "none" }, () => {
+Deno.test("Hex 9EE189", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9f09bf093a2b0ff8c2634b49e37f1b2135b447aa9144c9787dbfd92129316c99e88aab8a21fdef2372d1189aec500f95775f1f92bfb45545e4259fb9b7b02d14",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556575859"
 	});
 });
-Deno.test("24C4A6", { permissions: "none" }, () => {
+Deno.test("Hex 24C4A6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f9f8493c68088807df7f6a2693d64ea59f03e9e05a223e68524ca32195a4734b654fcea4d2734c866cf95c889fb10c49159be2f5043dc98bb55e02ef7bdcb082",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a"
 	});
 });
-Deno.test("01E239", { permissions: "none" }, () => {
+Deno.test("Hex 01E239", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3c9a7359ab4febce07b20ac447b06a240b7fe1dae5439c49b60b5819f7812e4c172406c1aac316713cf0dded1038077258e2eff5b33913d9d95caeb4e6c6b970",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b"
 	});
 });
-Deno.test("E6D613", { permissions: "none" }, () => {
+Deno.test("Hex E6D613", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ad6aab8084510e822cfce8625d62cf4de655f4763884c71e80bab9ac9d5318dba4a6033ed29084e65216c031606ca17615dcfe3ba11d26851ae0999ca6e232cf",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c"
 	});
 });
-Deno.test("2D520E", { permissions: "none" }, () => {
+Deno.test("Hex 2D520E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "156e9e6261374c9dc884f36e70f0fe1ab9297997b836fa7d170a9c9ebf575b881e7bcea44d6c0248d35597907154828955be19135852f9228815eca024a8adfb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d"
 	});
 });
-Deno.test("A67F7E", { permissions: "none" }, () => {
+Deno.test("Hex A67F7E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4215407633f4cca9b6788be93e6aa3d963c7d6ce4b147247099f46a3acb500a30038cb3e788c3d29f132ad844e80e9e99251f6db96acd8a091cfc770af53847b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e"
 	});
 });
-Deno.test("31C24C", { permissions: "none" }, () => {
+Deno.test("Hex 31C24C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1c077e279de6548523502b6df800ffdab5e2c3e9442eb838f58c295f3b147cef9d701c41c321283f00c71affa0619310399126295b78dd4d1a74572ef9ed5135",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f"
 	});
 });
-Deno.test("03AF57", { permissions: "none" }, () => {
+Deno.test("Hex 03AF57", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f07a555f49fe481cf4cd0a87b71b82e4a95064d06677fdd90a0eb598877ba1c83d4677b393c3a3b6661c421f5b12cb99d20376ba7275c2f3a8f5a9b7821720da",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60"
 	});
 });
-Deno.test("8E379F", { permissions: "none" }, () => {
+Deno.test("Hex 8E379F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b5911b380d20c7b04323e4026b38e200f534259233b581e02c1e3e2d8438d6c66d5a4eb201d5a8b75072c4ec29106334da70bc79521b0ced2cfd533f5ff84f95",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061"
 	});
 });
-Deno.test("092B16", { permissions: "none" }, () => {
+Deno.test("Hex 092B16", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "01f070a09bae911296361f91aa0e8e0d09a7725478536d9d48c5fe1e5e7c3c5b9b9d6eb07796f6da57ae562a7d70e882e37adfde83f0c433c2cd363536bb22c8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162"
 	});
 });
-Deno.test("B61848", { permissions: "none" }, () => {
+Deno.test("Hex B61848", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6f793eb4374a48b0775acaf9adcf8e45e54270c9475f004ad8d5973e2aca52747ff4ed04ae967275b9f9eb0e1ff75fb4f794fa8be9add7a41304868d103fab10",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263"
 	});
 });
-Deno.test("F1E343", { permissions: "none" }, () => {
+Deno.test("Hex F1E343", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "965f20f139765fcc4ce4ba3794675863cac24db472cd2b799d035bce3dbea502da7b524865f6b811d8c5828d3a889646fe64a380da1aa7c7044e9f245dced128",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364"
 	});
 });
-Deno.test("F8E8D1", { permissions: "none" }, () => {
+Deno.test("Hex F8E8D1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ec295b5783601244c30e4641e3b45be222c4dce77a58700f53bc8ec52a941690b4d0b087fb6fcb3f39832b9de8f75ec20bd43079811749cdc907edb94157d180",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465"
 	});
 });
-Deno.test("824A41", { permissions: "none" }, () => {
+Deno.test("Hex 824A41", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "61c72f8ccc91dbb54ca6750bc489672de09faedb8fdd4f94ff2320909a303f5d5a98481c0bc1a625419fb4debfbf7f8a53bb07ec3d985e8ea11e72d559940780",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566"
 	});
 });
-Deno.test("0F68CF", { permissions: "none" }, () => {
+Deno.test("Hex 0F68CF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "afd8145b259eefc8d12620c3c5b03e1ed8fd2ccefe0365078c80fd42c1770e28b44948f27e65a1886690110db814397b68e43d80d1ba16dfa358e739c898cfa3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364656667"
 	});
 });
-Deno.test("2B9976", { permissions: "none" }, () => {
+Deno.test("Hex 2B9976", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "552fc7893cf1ce933ada35c0da98844e41545e244c3157a1428d7b4c21f9cd7e4071aed77b7ca9f1c38fba32237412ef21a342742ec8324378f21e507fafdd88",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768"
 	});
 });
-Deno.test("A35262", { permissions: "none" }, () => {
+Deno.test("Hex A35262", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "467a33fbadf5ebc52596ef86aaaefc6faba8ee651b1ce04de368a03a5a9040ef2835e00adb09abb3fbd2bce818a2413d0b0253b5bda4fc5b2f6f85f3fd5b55f2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566676869"
 	});
 });
-Deno.test("D3356A", { permissions: "none" }, () => {
+Deno.test("Hex D3356A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "22eff8e6dd5236f5f57d94ede874d6c9428e8f5d566f17cd6d1848cd752fe13c655cb10fbaaff76872f2bf2da99e15dc624075e1ec2f58a3f64072121838569e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a"
 	});
 });
-Deno.test("53DA0C", { permissions: "none" }, () => {
+Deno.test("Hex 53DA0C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9cec6bbf62c4bce4138abae1cbec8dad31950444e90321b1347196834c114b864af3f3cc3508f83751ffb4eda7c84d140734bb4263c3625c00f04f4c8068981b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b"
 	});
 });
-Deno.test("9D3F2B", { permissions: "none" }, () => {
+Deno.test("Hex 9D3F2B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a8b60fa4fc2442f6f1514ad7402626920cc7c2c9f72124b8cba8ee2cb7c4586f658a4410cffcc0ab88343955e094c6af0d20d0c714fb0a988f543f300f58d389",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c"
 	});
 });
-Deno.test("749D5A", { permissions: "none" }, () => {
+Deno.test("Hex 749D5A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8271cc45dfa5e4170e847e8630b952cf9c2aa777d06f26a7585b8381f188dacc7337391cfcc94b053dc4ec29cc17f077870428f1ac23fddda165ef5a3f155f39",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d"
 	});
 });
-Deno.test("E0772F", { permissions: "none" }, () => {
+Deno.test("Hex E0772F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bf23c0c25c8060e4f6995f1623a3bebecaa96e308680000a8aa3cd56bb1a6da099e10d9231b37f4519b2efd2c24de72f31a5f19535241b4a59fa3c03ceb790e7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e"
 	});
 });
-Deno.test("2C5955", { permissions: "none" }, () => {
+Deno.test("Hex 2C5955", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "877fd652c05281009c0a5250e7a3a671f8b18c108817fe4a874de22da8e45db11958a600c5f62e67d36cbf84474cf244a9c2b03a9fb9dc711cd1a2cab6f3fae0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f"
 	});
 });
-Deno.test("83219B", { permissions: "none" }, () => {
+Deno.test("Hex 83219B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "29df4d87ea444baf5bcdf5f4e41579e28a67de84149f06c03f110ea84f572a9f676addd04c4878f49c5c00accda441b1a387caceb2e993bb7a10cd8c2d6717e1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70"
 	});
 });
-Deno.test("87EFBB", { permissions: "none" }, () => {
+Deno.test("Hex 87EFBB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "710dacb166844639cd7b637c274209424e2449dc35d790bbfa4f76177054a36b3b76fac0ca6e61df1e687000678ac0746df75d0a3954897681fd393a155a1bb4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071"
 	});
 });
-Deno.test("A49A8B", { permissions: "none" }, () => {
+Deno.test("Hex A49A8B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c1d5f93b8dea1f2571babccbc01764541a0cda87e444d673c50966ca559c33354b3acb26e5d5781ffb28847a4b4754d77008c62a835835f500dea7c3b58bdae2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172"
 	});
 });
-Deno.test("8BD06F", { permissions: "none" }, () => {
+Deno.test("Hex 8BD06F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a41e41271cdab8af4d72b104bfb2ad041ac4df14677da671d85640c4b187f50c2b66513c4619fbd5d5dc4fe65dd37b9042e9848dda556a504caa2b1c6afe4730",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273"
 	});
 });
-Deno.test("EF5CB1", { permissions: "none" }, () => {
+Deno.test("Hex EF5CB1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e7bcbacdc379c43d81ebadcb37781552fc1d753e8cf310d968392d06c91f1d64cc9e90ce1d22c32d277fc6cda433a4d442c762e9eacf2c259f32d64cf9da3a22",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374"
 	});
 });
-Deno.test("808302", { permissions: "none" }, () => {
+Deno.test("Hex 808302", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "51755b4ac5456b13218a19c5b9242f57c4a981e4d4ecdce09a3193362b808a579345d4881c2607a56534dd7f21956aff72c2f4173a6e7b6cc2212ba0e3daee1f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475"
 	});
 });
-Deno.test("0F522E", { permissions: "none" }, () => {
+Deno.test("Hex 0F522E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dcc2c4beb9c1f2607b786c20c631972347034c1cc02fcc7d02ff01099cfe1c6989840ac213923629113aa8bad713ccf0fe4ce13264fb32b8b0fe372da382544a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576"
 	});
 });
-Deno.test("0302D9", { permissions: "none" }, () => {
+Deno.test("Hex 0302D9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3d55176acea4a7e3a65ffa9fb10a7a1767199cf077cee9f71532d67cd7c73c9f93cfc37ccdcc1fdef50aad46a504a650d298d597a3a9fa95c6c40cb71fa5e725",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374757677"
 	});
 });
-Deno.test("C50B0C", { permissions: "none" }, () => {
+Deno.test("Hex C50B0C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d07713c005de96dd21d2eb8bbeca66746ea51a31ae922a3e74864889540a48db27d7e4c90311638b224bf0201b501891754848113c266108d0adb13db71909c7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778"
 	});
 });
-Deno.test("3274B9", { permissions: "none" }, () => {
+Deno.test("Hex 3274B9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "58983c21433d950caa23e4bc18543b8e601c204318532152daf5e159a0cd1480183d29285c05f129cb0cc3164687928086ffe380158df1d394c6ac0d4288bca8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576777879"
 	});
 });
-Deno.test("6DBD93", { permissions: "none" }, () => {
+Deno.test("Hex 6DBD93", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8100a8dc528d2b682ab4250801ba33f02a3e94c54dac0ae1482aa21f51ef3a82f3807e6facb0aeb05947bf7aa2adcb034356f90fa4560ede02201a37e411ec1a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a"
 	});
 });
-Deno.test("9BC7CD", { permissions: "none" }, () => {
+Deno.test("Hex 9BC7CD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "07025f1bb6c784f3fe49de5c14b936a5acacacaab33f6ac4d0e00ab6a12483d6bec00b4fe67c7ca5cc508c2a53efb5bfa5398769d843ff0d9e8b14d36a01a77f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b"
 	});
 });
-Deno.test("B0DD09", { permissions: "none" }, () => {
+Deno.test("Hex B0DD09", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ba6aefd972b6186e027a76273a4a723321a3f580cfa894da5a9ce8e721c828552c64dacee3a7fd2d743b5c35ad0c8efa71f8ce99bf96334710e2c2346e8f3c52",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c"
 	});
 });
-Deno.test("4DB502", { permissions: "none" }, () => {
+Deno.test("Hex 4DB502", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e0721e02517aedfa4e7e9ba503e025fd46e714566dc889a84cbfe56a55dfbe2fc4938ac4120588335deac8ef3fa229adc9647f54ad2e3472234f9b34efc46543",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d"
 	});
 });
-Deno.test("53E3C8", { permissions: "none" }, () => {
+Deno.test("Hex 53E3C8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b6292669ccd38d5f01caae96ba272c76a879a45743afa0725d83b9ebb26665b731f1848c52f11972b6644f554c064fa90780dbbbf3a89d4fc31f67df3e5857ef",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e"
 	});
 });
-Deno.test("644486", { permissions: "none" }, () => {
+Deno.test("Hex 644486", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2319e3789c47e2daa5fe807f61bec2a1a6537fa03f19ff32e87eecbfd64b7e0e8ccff439ac333b040f19b0c4ddd11a61e24ac1fe0f10a039806c5dcc0da3d115",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f"
 	});
 });
-Deno.test("257C88", { permissions: "none" }, () => {
+Deno.test("Hex 257C88", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f59711d44a031d5f97a9413c065d1e614c417ede998590325f49bad2fd444d3e4418be19aec4e11449ac1a57207898bc57d76a1bcf3566292c20c683a5c4648f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80"
 	});
 });
-Deno.test("936C0C", { permissions: "none" }, () => {
+Deno.test("Hex 936C0C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "df0a9d0c212843a6a934e3902b2dd30d17fba5f969d2030b12a546d8a6a45e80cf5635f071f0452e9c919275da99bed51eb1173c1af0518726b75b0ec3bae2b5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081"
 	});
 });
-Deno.test("276497", { permissions: "none" }, () => {
+Deno.test("Hex 276497", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a3eb6e6c7bf2fb8b28bfe8b15e15bb500f781ecc86f778c3a4e655fc5869bf2846a245d4e33b7b14436a17e63be79b36655c226a50ffbc7124207b0202342db5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182"
 	});
 });
-Deno.test("F8A3E5", { permissions: "none" }, () => {
+Deno.test("Hex F8A3E5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "56d4cbcd070563426a017069425c2cd2ae540668287a5fb9dac432eb8ab1a353a30f2fe1f40d83333afe696a267795408a92fe7da07a0c1814cf77f36e105ee8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283"
 	});
 });
-Deno.test("C84C62", { permissions: "none" }, () => {
+Deno.test("Hex C84C62", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e59b9987d428b3eda37d80abdb16cd2b0aef674c2b1dda4432ea91ee6c935c684b48b4428a8cc740e579a30deff35a803013820dd23f14ae1d8413b5c8672aec",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384"
 	});
 });
-Deno.test("7CED93", { permissions: "none" }, () => {
+Deno.test("Hex 7CED93", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cd9fcc99f99d4cc16d031900b2a736e1508db4b586814e6345857f354a70ccecb1df3b50a19adaf43c278efa423ff4bb6c523ec7fd7859b97b168a7ebff8467c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485"
 	});
 });
-Deno.test("F3C1C8", { permissions: "none" }, () => {
+Deno.test("Hex F3C1C8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0602185d8c3a78738b99164b8bc6ffb21c7debebbf806372e0da44d121545597b9c662a255dc31542cf995ecbe6a50fb5e6e0ee4ef240fe557eded1188087e86",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586"
 	});
 });
-Deno.test("AA073F", { permissions: "none" }, () => {
+Deno.test("Hex AA073F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c08afa5b927bf08097afc5fff9ca4e7800125c1f52f2af3553fa2b89e1e3015c4f87d5e0a48956ad31450b083dad147ffb5ec03434a26830cf37d103ab50c5da",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384858687"
 	});
 });
-Deno.test("EF4DD4", { permissions: "none" }, () => {
+Deno.test("Hex EF4DD4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "36f1e1c11d6ef6bc3b536d505d544a871522c5c2a253067ec9933b6ec25464daf985525f5b9560a16d890259ac1bb5cc67c0c469cde133def000ea1d686f4f5d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788"
 	});
 });
-Deno.test("86A5D5", { permissions: "none" }, () => {
+Deno.test("Hex 86A5D5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bf2ab2e2470f5438c3b689e66e7686fffa0cb1e1798ad3a86ff99075bf6138e33d9c0ce59afb24ac67a02af34428191a9a0a6041c07471b7c3b1a752d6fc0b8b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586878889"
 	});
 });
-Deno.test("705628", { permissions: "none" }, () => {
+Deno.test("Hex 705628", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d400601f9728ccc4c92342d9787d8d28ab323af375ca5624b4bb91d17271fbae862e413be73f1f68e615b8c5c391be0dbd9144746eb339ad541547ba9c468a17",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a"
 	});
 });
-Deno.test("5DA93B", { permissions: "none" }, () => {
+Deno.test("Hex 5DA93B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "79fe2fe157eb85a038abb8ebbc647731d2c83f51b0ac6ee14aa284cb6a3549a4dcceb300740a825f52f5fb30b03b8c4d8b0f4aa67a63f4a94e3303c4eda4c02b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b"
 	});
 });
-Deno.test("887B6D", { permissions: "none" }, () => {
+Deno.test("Hex 887B6D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "75351313b52a8529298d8c186b1768666dcca8595317d7a4816eb88c062020c0c8efc554bb341b64688db5ccafc35f3c3cd09d6564b36d7b04a248e146980d4b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c"
 	});
 });
-Deno.test("62970B", { permissions: "none" }, () => {
+Deno.test("Hex 62970B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e3128b1d311d02179d7f25f97a5a8bee2cc8c86303644fcd664e157d1fef00f23e46f9a5e8e5c890ce565bb6abd4302ce06469d52a5bd53e1c5a54d04649dc03",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d"
 	});
 });
-Deno.test("4E8A53", { permissions: "none" }, () => {
+Deno.test("Hex 4E8A53", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c2382a72d2d3ace9d5933d00b60827ed380cda08d0ba5f6dd41e29ee6dbe8ecb9235f06be95d83b6816a2fb7a5ad47035e8a4b69a4884b99e4bece58cab25d44",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e"
 	});
 });
-Deno.test("F1C892", { permissions: "none" }, () => {
+Deno.test("Hex F1C892", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6b1c69460bbd50ac2ed6f32e6e887cfed407d47dcf0aaa60387fe320d780bd03eab6d7baeb2a07d10cd552a300341354ea9a5f03183a623f92a2d4d9f00926af",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f"
 	});
 });
-Deno.test("18FA97", { permissions: "none" }, () => {
+Deno.test("Hex 18FA97", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6cda206c80cdc9c44ba990e0328c314f819b142d00630404c48c05dc76d1b00ce4d72fc6a48e1469ddef609412c364820854214b4869af090f00d3c1ba443e1b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90"
 	});
 });
-Deno.test("05C67C", { permissions: "none" }, () => {
+Deno.test("Hex 05C67C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7ffc8c26fbd6a0f7a609e6e1939f6a9edf1b0b066641fb76c4f9602ed748d11602496b35355b1aa255850a509d2f8ee18c8f3e1d7dcbc37a136598f56a59ed17",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091"
 	});
 });
-Deno.test("42E55B", { permissions: "none" }, () => {
+Deno.test("Hex 42E55B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "70de1f08dd4e09d5fc151f17fc991a23abfc05104290d50468882efaf582b6ec2f14f577c0d68c3ad06626916e3c86e6daab6c53e5163e82b6bd0ce49fc0d8df",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192"
 	});
 });
-Deno.test("441203", { permissions: "none" }, () => {
+Deno.test("Hex 441203", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4f81935756ed35ee2058ee0c6a6110d6fac5cb6a4f46aa9411603f99965823b6da4838276c5c06bc7880e376d92758369ee7305bcec8d3cfd28ccabb7b4f0579",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293"
 	});
 });
-Deno.test("C8A154", { permissions: "none" }, () => {
+Deno.test("Hex C8A154", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "abcb61cb3683d18f27ad527908ed2d32a0426cb7bb4bf18061903a7dc42e7e76f982382304d18af8c80d91dd58dd47af76f8e2c36e28af2476b4bccf82e89fdf",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394"
 	});
 });
-Deno.test("9E315E", { permissions: "none" }, () => {
+Deno.test("Hex 9E315E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "02d261ad56a526331b643dd2186de9a82e72a58223cd1e723686c53d869b83b94632b7b647ab2afc0d522e29da3a5615b741d82852e0df41b66007dbcba90543",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495"
 	});
 });
-Deno.test("C0EB2A", { permissions: "none" }, () => {
+Deno.test("Hex C0EB2A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c5832741fa30c5436823015383d297ff4c4a5d7276c3f902122066e04be5431b1a85faf73b918434f9300963d1dea9e8ac3924ef490226edeea5f743e410669f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596"
 	});
 });
-Deno.test("2F6488", { permissions: "none" }, () => {
+Deno.test("Hex 2F6488", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cfaeab268cd075a5a6aed515023a032d54f2f2ff733ce0cbc78db51db4504d675923f82746d6594606ad5d67734b11a67cc6a468c2032e43ca1a94c6273a985e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394959697"
 	});
 });
-Deno.test("1B89C5", { permissions: "none" }, () => {
+Deno.test("Hex 1B89C5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "860850f92eb268272b67d133609bd64e34f61bf03f4c1738645c17fec818465d7ecd2be2907641130025fda79470ab731646e7f69440e8367ea76ac4cee8a1df",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798"
 	});
 });
-Deno.test("2A0F99", { permissions: "none" }, () => {
+Deno.test("Hex 2A0F99", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "84b154ed29bbedefa648286839046f4b5aa34430e2d67f7496e4c39f2c7ea78995f69e1292200016f16ac3b37700e6c7e7861afc396b64a59a1dbf47a55c4bbc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596979899"
 	});
 });
-Deno.test("12CAF2", { permissions: "none" }, () => {
+Deno.test("Hex 12CAF2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "aeeec260a5d8eff5ccab8b95da435a63ed7a21ea7fc7559413fd617e33609f8c290e64bbacc528f6c080262288b0f0a3219be223c991bee92e72349593e67638",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a"
 	});
 });
-Deno.test("D42096", { permissions: "none" }, () => {
+Deno.test("Hex D42096", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8ad78a9f26601d127e8d2f2f976e63d19a054a17dcf59e0f013ab54a6887bbdffde7aaae117e0fbf3271016595b9d9c712c01b2c53e9655a382bc4522e616645",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b"
 	});
 });
-Deno.test("24613B", { permissions: "none" }, () => {
+Deno.test("Hex 24613B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8934159dade1ac74147dfa282c75954fcef443ef25f80dfe9fb6ea633b8545111d08b34ef43fff17026c7964f5deac6d2b3c29dacf2747f022df5967dfdc1a0a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c"
 	});
 });
-Deno.test("9EC84F", { permissions: "none" }, () => {
+Deno.test("Hex 9EC84F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cd36dd0b240614cf2fa2b9e959679dcdd72ec0cd58a43da3790a92f6cdeb9e1e795e478a0a47d371100d340c5cedcdbbc9e68b3f460818e5bdff7b4cda4c2744",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d"
 	});
 });
-Deno.test("FED6F7", { permissions: "none" }, () => {
+Deno.test("Hex FED6F7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "00df4e099b807137a85990f49d3a94315e5a5f7f7a6076b303e96b056fb93800111f479628e2f8db59aeb6ac70c3b61f51f9b46e80ffdeae25ebddb4af6cb4ee",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e"
 	});
 });
-Deno.test("2E6993", { permissions: "none" }, () => {
+Deno.test("Hex 2E6993", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2b9c955e6caed4b7c9e246b86f9a1726e810c59d126cee66ed71bf015b83558a4b6d84d18dc3ff4620c2ffb722359fdef85ba0d4e2d22ecbe0ed784f99afe587",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f"
 	});
 });
-Deno.test("3B5C79", { permissions: "none" }, () => {
+Deno.test("Hex 3B5C79", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "181df0a261a2f7d29ea5a15772715105d450a4b6c236f699f462d60ca76487feedfc9f5eb92df838e8fb5dc3694e84c5e0f4a10b761f506762be052c745a6ee8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0"
 	});
 });
-Deno.test("4A2842", { permissions: "none" }, () => {
+Deno.test("Hex 4A2842", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "21fb203458bf3a7e9a80439f9a902899cd5de0139dfd56f7110c9dec8437b26bda63de2f565926d85edb1d6c6825669743dd9992653d13979544d5dc8228bfaa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1"
 	});
 });
-Deno.test("FC5876", { permissions: "none" }, () => {
+Deno.test("Hex FC5876", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ef021f29c5ffb830e64b9aa9058dd660fd2fcb81c497a7e698bcfbf59de5ad4a86ff93c10a4b9d1ae5774725f9072dcde9e1f199bab91f8bff921864aa502eee",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2"
 	});
 });
-Deno.test("A39136", { permissions: "none" }, () => {
+Deno.test("Hex A39136", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b3cfda40526b7f1d37569bdfcdf911e5a6efe6b2ec90a0454c47b2c046bf130fc3b352b34df4813d48d33ab8e269b69b075676cb6d00a8dcf9e1f967ec191b2c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3"
 	});
 });
-Deno.test("2FF36C", { permissions: "none" }, () => {
+Deno.test("Hex 2FF36C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b4c6c3b267071eefb9c8c72e0e2b941293641f8673cb70c1cc26ad1e73cf141755860ad19b34c2f34ed35bb52ec4507cc1fe59047743a5f0c6febde625e26091",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4"
 	});
 });
-Deno.test("48AB7A", { permissions: "none" }, () => {
+Deno.test("Hex 48AB7A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "57a34f2bcca60d4b85103b830c9d7952a416be5263ae429c9e5e53fe8590a8f78ec65a51109ea85dcdf7b6223f9f2b340539fad81923dbf8edabf95129e4dff6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5"
 	});
 });
-Deno.test("DFA01C", { permissions: "none" }, () => {
+Deno.test("Hex DFA01C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9cf46662fcd61a232277b685663b8b5da832dfd9a3b8ccfeec993ec6ac415ad07e048adfe414df272770dba867da5c1224c6fd0aa0c2187d426ac647e9887361",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6"
 	});
 });
-Deno.test("BE4DA9", { permissions: "none" }, () => {
+Deno.test("Hex BE4DA9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5ce1042ab4d542c2f9ee9d17262af8164098935bef173d0e18489b04841746cd2f2df866bd7da6e5ef9024c648023ec723ab9c62fd80285739d84f15d2ab515a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7"
 	});
 });
-Deno.test("D8933A", { permissions: "none" }, () => {
+Deno.test("Hex D8933A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8488396bd4a8729b7a473178f232dadf3f0f8e22678ba5a43e041e72da1e2cf82194c307207a54cb8156293339eaec693ff66bfcd5efc65e95e4ecaf54530abd",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8"
 	});
 });
-Deno.test("E68328", { permissions: "none" }, () => {
+Deno.test("Hex E68328", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f598da901c3835bca560779037dfde9f0c51dc61c0b760fc1522d7b470ee63f5bdc6498476e86049ad86e4e21af2854a984cc905427d2f17f66b1f41c3da6f61",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9"
 	});
 });
-Deno.test("7907F6", { permissions: "none" }, () => {
+Deno.test("Hex 7907F6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5f93269798cf02132107337660a8d7a177354c0212eb93e555e7c37a08aef3d8dce01217011cd965c04dd2c105f2e2b6cae5e4e6bcaf09dfbee3e0a6a6357c37",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aa"
 	});
 });
-Deno.test("7B39CB", { permissions: "none" }, () => {
+Deno.test("Hex 7B39CB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0ecf581d47bac9230986faabd70c2f5b80e91066f0ec55a842937882286d2ca007bb4e973b0b091d52167ff7c4009c7ab4ad38fff1dceacdb7be81ef4a452952",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaab"
 	});
 });
-Deno.test("479B49", { permissions: "none" }, () => {
+Deno.test("Hex 479B49", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5aeca8abe1528582b2a307b4009585498a3d467ca6101cb0c5126f9976056e9ffc123cc20c302b2a737f492c75d21f01512c90ca0541dfa56e950a321dcb28d8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabac"
 	});
 });
-Deno.test("B3336E", { permissions: "none" }, () => {
+Deno.test("Hex B3336E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "732fbf8f1cb2b8329263ede27858fe46f8d3354d376bcda0548e7ce1fa9dd11f85eb661fe950b543aa635ca4d3f04ede5b32d6b656e5ce1c44d35c4a6c56cff8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacad"
 	});
 });
-Deno.test("C76C42", { permissions: "none" }, () => {
+Deno.test("Hex C76C42", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d5e938735d63788c80100aefd18648d18cf272f69f20ff24cfe2895c088ad08b0104da1672a4eb26fc52545cc7d7a01b266cf546c403c45bd129eb41bdd9200b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadae"
 	});
 });
-Deno.test("E86A4A", { permissions: "none" }, () => {
+Deno.test("Hex E86A4A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "65a245b49352ee297d91af8c8be00528ac6e046dd83ac7bd465a98816dd68f3e00e1ae8f895327a7e9a8c9326598379a29c9fc91ec0c6eef08f3e2b216c11008",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeaf"
 	});
 });
-Deno.test("A5DDA4", { permissions: "none" }, () => {
+Deno.test("Hex A5DDA4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c95654b63019130ab45dd0fb4941b98aeb3af2a123913eca2ce99b3e97410a7bf8661cc7fbaa2bc1cf2b13113b1ed40a0118b88e5fffc3542759ea007ed4c58d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0"
 	});
 });
-Deno.test("BAD294", { permissions: "none" }, () => {
+Deno.test("Hex BAD294", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1eb262f38fa494431f017dad44c0dfb69324ac032f04b657fc91a88647bb74760f24e7c956514f0cf002990b182c1642b9b2426e96a61187e4e012f00e217d84",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1"
 	});
 });
-Deno.test("C4DAD9", { permissions: "none" }, () => {
+Deno.test("Hex C4DAD9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3b955aeebfa5151ac1ab8e3f5cc1e3767084c842a575d36269836e97353d41622b731dddcd5f269550a3a5b87be1e90326340b6e0e62555815d9600597ac6ef9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2"
 	});
 });
-Deno.test("8E2194", { permissions: "none" }, () => {
+Deno.test("Hex 8E2194", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "68289f6605473ba0e4f241baf7477a9885426a858f19ef2a18b0d40ef8e41282ed5526b519799e270f13881327918278755711071d8511fe963e3b5606aa3716",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3"
 	});
 });
-Deno.test("019CF8", { permissions: "none" }, () => {
+Deno.test("Hex 019CF8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "80a33787542612c38f6bcd7cd86cab460227509b1cbad5ec408a91413d51155a0476dadbf3a2518e4a6e77cc346622e347a469bf8baa5f04eb2d98705355d063",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4"
 	});
 });
-Deno.test("B9A69E", { permissions: "none" }, () => {
+Deno.test("Hex B9A69E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "34629bc6d831391c4cdf8af1b4b7b6b8e8ee17cf98c70e5dd586cd99f14b11df945166236a9571e6d591bb83ee4d164d46f6b9d8ef86ff865a81bfb91b00424b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5"
 	});
 });
-Deno.test("C2ECE7", { permissions: "none" }, () => {
+Deno.test("Hex C2ECE7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8b7cc339163863bb4383e542b0ef0e7cf36b84ad932cdf5a80419ec9ad692e7a7e784d2c7cb3796a18b8f800035f3aa06c824100611120a7bdeb35618ccb81b7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6"
 	});
 });
-Deno.test("1701C2", { permissions: "none" }, () => {
+Deno.test("Hex 1701C2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4f084e4939dd5a7f5a658fad58a18a15c25c32ec1c7fd5c5c6c3e892b3971aeaac308304ef17b1c47239ea4bb398b3fd6d4528d8de8e768ae0f1a5a5c6b5c297",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7"
 	});
 });
-Deno.test("61B0D7", { permissions: "none" }, () => {
+Deno.test("Hex 61B0D7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "48f407a1af5b8009b2051742e8cf5cd5656669e7d722ee8e7bd202060849442168d8facc117c012bfb7bf449d99befff6a34aea203f1d8d352722be5014ec818",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8"
 	});
 });
-Deno.test("CEEFC7", { permissions: "none" }, () => {
+Deno.test("Hex CEEFC7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a6aa82cd1e426f9a73bfa39a29037876114655b8c22d6d3ff8b638ae7dea6b17843e09e52eb66fa1e475e4a8a3de429b7d0f4a776fcb8bdc9b9fede7d52e815f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9"
 	});
 });
-Deno.test("F20334", { permissions: "none" }, () => {
+Deno.test("Hex F20334", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5817027d6bdd00c5dd10ac593cd560372270775a18526d7e6f13872a2e20eab664625be7168ac4bd7c9e0ce7fc4099e0f48442e2c767191c6e1284e9b2ccea8c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9ba"
 	});
 });
-Deno.test("4D6169", { permissions: "none" }, () => {
+Deno.test("Hex 4D6169", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "08e41028340a45c74e4052b3a8d6389e22e043a1adab5e28d97619450d723469b620caa519b81c14523854f619fd3027e3847bd03276e60604a80ddb4de876d6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babb"
 	});
 });
-Deno.test("58BA55", { permissions: "none" }, () => {
+Deno.test("Hex 58BA55", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "130b8420537eb07d72abda07c85acbd8b9a44f16321dd0422145f809673d30f2b5321326e2bff317ef3fef983c51c4f8ab24a325d298e34afce569a82555774c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbc"
 	});
 });
-Deno.test("538485", { permissions: "none" }, () => {
+Deno.test("Hex 538485", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ac49b844afaa012e31c474ca263648844fd2f6307992c2f752aca02c3828965175794deee2d2ee95c61cd284f6b5a2d75e2ef2b29ee8149e77fb81447b2fd04b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbd"
 	});
 });
-Deno.test("4A3443", { permissions: "none" }, () => {
+Deno.test("Hex 4A3443", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b9d7ca81cc60bb9578e44024e5a0a0be80f27336a6a9f4e53df3999cb191280b090e2ac2d29c5baad9d71415bdc129e69aa2667af6a7fd5e189fccdcee817340",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbe"
 	});
 });
-Deno.test("1C2D33", { permissions: "none" }, () => {
+Deno.test("Hex 1C2D33", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a755e113386572c75ced61d719706070b9146048e42a9f8cd35667a088b42f08808abdf77e618abd959afc757379ca2c00bcc1a48390fa2bff618b1e0078a613",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf"
 	});
 });
-Deno.test("433159", { permissions: "none" }, () => {
+Deno.test("Hex 433159", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a73c7debed326f1c0db0795ee7d6e3946894b826b1f8101c56c823ba17168312e7f53fc7dbe52c3e11e69852c40485e2ef182477862ea6a34ec136e2dfeea6f4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0"
 	});
 });
-Deno.test("4AA306", { permissions: "none" }, () => {
+Deno.test("Hex 4AA306", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6cb8f9d52c56d82cac28f39ea1593e8bb2506293ac0d68376a1709b62a46df14a4ae64b2d8fab76733a1ced2d548e3f3c6fcb49d40c3d5808e449cd83d1c2aa2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1"
 	});
 });
-Deno.test("8D8F98", { permissions: "none" }, () => {
+Deno.test("Hex 8D8F98", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "683fa2b2369a10162c1c1c7b24bc970ee67da220564f32203f625696c0352a0b9ad96624362d952d84463c1106a2dba7a092599884b35a0b89c8f1b6a9b5a61e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2"
 	});
 });
-Deno.test("C236B2", { permissions: "none" }, () => {
+Deno.test("Hex C236B2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "aad9ad44610118b77d508aeb1bbcd1c1b7d0171397fb510a401bbc0ec34623670d86a2dc3c8f3ab5a2044df730256727545f0860ce21a1eac717dfc48f5d228e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3"
 	});
 });
-Deno.test("456A19", { permissions: "none" }, () => {
+Deno.test("Hex 456A19", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c42578de23b4c987d5e1ac4d689ed5de4b0417f9704bc6bce969fa13471585d62c2cb1212a944f397fc9ca2c3747c3beb694ec4c5be68828dda53ef43faec6c0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4"
 	});
 });
-Deno.test("C0C373", { permissions: "none" }, () => {
+Deno.test("Hex C0C373", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "470f00841ee8244e63ed2c7ea30e2e419897c197462ecccecf713b42a5065fff5914bc9b79affe8f6b657875e789ae213bd914cd35bd174d46e9d18bd843773d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5"
 	});
 });
-Deno.test("195791", { permissions: "none" }, () => {
+Deno.test("Hex 195791", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "34fc4213730f47a5e9a3580f643e12945cfcb31bf206f6ad450ce528da3fa432e005d6b0ecce10dca7c5995f6aacc5150e1b009e19751e8309f8859531844374",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6"
 	});
 });
-Deno.test("C394B8", { permissions: "none" }, () => {
+Deno.test("Hex C394B8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fb3c1f0f56a56f8e316fdf5d853c8c872c39635d083634c3904fc3ac07d1b578e85ff0e480e92d44ade33b62e893ee32343e79ddf6ef292e89b582d312502314",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7"
 	});
 });
-Deno.test("22E451", { permissions: "none" }, () => {
+Deno.test("Hex 22E451", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c7c97fc65dd2b9e3d3d607d31598d3f84261e9919251e9c8e57bb5f829377d5f73eabbed55c6c381180f29ad02e5be797ffec7e57bdecbc50ad3d062f0993ab0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8"
 	});
 });
-Deno.test("9C6FBC", { permissions: "none" }, () => {
+Deno.test("Hex 9C6FBC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a57a49cdbe67ae7d9f797bb5cc7efc2df07f4e1b15955f85dae74b76e2ecb85afb6cd9eeed8888d5ca3ec5ab65d27a7b19e578475760a045ac3c92e13a938e77",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9"
 	});
 });
-Deno.test("1A7D3B", { permissions: "none" }, () => {
+Deno.test("Hex 1A7D3B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c7143fce9614a17fd653aeb140726dc9c3dbb1de6cc581b2726897ec24b7a50359ad492243be66d9edd8c933b5b80e0b91bb61ea98056006516976fae8d99a35",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9ca"
 	});
 });
-Deno.test("83D3A1", { permissions: "none" }, () => {
+Deno.test("Hex 83D3A1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "65bb58d07f937e2d3c7e65385f9c54730b704105ccdb691f6e146d4ee8f6c086f49511035110a9ad6031fdceb943e0f9613bcb276dd40f0624ef0f924f809783",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacb"
 	});
 });
-Deno.test("37861C", { permissions: "none" }, () => {
+Deno.test("Hex 37861C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e540277f683b1186dd3b5b3f61433396581a35feb12002be8c6a6231fc40ffa70f08081bc58b2d94f7649543614a435faa2d62110e13dabc7b86629b63af9c24",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcc"
 	});
 });
-Deno.test("EA1401", { permissions: "none" }, () => {
+Deno.test("Hex EA1401", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "418500878c5fbcb584c432f4285e05e49f2e3e075399a0dbfcf874ebf8c03d02bf16bc6989d161c77ca0786b05053c6c709433712319192128835cf0b660595b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccd"
 	});
 });
-Deno.test("937CF9", { permissions: "none" }, () => {
+Deno.test("Hex 937CF9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "889090dbb1944bdc9433ee5ef1010c7a4a24a8e71ecea8e12a31318ce49dcab0aca5c3802334aab2cc84b14c6b9321fe586bf3f876f19cd406eb1127fb944801",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdce"
 	});
 });
-Deno.test("7E2726", { permissions: "none" }, () => {
+Deno.test("Hex 7E2726", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "53b6a28910aa92e27e536fb549cf9b9918791060898e0b9fe183577ff43b5e9c7689c745b32e412269837c31b89e6cc12bf76e13cad366b74ece48bb85fd09e9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecf"
 	});
 });
-Deno.test("9AD17B", { permissions: "none" }, () => {
+Deno.test("Hex 9AD17B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7c092080c6a80d672409d081d3d177106bcd63567785140719490950ae07ae8fcaabbaaab330cfbcf7374482c220af2eadeeb73dcbb35ed823344e144e7d4899",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0"
 	});
 });
-Deno.test("D28D85", { permissions: "none" }, () => {
+Deno.test("Hex D28D85", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9ccde566d2400509181111f32dde4cd63209fe59a30c114546ad2776d889a41bad8fa1bb468cb2f9d42ca9928a7770fef8e8ba4d0c812d9a1e75c3d8d2ccd75a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1"
 	});
 });
-Deno.test("5DFA74", { permissions: "none" }, () => {
+Deno.test("Hex 5DFA74", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6e293bf5d03fe43977cfe3f57ccdb3ae282a85455dca33f37f4b74f8398cc612433d755cbec412f8f82a3bd3bc4a278f7ecd0dfa9bbdc40be7a787c8f159b2df",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2"
 	});
 });
-Deno.test("17B111", { permissions: "none" }, () => {
+Deno.test("Hex 17B111", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c56546fb2178456f336164c18b90deffc83ae2b5a3aca77b6884d36d2c1db39501b3e65e36c758c66e3188451fdb3515ee162c001f06c3e8cb573adf30f7a101",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3"
 	});
 });
-Deno.test("7D6EEA", { permissions: "none" }, () => {
+Deno.test("Hex 7D6EEA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6f82f89f299ebca2fe014b59bffe1aa84e88b1915fe256afb646fd8448af2b8891a7fab37a4ea6f9a50e6c317039d8cf878f4c8e1a0dd464f0b4d6ff1c7ea853",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4"
 	});
 });
-Deno.test("86475A", { permissions: "none" }, () => {
+Deno.test("Hex 86475A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2b8599ff9c3d6198637ad51e57d1998b0d75313fe2dd61a533c964a6dd9607c6f723e9452ce46e014b1c1d6de77ba5b88c914d1c597bf1eae13474b4290e89b2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5"
 	});
 });
-Deno.test("BDB889", { permissions: "none" }, () => {
+Deno.test("Hex BDB889", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "08bf346d38e1df06c8260edb1da75579275948d5c0a0aa9ed2886f8856de5417a156998758f5b17e52f101ca957a71137473dfd18d7d209c4c10d9233c93691d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6"
 	});
 });
-Deno.test("E76E05", { permissions: "none" }, () => {
+Deno.test("Hex E76E05", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6df2156d773114d310b63db9ee5350d77e6bcf25b05fcd910f9b31bc42bb13fe8225ebcb2a23a62280777b6bf74e2cd0917c7640b43defe468cd1e18c943c66a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7"
 	});
 });
-Deno.test("EE14EF", { permissions: "none" }, () => {
+Deno.test("Hex EE14EF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7c7038bc13a91151828a5ba82b4a96040f258a4dfb1b1373f0d359168afb0517a20b28a12d3644046be66b8d08d8ae7f6a923ea1c00187c6d11dc502bac71305",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8"
 	});
 });
-Deno.test("C2D749", { permissions: "none" }, () => {
+Deno.test("Hex C2D749", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bcd1b30d808fb739b987cbf154bea00da9d40380b861d4c1d6377122dadd61c0e59018b71941cfb62e00dcd70aeb9abf0473e80f0a7eca6b6dea246ab229dd2b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9"
 	});
 });
-Deno.test("12D07E", { permissions: "none" }, () => {
+Deno.test("Hex 12D07E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7ed4468d968530fe7ab2c33540b26d8c3bd3ed44b34fbe8c2a9d7f805b5ada0ea252eeade4fce97f89728ad85bc8bb2430b1bef2cddd32c8446e59b8e8ba3c67",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9da"
 	});
 });
-Deno.test("7045CF", { permissions: "none" }, () => {
+Deno.test("Hex 7045CF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6d30b7c6ce8a3236c0ca2f8d728b1088ca06983a8043e621d5dcf0c537d13b08791edeb01a3cf0943ec1c890ab6e29b146a236cd46bcb9d93bf516fb67c63fe5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadb"
 	});
 });
-Deno.test("D80812", { permissions: "none" }, () => {
+Deno.test("Hex D80812", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "97fe03cef31438508911bded975980a66029305dc5e3fa8ad1b4fb22fcdf5a19a733320327d8f71ccf496cb3a44a77af56e3dde73d3a5f176896cc57c9a5ad99",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdc"
 	});
 });
-Deno.test("F9EA6D", { permissions: "none" }, () => {
+Deno.test("Hex F9EA6D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "785a9d0fbd21136dbce8fa7eafd63c9dad220052978416b31d9753eaa149097847ed9b30a65c70507eff01879149ed5cf0471d37798edc05abd56ad4a2cccb1d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdd"
 	});
 });
-Deno.test("C0119D", { permissions: "none" }, () => {
+Deno.test("Hex C0119D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ad408d2abddfd37b3bf34794c1a3371d928ed7fc8d966225333584c5665817832a37c07f0dc7cb5aa874cd7d20fe8fab8eabcb9b33d2e0841f6e200960899d95",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcddde"
 	});
 });
-Deno.test("866BE2", { permissions: "none" }, () => {
+Deno.test("Hex 866BE2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "97668f745b6032fc815d9579322769dccd9501a5080029b8ae826befb6742331bd9f76efeb3e2b8e81a9786b282f5068a3a2424697a77c41876b7e753f4c7767",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf"
 	});
 });
-Deno.test("1413BB", { permissions: "none" }, () => {
+Deno.test("Hex 1413BB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "26bb985f47e7fee0cfd252d4ef96bed42b9c370c1c6a3e8c9eb04ef7f7818b833a0d1f043ebafb911dc779e02740a02a44d3a1ea45ed4ad55e686c927cafe97e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0"
 	});
 });
-Deno.test("4AADCC", { permissions: "none" }, () => {
+Deno.test("Hex 4AADCC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5bfe2b1dcf7fe9b95088acedb575c19016c743b2e763bf5851ac407c9eda43715edfa48b4825492c5179593fff21351b76e8b7e034e4c53c79f61f29c479bd08",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1"
 	});
 });
-Deno.test("90A01C", { permissions: "none" }, () => {
+Deno.test("Hex 90A01C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c76509ef72f4a6f9c9c40618ed52b2084f83502232e0ac8bdaf3264368e4d0180f6854c4abf4f6509c79caafc44cf3194afc57bd077bd7b3c9bda3d4b8775816",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2"
 	});
 });
-Deno.test("764ED2", { permissions: "none" }, () => {
+Deno.test("Hex 764ED2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d66f2beab990e354ccb910e4e9c7ac618c7b63ef292a96b552341de78dc46d3ec8cfabc699b50af41fda39cf1b0173660923510ad67faedef5207cffe8641d20",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3"
 	});
 });
-Deno.test("7FEE12", { permissions: "none" }, () => {
+Deno.test("Hex 7FEE12", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7d8f0672992b79be3a364d8e5904f4ab713bbc8ab01b4f309ad8ccf223ce1034a860dcb0b00550612cc2fa17f2969e18f22e1427d254b4a82b3a03a3eb394adf",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4"
 	});
 });
-Deno.test("775183", { permissions: "none" }, () => {
+Deno.test("Hex 775183", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a56d6725bfb3de47c1414adf25fc8f0fc9846f6987722bc06366d5ca4e89722925ebbc881418844075397a0ca89842c7b9e9e07e1d9d183ebeb39e120b483bf7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5"
 	});
 });
-Deno.test("5DE92E", { permissions: "none" }, () => {
+Deno.test("Hex 5DE92E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "af5e03d7fe60c67e10313344434e79485a03a758d6dce985574745763c1c5c77d4fb3e6fb12230368370993bf90feed0c5d1607524562d7c09c0c210ed393d7c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6"
 	});
 });
-Deno.test("B51A17", { permissions: "none" }, () => {
+Deno.test("Hex B51A17", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7a20540cc07bf72b582421fc342e82f52134b69841ec28ed189e2ea6a29dd2f82a640352d222b52f2911dc72a7dab31caadd80c6118f13c56b2a1e4373be0ea3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7"
 	});
 });
-Deno.test("72DCBA", { permissions: "none" }, () => {
+Deno.test("Hex 72DCBA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "486f02c63e5467ea1fdde7e82bfacc2c1ba5d636d9f3d08b210da3f372f706ec218cc17ff60aef703bbe0c15c38ae55d286a684f864c78211ccab4178c92adba",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8"
 	});
 });
-Deno.test("EAA621", { permissions: "none" }, () => {
+Deno.test("Hex EAA621", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1c7a5c1dedcd04a921788f7eb23361ca1953b04b9c7aec35d65ea3e4996db26f281278ea4ae666ad81027d98af57262cdbfa4c085f4210568c7e15eec7805114",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9"
 	});
 });
-Deno.test("6B67DD", { permissions: "none" }, () => {
+Deno.test("Hex 6B67DD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9ce3fa9a860bdbd5378fd6d7b8b671c6cb7692910ce8f9b6cb4122cbcbe6ac06ca0422cef1225935053b7d193a81b9e972eb85a1d3074f14cbb5ec9f0573892d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9ea"
 	});
 });
-Deno.test("AAF273", { permissions: "none" }, () => {
+Deno.test("Hex AAF273", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a91187be5c371c4265c174fd4653b8ab708551f83d1fee1cc1479581bc006d6fb78fcc9a5dee1db3666f508f9780a37593ebcccf5fbed39667dc6361e921f779",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaeb"
 	});
 });
-Deno.test("8F8853", { permissions: "none" }, () => {
+Deno.test("Hex 8F8853", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4625767d7b1d3d3ed2fbc674af14e0244152f2a4021fcf3311505d89bd81e2f9f9a500c3b199914db49500b3c98d03ea93286751a686a3b875daab0ccd63b44f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebec"
 	});
 });
-Deno.test("40E2E1", { permissions: "none" }, () => {
+Deno.test("Hex 40E2E1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "43dfdfe1b014fed3a2acabb7f3e9a182f2aa18019d27e3e6cdcf31a15b428e91e7b08cf5e5c376fce2d8a28ff85ab0a0a1656edb4a0a91532620096d9a5a652d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebeced"
 	});
 });
-Deno.test("140D3F", { permissions: "none" }, () => {
+Deno.test("Hex 140D3F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "279e3202be3989ba3112772585177487e4fe3ee3eab49c2f7fa7fe87cfe7b80d3e0355edff6d031e6c96c795db1c6f041880ec3824defacf9263820a8e7327de",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedee"
 	});
 });
-Deno.test("9F66F3", { permissions: "none" }, () => {
+Deno.test("Hex 9F66F3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ea2d066ac229d4d4b616a8bedec734325224e4b4e58f1ae6dad7e40c2da29196c3b1ea9571dacc81e87328caa0211e09027b0524aa3f4a849917b3586747ebbb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeef"
 	});
 });
-Deno.test("4D0DDF", { permissions: "none" }, () => {
+Deno.test("Hex 4D0DDF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "49f014f5c61822c899ab5cae51be4044a4495e777deb7da9b6d8490efbb87530adf293daf079f94c33b7044ef62e2e5bb3eb11e17304f8453ee6ce24f033ddb0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0"
 	});
 });
-Deno.test("9D6667", { permissions: "none" }, () => {
+Deno.test("Hex 9D6667", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9233490344e5b0dc5912671b7ae54cee7730dbe1f4c7d92a4d3e3aab50571708db51dcf9c2944591db651db32d22935b86944969be77d5b5feae6c3840a8db26",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1"
 	});
 });
-Deno.test("326857", { permissions: "none" }, () => {
+Deno.test("Hex 326857", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b6e75e6f4c7f453b7465d25b5ac8c7196902eaa953875228c8634e16e2ae1f38bc3275304335f5989eccc1e34167d4e68d7719968fba8e2fe67947c35c48e806",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2"
 	});
 });
-Deno.test("F47B5D", { permissions: "none" }, () => {
+Deno.test("Hex F47B5D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cc14ca665af1483efbc3af80080e650d5046a3932f4f51f3fe90a0705ec25104adf07839265dc51d43401411246e474f0d5e5637af94767283d53e0617e981f4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3"
 	});
 });
-Deno.test("0BC0FE", { permissions: "none" }, () => {
+Deno.test("Hex 0BC0FE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "230a1c857cb2e7852e41b647e90e4585d2d881e1734dc38955356e8dd7bff39053092c6b38e236e1899525647073dddf6895d64206325e7647f275567b255909",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4"
 	});
 });
-Deno.test("489887", { permissions: "none" }, () => {
+Deno.test("Hex 489887", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cbb65321ac436e2ffdab2936359ce49023f7dee7614ef28d173c3d27c5d1bffa51553d433f8ee3c9e49c05a2b883cce954c9a8093b80612a0cdd4732e041f995",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5"
 	});
 });
-Deno.test("11A821", { permissions: "none" }, () => {
+Deno.test("Hex 11A821", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3e7e570074337275efb51315588034c3cf0dddca20b4612e0bd5b881e7e5476d319ce4fe9f19186e4c0826f44f131eb048e65be242b1172c63badb123ab0cbe8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6"
 	});
 });
-Deno.test("3AC1D7", { permissions: "none" }, () => {
+Deno.test("Hex 3AC1D7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d32e9ec02d38d4e1b8249df8dcb00c5b9c68eb8922672e3505393b6a210ba56f9496e5ee0490ef387c3cdec061f06bc0382d9304cafbb8e0cd33d57029e62df2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7"
 	});
 });
-Deno.test("08570D", { permissions: "none" }, () => {
+Deno.test("Hex 08570D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8c1512466089f05b3775c262b62d22b83854a83218130b4ec91b3ccbd293d2a54302cecaab9b100c68d1e6ddc8f07cddbdfe6fdaaaf099cc09d6b725879c6369",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8"
 	});
 });
-Deno.test("37FFA3", { permissions: "none" }, () => {
+Deno.test("Hex 37FFA3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "91a7f61c97c2911e4c812ef71d780ad8fa788794561d08303fd1c1cb608a46a12563086ec5b39d471aed94fb0f6c678a43b8792932f9028d772a22768ea23a9b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9"
 	});
 });
-Deno.test("80D043", { permissions: "none" }, () => {
+Deno.test("Hex 80D043", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4f6bb222a395e8b18f6ba155477aed3f0729ac9e83e16d31a2a8bc655422b837c891c6199e6f0d75799e3b691525c581953517f252c4b9e3a27a28fbaf49644c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fa"
 	});
 });
-Deno.test("7C28D8", { permissions: "none" }, () => {
+Deno.test("Hex 7C28D8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5d06c07e7a646c413a501c3f4bb2fc38127de7509b7077c4d9b5613201c1aa02fd5f79d2745915dd57fbcb4ce08695f6efc0cb3d2d330e19b4b0e6004ea6471e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafb"
 	});
 });
-Deno.test("B2572E", { permissions: "none" }, () => {
+Deno.test("Hex B2572E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b96756e57909968f14b796a5d30f4c9d671472cf82c8cfb2caca7ac7a44ca0a14c9842d00c82e337502c94d5960aca4c492ea7b0df919ddf1aada2a275bb10d4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfc"
 	});
 });
-Deno.test("339093", { permissions: "none" }, () => {
+Deno.test("Hex 339093", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ff0a015e98db9c99f03977710aac3e658c0d896f6d71d618ba79dc6cf72ac75b7c038eb6862dede4543e145413a6368d69f5722c827ba3ef25b6ae6440d39276",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfd"
 	});
 });
-Deno.test("000E4E", { permissions: "none" }, () => {
+Deno.test("Hex 000E4E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5b21c5fd8868367612474fa2e70e9cfa2201ffeee8fafab5797ad58fefa17c9b5b107da4a3db6320baaf2c8617d5a51df914ae88da3867c2d41f0cc14fa67928",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe"
 	});
 });
-Deno.test("07CB4B", { permissions: "none" }, () => {
+Deno.test("Hex 07CB4B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "10ebb67700b1868efb4417987acf4690ae9d972fb7a590c2f02871799aaa4786b5e996e8f0f4eb981fc214b005f42d2ff4233499391653df7aefcbc13fc51568",
 		data: "",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("79EE69", { permissions: "none" }, () => {
+Deno.test("Hex 79EE69", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "961f6dd1e4dd30f63901690c512e78e4b45e4742ed197c3c5e45c549fd25f2e4187b0bc9fe30492b16b0d0bc4ef9b0f34c7003fac09a5ef1532e69430234cebd",
 		data: "00",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("296B92", { permissions: "none" }, () => {
+Deno.test("Hex 296B92", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "da2cfbe2d8409a0f38026113884f84b50156371ae304c4430173d08a99d9fb1b983164a3770706d537f49e0c916d9f32b95cc37a95b99d857436f0232c88a965",
 		data: "0001",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F93A01", { permissions: "none" }, () => {
+Deno.test("Hex F93A01", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "33d0825dddf7ada99b0e7e307104ad07ca9cfd9692214f1561356315e784f3e5a17e364ae9dbb14cb2036df932b77f4b292761365fb328de7afdc6d8998f5fc1",
 		data: "000102",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("846462", { permissions: "none" }, () => {
+Deno.test("Hex 846462", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "beaa5a3d08f3807143cf621d95cd690514d0b49efff9c91d24b59241ec0eefa5f60196d407048bba8d2146828ebcb0488d8842fd56bb4f6df8e19c4b4daab8ac",
 		data: "00010203",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("10C9C6", { permissions: "none" }, () => {
+Deno.test("Hex 10C9C6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "098084b51fd13deae5f4320de94a688ee07baea2800486689a8636117b46c1f4c1f6af7f74ae7c857600456a58a3af251dc4723a64cc7c0a5ab6d9cac91c20bb",
 		data: "0001020304",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4C93B9", { permissions: "none" }, () => {
+Deno.test("Hex 4C93B9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6044540d560853eb1c57df0077dd381094781cdb9073e5b1b3d3f6c7829e12066bbaca96d989a690de72ca3133a83652ba284a6d62942b271ffa2620c9e75b1f",
 		data: "000102030405",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("59681B", { permissions: "none" }, () => {
+Deno.test("Hex 59681B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7a8cfe9b90f75f7ecb3acc053aaed6193112b6f6a4aeeb3f65d3de541942deb9e2228152a3c4bbbe72fc3b12629528cfbb09fe630f0474339f54abf453e2ed52",
 		data: "00010203040506",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B5D2CF", { permissions: "none" }, () => {
+Deno.test("Hex B5D2CF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "380beaf6ea7cc9365e270ef0e6f3a64fb902acae51dd5512f84259ad2c91f4bc4108db73192a5bbfb0cbcf71e46c3e21aee1c5e860dc96e8eb0b7b8426e6abe9",
 		data: "0001020304050607",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("557CA7", { permissions: "none" }, () => {
+Deno.test("Hex 557CA7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "60fe3c4535e1b59d9a61ea8500bfac41a69dffb1ceadd9aca323e9a625b64da5763bad7226da02b9c8c4f1a5de140ac5a6c1124e4f718ce0b28ea47393aa6637",
 		data: "000102030405060708",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0D732E", { permissions: "none" }, () => {
+Deno.test("Hex 0D732E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4fe181f54ad63a2983feaaf77d1e7235c2beb17fa328b6d9505bda327df19fc37f02c4b6f0368ce23147313a8e5738b5fa2a95b29de1c7f8264eb77b69f585cd",
 		data: "00010203040506070809",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3CEEFD", { permissions: "none" }, () => {
+Deno.test("Hex 3CEEFD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f228773ce3f3a42b5f144d63237a72d99693adb8837d0e112a8a0f8ffff2c362857ac49c11ec740d1500749dac9b1f4548108bf3155794dcc9e4082849e2b85b",
 		data: "000102030405060708090a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C0CA1F", { permissions: "none" }, () => {
+Deno.test("Hex C0CA1F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "962452a8455cc56c8511317e3b1f3b2c37df75f588e94325fdd77070359cf63a9ae6e930936fdf8e1e08ffca440cfb72c28f06d89a2151d1c46cd5b268ef8563",
 		data: "000102030405060708090a0b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CFBE1F", { permissions: "none" }, () => {
+Deno.test("Hex CFBE1F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "43d44bfa18768c59896bf7ed1765cb2d14af8c260266039099b25a603e4ddc5039d6ef3a91847d1088d401c0c7e847781a8a590d33a3c6cb4df0fab1c2f22355",
 		data: "000102030405060708090a0b0c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1DA05F", { permissions: "none" }, () => {
+Deno.test("Hex 1DA05F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dcffa9d58c2a4ca2cdbb0c7aa4c4c1d45165190089f4e983bb1c2cab4aaeff1fa2b5ee516fecd780540240bf37e56c8bcca7fab980e1e61c9400d8a9a5b14ac6",
 		data: "000102030405060708090a0b0c0d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("9F77E8", { permissions: "none" }, () => {
+Deno.test("Hex 9F77E8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6fbf31b45ab0c0b8dad1c0f5f4061379912dde5aa922099a030b725c73346c524291adef89d2f6fd8dfcda6d07dad811a9314536c2915ed45da34947e83de34e",
 		data: "000102030405060708090a0b0c0d0e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BF5595", { permissions: "none" }, () => {
+Deno.test("Hex BF5595", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a0c65bddde8adef57282b04b11e7bc8aab105b99231b750c021f4a735cb1bcfab87553bba3abb0c3e64a0b6955285185a0bd35fb8cfde557329bebb1f629ee93",
 		data: "000102030405060708090a0b0c0d0e0f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D776E9", { permissions: "none" }, () => {
+Deno.test("Hex D776E9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f99d815550558e81eca2f96718aed10d86f3f1cfb675cce06b0eff02f617c5a42c5aa760270f2679da2677c5aeb94f1142277f21c7f79f3c4f0cce4ed8ee62b1",
 		data: "000102030405060708090a0b0c0d0e0f10",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A24736", { permissions: "none" }, () => {
+Deno.test("Hex A24736", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "95391da8fc7b917a2044b3d6f5374e1ca072b41454d572c7356c05fd4bc1e0f40b8bb8b4a9f6bce9be2c4623c399b0dca0dab05cb7281b71a21b0ebcd9e55670",
 		data: "000102030405060708090a0b0c0d0e0f1011",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("9708B4", { permissions: "none" }, () => {
+Deno.test("Hex 9708B4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "04b9cd3d20d221c09ac86913d3dc63041989a9a1e694f1e639a3ba7e451840f750c2fc191d56ad61f2e7936bc0ac8e094b60caeed878c18799045402d61ceaf9",
 		data: "000102030405060708090a0b0c0d0e0f101112",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0C997B", { permissions: "none" }, () => {
+Deno.test("Hex 0C997B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ec0e0ef707e4ed6c0c66f9e089e4954b058030d2dd86398fe84059631f9ee591d9d77375355149178c0cf8f8e7c49ed2a5e4f95488a2247067c208510fadc44c",
 		data: "000102030405060708090a0b0c0d0e0f10111213",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("723895", { permissions: "none" }, () => {
+Deno.test("Hex 723895", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9a37cce273b79c09913677510eaf7688e89b3314d3532fd2764c39de022a2945b5710d13517af8ddc0316624e73bec1ce67df15228302036f330ab0cb4d218dd",
 		data: "000102030405060708090a0b0c0d0e0f1011121314",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("00E91F", { permissions: "none" }, () => {
+Deno.test("Hex 00E91F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4cf9bb8fb3d4de8b38b2f262d3c40f46dfe747e8fc0a414c193d9fcf753106ce47a18f172f12e8a2f1c26726545358e5ee28c9e2213a8787aafbc516d2343152",
 		data: "000102030405060708090a0b0c0d0e0f101112131415",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("40ADA6", { permissions: "none" }, () => {
+Deno.test("Hex 40ADA6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "64e0c63af9c808fd893137129867fd91939d53f2af04be4fa268006100069b2d69daa5c5d8ed7fddcb2a70eeecdf2b105dd46a1e3b7311728f639ab489326bc9",
 		data: "000102030405060708090a0b0c0d0e0f10111213141516",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("AE0B02", { permissions: "none" }, () => {
+Deno.test("Hex AE0B02", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5e9c93158d659b2def06b0c3c7565045542662d6eee8a96a89b78ade09fe8b3dcc096d4fe48815d88d8f82620156602af541955e1f6ca30dce14e254c326b88f",
 		data: "000102030405060708090a0b0c0d0e0f1011121314151617",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("33CA2B", { permissions: "none" }, () => {
+Deno.test("Hex 33CA2B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7775dff889458dd11aef417276853e21335eb88e4dec9cfb4e9edb49820088551a2ca60339f12066101169f0dfe84b098fddb148d9da6b3d613df263889ad64b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("274DF4", { permissions: "none" }, () => {
+Deno.test("Hex 274DF4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f0d2805afbb91f743951351a6d024f9353a23c7ce1fc2b051b3a8b968c233f46f50f806ecb1568ffaa0b60661e334b21dde04f8fa155ac740eeb42e20b60d764",
 		data: "000102030405060708090a0b0c0d0e0f10111213141516171819",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("DF20DC", { permissions: "none" }, () => {
+Deno.test("Hex DF20DC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "86a2af316e7d7754201b942e275364ac12ea8962ab5bd8d7fb276dc5fbffc8f9a28cae4e4867df6780d9b72524160927c855da5b6078e0b554aa91e31cb9ca1d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("AC1AC5", { permissions: "none" }, () => {
+Deno.test("Hex AC1AC5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "10bdf0caa0802705e706369baf8a3f79d72c0a03a80675a7bbb00be3a45e516424d1ee88efb56f6d5777545ae6e27765c3a8f5e493fc308915638933a1dfee55",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("961AFC", { permissions: "none" }, () => {
+Deno.test("Hex 961AFC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b01781092b1748459e2e4ec178696627bf4ebafebba774ecf018b79a68aeb84917bf0b84bb79d17b743151144cd66b7b33a4b9e52c76c4e112050ff5385b7f0b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F79A28", { permissions: "none" }, () => {
+Deno.test("Hex F79A28", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c6dbc61dec6eaeac81e3d5f755203c8e220551534a0b2fd105a91889945a638550204f44093dd998c076205dffad703a0e5cd3c7f438a7e634cd59fededb539e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("AF0D3A", { permissions: "none" }, () => {
+Deno.test("Hex AF0D3A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "eba51acffb4cea31db4b8d87e9bf7dd48fe97b0253ae67aa580f9ac4a9d941f2bea518ee286818cc9f633f2a3b9fb68e594b48cdd6d515bf1d52ba6c85a203a7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3A5F46", { permissions: "none" }, () => {
+Deno.test("Hex 3A5F46", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "86221f3ada52037b72224f105d7999231c5e5534d03da9d9c0a12acb68460cd375daf8e24386286f9668f72326dbf99ba094392437d398e95bb8161d717f8991",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FF9325", { permissions: "none" }, () => {
+Deno.test("Hex FF9325", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5595e05c13a7ec4dc8f41fb70cb50a71bce17c024ff6de7af618d0cc4e9c32d9570d6d3ea45b86525491030c0d8f2b1836d5778c1ce735c17707df364d054347",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("600A4E", { permissions: "none" }, () => {
+Deno.test("Hex 600A4E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ce0f4f6aca89590a37fe034dd74dd5fa65eb1cbd0a41508aaddc09351a3cea6d18cb2189c54b700c009f4cbf0521c7ea01be61c5ae09cb54f27bc1b44d658c82",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E9DE72", { permissions: "none" }, () => {
+Deno.test("Hex E9DE72", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7ee80b06a215a3bca970c77cda8761822bc103d44fa4b33f4d07dcb997e36d55298bceae12241b3fa07fa63be5576068da387b8d5859aeab701369848b176d42",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B7FF56", { permissions: "none" }, () => {
+Deno.test("Hex B7FF56", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "940a84b6a84d109aab208c024c6ce9647676ba0aaa11f86dbb7018f9fd2220a6d901a9027f9abcf935372727cbf09ebd61a2a2eeb87653e8ecad1bab85dc8327",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("91D69F", { permissions: "none" }, () => {
+Deno.test("Hex 91D69F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2020b78264a82d9f4151141adba8d44bf20c5ec062eee9b595a11f9e84901bf148f298e0c9f8777dcdbc7cc4670aac356cc2ad8ccb1629f16f6a76bcefbee760",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B7091B", { permissions: "none" }, () => {
+Deno.test("Hex B7091B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d1b897b0e075ba68ab572adf9d9c436663e43eb3d8e62d92fc49c9be214e6f27873fe215a65170e6bea902408a25b49506f47babd07cecf7113ec10c5dd31252",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("09D3A1", { permissions: "none" }, () => {
+Deno.test("Hex 09D3A1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b14d0c62abfa469a357177e594c10c194243ed2025ab8aa5ad2fa41ad318e0ff48cd5e60bec07b13634a711d2326e488a985f31e31153399e73088efc86a5c55",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("6CED55", { permissions: "none" }, () => {
+Deno.test("Hex 6CED55", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4169c5cc808d2697dc2a82430dc23e3cd356dc70a94566810502b8d655b39abf9e7f902fe717e0389219859e1945df1af6ada42e4ccda55a197b7100a30c30a1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2A5DE8", { permissions: "none" }, () => {
+Deno.test("Hex 2A5DE8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "258a4edb113d66c839c8b1c91f15f35ade609f11cd7f8681a4045b9fef7b0b24c82cda06a5f2067b368825e3914e53d6948ede92efd6e8387fa2e537239b5bee",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B9BF84", { permissions: "none" }, () => {
+Deno.test("Hex B9BF84", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "79d2d8696d30f30fb34657761171a11e6c3f1e64cbe7bebee159cb95bfaf812b4f411e2f26d9c421dc2c284a3342d823ec293849e42d1e46b0a4ac1e3c86abaa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D7F76C", { permissions: "none" }, () => {
+Deno.test("Hex D7F76C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8b9436010dc5dee992ae38aea97f2cd63b946d94fedd2ec9671dcde3bd4ce9564d555c66c15bb2b900df72edb6b891ebcadfeff63c9ea4036a998be7973981e7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E6482D", { permissions: "none" }, () => {
+Deno.test("Hex E6482D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c8f68e696ed28242bf997f5b3b34959508e42d613810f1e2a435c96ed2ff560c7022f361a9234b9837feee90bf47922ee0fd5f8ddf823718d86d1e16c6090071",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("62030A", { permissions: "none" }, () => {
+Deno.test("Hex 62030A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b02d3eee4860d5868b2c39ce39bfe81011290564dd678c85e8783f29302dfc1399ba95b6b53cd9ebbf400cca1db0ab67e19a325f2d115812d25d00978ad1bca4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FCB9FE", { permissions: "none" }, () => {
+Deno.test("Hex FCB9FE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7693ea73af3ac4dad21ca0d8da85b3118a7d1c6024cfaf557699868217bc0c2f44a199bc6c0edd519798ba05bd5b1b4484346a47c2cadf6bf30b785cc88b2baf",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("DD99F3", { permissions: "none" }, () => {
+Deno.test("Hex DD99F3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a0e5c1c0031c02e48b7f09a5e896ee9aef2f17fc9e18e997d7f6cac7ae316422c2b1e77984e5f3a73cb45deed5d3f84600105e6ee38f2d090c7d0442ea34c46d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("967A05", { permissions: "none" }, () => {
+Deno.test("Hex 967A05", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "41daa6adcfdb69f1440c37b596440165c15ada596813e2e22f060fcd551f24dee8e04ba6890387886ceec4a7a0d7fc6b44506392ec3822c0d8c1acfc7d5aebe8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C23323", { permissions: "none" }, () => {
+Deno.test("Hex C23323", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "14d4d40d5984d84c5cf7523b7798b254e275a3a8cc0a1bd06ebc0bee726856acc3cbf516ff667cda2058ad5c3412254460a82c92187041363cc77a4dc215e487",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("ADCE79", { permissions: "none" }, () => {
+Deno.test("Hex ADCE79", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d0e7a1e2b9a447fee83e2277e9ff8010c2f375ae12fa7aaa8ca5a6317868a26a367a0b69fbc1cf32a55d34eb370663016f3d2110230eba754028a56f54acf57c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CDD18E", { permissions: "none" }, () => {
+Deno.test("Hex CDD18E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e771aa8db5a3e043e8178f39a0857ba04a3f18e4aa05743cf8d222b0b095825350ba422f63382a23d92e4149074e816a36c1cd28284d146267940b31f8818ea2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A81019", { permissions: "none" }, () => {
+Deno.test("Hex A81019", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "feb4fd6f9e87a56bef398b3284d2bda5b5b0e166583a66b61e538457ff0584872c21a32962b9928ffab58de4af2edd4e15d8b35570523207ff4e2a5aa7754caa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8807E5", { permissions: "none" }, () => {
+Deno.test("Hex 8807E5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "462f17bf005fb1c1b9e671779f665209ec2873e3e411f98dabf240a1d5ec3f95ce6796b6fc23fe171903b502023467dec7273ff74879b92967a2a43a5a183d33",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("747CF9", { permissions: "none" }, () => {
+Deno.test("Hex 747CF9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d3338193b64553dbd38d144bea71c5915bb110e2d88180dbc5db364fd6171df317fc7268831b5aef75e4342b2fad8797ba39eddcef80e6ec08159350b1ad696d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("71AFF3", { permissions: "none" }, () => {
+Deno.test("Hex 71AFF3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e1590d585a3d39f7cb599abd479070966409a6846d4377acf4471d065d5db94129cc9be92573b05ed226be1e9b7cb0cabe87918589f80dadd4ef5ef25a93d28e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1FF6EF", { permissions: "none" }, () => {
+Deno.test("Hex 1FF6EF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f8f3726ac5a26cc80132493a6fedcb0e60760c09cfc84cad178175986819665e76842d7b9fedf76dddebf5d3f56faaad4477587af21606d396ae570d8e719af2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0829B8", { permissions: "none" }, () => {
+Deno.test("Hex 0829B8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "30186055c07949948183c850e9a756cc09937e247d9d928e869e20bafc3cd9721719d34e04a0899b92c736084550186886efba2e790d8be6ebf040b209c439a4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1CEDF1", { permissions: "none" }, () => {
+Deno.test("Hex 1CEDF1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f3c4276cb863637712c241c444c5cc1e3554e0fddb174d035819dd83eb700b4ce88df3ab3841ba02085e1a99b4e17310c5341075c0458ba376c95a6818fbb3e2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536373839",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BC140C", { permissions: "none" }, () => {
+Deno.test("Hex BC140C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0aa007c4dd9d5832393040a1583c930bca7dc5e77ea53add7e2b3f7c8e231368043520d4a3ef53c969b6bbfd025946f632bd7f765d53c21003b8f983f75e2a6a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4B5889", { permissions: "none" }, () => {
+Deno.test("Hex 4B5889", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "08e9464720533b23a04ec24f7ae8c103145f765387d738777d3d343477fd1c58db052142cab754ea674378e18766c53542f71970171cc4f81694246b717d7564",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8B4376", { permissions: "none" }, () => {
+Deno.test("Hex 8B4376", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d37ff7ad297993e7ec21e0f1b4b5ae719cdc83c5db687527f27516cbffa822888a6810ee5c1ca7bfe3321119be1ab7bfa0a502671c8329494df7ad6f522d440f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("EFA914", { permissions: "none" }, () => {
+Deno.test("Hex EFA914", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dd9042f6e464dcf86b1262f6accfafbd8cfd902ed3ed89abf78ffa482dbdeeb6969842394c9a1168ae3d481a017842f660002d42447c6b22f7b72f21aae021c9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4119F3", { permissions: "none" }, () => {
+Deno.test("Hex 4119F3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bd965bf31e87d70327536f2a341cebc4768eca275fa05ef98f7f1b71a0351298de006fba73fe6733ed01d75801b4a928e54231b38e38c562b2e33ea1284992fa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4D1969", { permissions: "none" }, () => {
+Deno.test("Hex 4D1969", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "65676d800617972fbd87e4b9514e1c67402b7a331096d3bfac22f1abb95374abc942f16e9ab0ead33b87c91968a6e509e119ff07787b3ef483e1dcdccf6e3022",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5B7559", { permissions: "none" }, () => {
+Deno.test("Hex 5B7559", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "939fa189699c5d2c81ddd1ffc1fa207c970b6a3685bb29ce1d3e99d42f2f7442da53e95a72907314f4588399a3ff5b0a92beb3f6be2694f9f86ecf2952d5b41c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1ED25E", { permissions: "none" }, () => {
+Deno.test("Hex 1ED25E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c516541701863f91005f314108ceece3c643e04fc8c42fd2ff556220e616aaa6a48aeb97a84bad74782e8dff96a1a2fa949339d722edcaa32b57067041df88cc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3762BF", { permissions: "none" }, () => {
+Deno.test("Hex 3762BF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "987fd6e0d6857c553eaebb3d34970a2c2f6e89a3548f492521722b80a1c21a153892346d2cba6444212d56da9a26e324dccbc0dcde85d4d2ee4399eec5a64e8f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BE500C", { permissions: "none" }, () => {
+Deno.test("Hex BE500C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ae56deb1c2328d9c4017706bce6e99d41349053ba9d336d677c4c27d9fd50ae6aee17e853154e1f4fe7672346da2eaa31eea53fcf24a22804f11d03da6abfc2b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("060C3D", { permissions: "none" }, () => {
+Deno.test("Hex 060C3D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "49d6a608c9bde4491870498572ac31aac3fa40938b38a7818f72383eb040ad39532bc06571e13d767e6945ab77c0bdc3b0284253343f9f6c1244ebf2ff0df866",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("216D0C", { permissions: "none" }, () => {
+Deno.test("Hex 216D0C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "da582ad8c5370b4469af862aa6467a2293b2b28bd80ae0e91f425ad3d47249fdf98825cc86f14028c3308c9804c78bfeeeee461444ce243687e1a50522456a1d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0D1C06", { permissions: "none" }, () => {
+Deno.test("Hex 0D1C06", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d5266aa3331194aef852eed86d7b5b2633a0af1c735906f2e13279f14931a9fc3b0eac5ce9245273bd1aa92905abe16278ef7efd47694789a7283b77da3c70f8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5F211A", { permissions: "none" }, () => {
+Deno.test("Hex 5F211A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2962734c28252186a9a1111c732ad4de4506d4b4480916303eb7991d659ccda07a9911914bc75c418ab7a4541757ad054796e26797feaf36e9f6ad43f14b35a4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344454647",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FF4678", { permissions: "none" }, () => {
+Deno.test("Hex FF4678", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e8b79ec5d06e111bdfafd71e9f5760f00ac8ac5d8bf768f9ff6f08b8f026096b1cc3a4c973333019f1e3553e77da3f98cb9f542e0a90e5f8a940cc58e59844b3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3C6042", { permissions: "none" }, () => {
+Deno.test("Hex 3C6042", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dfb320c44f9d41d1efdcc015f08dd5539e526e39c87d509ae6812a969e5431bf4fa7d91ffd03b981e0d544cf72d7b1c0374f8801482e6dea2ef903877eba675e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546474849",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("51D15A", { permissions: "none" }, () => {
+Deno.test("Hex 51D15A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d88675118fdb55a5fb365ac2af1d217bf526ce1ee9c94b2f0090b2c58a06ca58187d7fe57c7bed9d26fca067b4110eefcd9a0a345de872abe20de368001b0745",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C115AE", { permissions: "none" }, () => {
+Deno.test("Hex C115AE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b893f2fc41f7b0dd6e2f6aa2e0370c0cff7df09e3acfcc0e920b6e6fad0ef747c40668417d342b80d2351e8c175f20897a062e9765e6c67b539b6ba8b9170545",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("14B381", { permissions: "none" }, () => {
+Deno.test("Hex 14B381", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6c67ec5697accd235c59b486d7b70baeedcbd4aa64ebd4eef3c7eac189561a726250aec4d48cadcafbbe2ce3c16ce2d691a8cce06e8879556d4483ed7165c063",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8E5871", { permissions: "none" }, () => {
+Deno.test("Hex 8E5871", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f1aa2b044f8f0c638a3f362e677b5d891d6fd2ab0765f6ee1e4987de057ead357883d9b405b9d609eea1b869d97fb16d9b51017c553f3b93c0a1e0f1296fedcd",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("DEAD12", { permissions: "none" }, () => {
+Deno.test("Hex DEAD12", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cbaa259572d4aebfc1917acddc582b9f8dfaa928a198ca7acd0f2aa76a134a90252e6298a65b08186a350d5b7626699f8cb721a3ea5921b753ae3a2dce24ba3a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7D4AE9", { permissions: "none" }, () => {
+Deno.test("Hex 7D4AE9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fa1549c9796cd4d303dcf452c1fbd5744fd9b9b47003d920b92de34839d07ef2a29ded68f6fc9e6c45e071a2e48bd50c5084e96b657dd0404045a1ddefe282ed",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("56D6C1", { permissions: "none" }, () => {
+Deno.test("Hex 56D6C1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5cf2ac897ab444dcb5c8d87c495dbdb34e1838b6b629427caa51702ad0f9688525f13bec503a3c3a2c80a65e0b5715e8afab00ffa56ec455a49a1ad30aa24fcd",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1A4279", { permissions: "none" }, () => {
+Deno.test("Hex 1A4279", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9aaf80207bace17bb7ab145757d5696bde32406ef22b44292ef65d4519c3bb2ad41a59b62cc3e94b6fa96d32a7faadae28af7d35097219aa3fd8cda31e40c275",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("DF323C", { permissions: "none" }, () => {
+Deno.test("Hex DF323C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "af88b163402c86745cb650c2988fb95211b94b03ef290eed9662034241fd51cf398f8073e369354c43eae1052f9b63b08191caa138aa54fea889cc7024236897",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("91E893", { permissions: "none" }, () => {
+Deno.test("Hex 91E893", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "48fa7d64e1ceee27b9864db5ada4b53d00c9bc7626555813d3cd6730ab3cc06ff342d727905e33171bde6e8476e77fb1720861e94b73a2c538d254746285f430",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("317B15", { permissions: "none" }, () => {
+Deno.test("Hex 317B15", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0e6fd97a85e904f87bfe85bbeb34f69e1f18105cf4ed4f87aec36c6e8b5f68bd2a6f3dc8a9ecb2b61db4eedb6b2ea10bf9cb0251fb0f8b344abf7f366b6de5ab",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8B16B5", { permissions: "none" }, () => {
+Deno.test("Hex 8B16B5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "06622da5787176287fdc8fed440bad187d830099c94e6d04c8e9c954cda70c8bb9e1fc4a6d0baa831b9b78ef6648681a4867a11da93ee36e5e6a37d87fc63f6f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FA2EF9", { permissions: "none" }, () => {
+Deno.test("Hex FA2EF9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1da6772b58fabf9c61f68d412c82f182c0236d7d575ef0b58dd22458d643cd1dfc93b03871c316d8430d312995d4197f0874c99172ba004a01ee295abac24e46",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("42883E", { permissions: "none" }, () => {
+Deno.test("Hex 42883E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3cd2d9320b7b1d5fb9aab951a76023fa667be14a9124e394513918a3f44096ae4904ba0ffc150b63bc7ab1eeb9a6e257e5c8f000a70394a5afd842715de15f29",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354555657",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("360F07", { permissions: "none" }, () => {
+Deno.test("Hex 360F07", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "04cdc14f7434e0b4be70cb41db4c779a88eaef6accebcb41f2d42fffe7f32a8e281b5c103a27021d0d08362250753cdf70292195a53a48728ceb5844c2d98bab",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("87F433", { permissions: "none" }, () => {
+Deno.test("Hex 87F433", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9071b7a8a075d0095b8fb3ae5113785735ab98e2b52faf91d5b89e44aac5b5d4ebbf91223b0ff4c71905da55342e64655d6ef8c89a4768c3f93a6dc0366b5bc8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556575859",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("AD4B57", { permissions: "none" }, () => {
+Deno.test("Hex AD4B57", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ebb30240dd96c7bc8d0abe49aa4edcbb4afdc51ff9aaf720d3f9e7fbb0f9c6d6571350501769fc4ebd0b2141247ff400d4fd4be414edf37757bb90a32ac5c65a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("083D95", { permissions: "none" }, () => {
+Deno.test("Hex 083D95", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8532c58bf3c8015d9d1cbe00eef1f5082f8f3632fbe9f1ed4f9dfb1fa79e8283066d77c44c4af943d76b300364aecbd0648c8a8939bd204123f4b56260422dec",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0526BF", { permissions: "none" }, () => {
+Deno.test("Hex 0526BF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fe9846d64f7c7708696f840e2d76cb4408b6595c2f81ec6a28a7f2f20cb88cfe6ac0b9e9b8244f08bd7095c350c1d0842f64fb01bb7f532dfcd47371b0aeeb79",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FD620C", { permissions: "none" }, () => {
+Deno.test("Hex FD620C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "28f17ea6fb6c42092dc264257e29746321fb5bdaea9873c2a7fa9d8f53818e899e161bc77dfe8090afd82bf2266c5c1bc930a8d1547624439e662ef695f26f24",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E7E294", { permissions: "none" }, () => {
+Deno.test("Hex E7E294", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ec6b7d7f030d4850acae3cb615c21dd25206d63e84d1db8d957370737ba0e98467ea0ce274c66199901eaec18a08525715f53bfdb0aacb613d342ebdceeddc3b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F6E0CD", { permissions: "none" }, () => {
+Deno.test("Hex F6E0CD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b403d3691c03b0d3418df327d5860d34bbfcc4519bfbce36bf33b208385fadb9186bc78a76c489d89fd57e7dc75412d23bcd1dae8470ce9274754bb8585b13c5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D47BEF", { permissions: "none" }, () => {
+Deno.test("Hex D47BEF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "31fc79738b8772b3f55cd8178813b3b52d0db5a419d30ba9495c4b9da0219fac6df8e7c23a811551a62b827f256ecdb8124ac8a6792ccfecc3b3012722e94463",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4F9EEC", { permissions: "none" }, () => {
+Deno.test("Hex 4F9EEC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bb2039ec287091bcc9642fc90049e73732e02e577e2862b32216ae9bedcd730c4c284ef3968c368b7d37584f97bd4b4dc6ef6127acfe2e6ae2509124e66c8af4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("EF57AA", { permissions: "none" }, () => {
+Deno.test("Hex EF57AA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f53d68d13f45edfcb9bd415e2831e938350d5380d3432278fc1c0c381fcb7c65c82dafe051d8c8b0d44e0974a0e59ec7bf7ed0459f86e96f329fc79752510fd3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A829FC", { permissions: "none" }, () => {
+Deno.test("Hex A829FC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8d568c7984f0ecdf7640fbc483b5d8c9f86634f6f43291841b309a350ab9c1137d24066b09da9944bac54d5bb6580d836047aac74ab724b887ebf93d4b32eca9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BD48A9", { permissions: "none" }, () => {
+Deno.test("Hex BD48A9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c0b65ce5a96ff774c456cac3b5f2c4cd359b4ff53ef93a3da0778be4900d1e8da1601e769e8f1b02d2a2f8c5b9fa10b44f1c186985468feeb008730283a6657d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("45D5F5", { permissions: "none" }, () => {
+Deno.test("Hex 45D5F5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4900bba6f5fb103ece8ec96ada13a5c3c85488e05551da6b6b33d988e611ec0fe2e3c2aa48ea6ae8986a3a231b223c5d27cec2eadde91ce07981ee652862d1e4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BE4F38", { permissions: "none" }, () => {
+Deno.test("Hex BE4F38", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c7f5c37c7285f927f76443414d4357ff789647d7a005a5a787e03c346b57f49f21b64fa9cf4b7e45573e23049017567121a9c3d4b2b73ec5e9413577525db45a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CB3ABB", { permissions: "none" }, () => {
+Deno.test("Hex CB3ABB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ec7096330736fdb2d64b5653e7475da746c23a4613a82687a28062d3236364284ac01720ffb406cfe265c0df626a188c9e5963ace5d3d5bb363e32c38c2190a6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364656667",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("96CF41", { permissions: "none" }, () => {
+Deno.test("Hex 96CF41", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "82e744c75f4649ec52b80771a77d475a3bc091989556960e276a5f9ead92a03f718742cdcfeaee5cb85c44af198adc43a4a428f5f0c2ddb0be36059f06d7df73",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("6D3916", { permissions: "none" }, () => {
+Deno.test("Hex 6D3916", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2834b7a7170f1f5b68559ab78c1050ec21c919740b784a9072f6e5d69f828d70c919c5039fb148e39e2c8a52118378b064ca8d5001cd10a5478387b966715ed6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566676869",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0AFA1E", { permissions: "none" }, () => {
+Deno.test("Hex 0AFA1E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "16b4ada883f72f853bb7ef253efcab0c3e2161687ad61543a0d2824f91c1f81347d86be709b16996e17f2dd486927b0288ad38d13063c4a9672c39397d3789b6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4AD67C", { permissions: "none" }, () => {
+Deno.test("Hex 4AD67C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "78d048f3a69d8b54ae0ed63a573ae350d89f7c6cf1f3688930de899afa037697629b314e5cd303aa62feea72a25bf42b304b6c6bcb27fae21c16d925e1fbdac3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("20A39E", { permissions: "none" }, () => {
+Deno.test("Hex 20A39E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0f746a48749287ada77a82961f05a4da4abdb7d77b1220f836d09ec814359c0ec0239b8c7b9ff9e02f569d1b301ef67c4612d1de4f730f81c12c40cc063c5caa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D54252", { permissions: "none" }, () => {
+Deno.test("Hex D54252", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f0fc859d3bd195fbdc2d591e4cdac15179ec0f1dc821c11df1f0c1d26e6260aaa65b79fafacafd7d3ad61e600f250905f5878c87452897647a35b995bcadc3a3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("19407D", { permissions: "none" }, () => {
+Deno.test("Hex 19407D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2620f687e8625f6a412460b42e2cef67634208ce10a0cbd4dff7044a41b7880077e9f8dc3b8d1216d3376a21e015b58fb279b521d83f9388c7382c8505590b9b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C6D121", { permissions: "none" }, () => {
+Deno.test("Hex C6D121", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "227e3aed8d2cb10b918fcb04f9de3e6d0a57e08476d93759cd7b2ed54a1cbf0239c528fb04bbf288253e601d3bc38b21794afef90b17094a182cac557745e75f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2BD8E3", { permissions: "none" }, () => {
+Deno.test("Hex 2BD8E3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1a929901b09c25f27d6b35be7b2f1c4745131fdebca7f3e2451926720434e0db6e74fd693ad29b777dc3355c592a361c4873b01133a57c2e3b7075cbdb86f4fc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("656754", { permissions: "none" }, () => {
+Deno.test("Hex 656754", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5fd7968bc2fe34f220b5e3dc5af9571742d73b7d60819f2888b629072b96a9d8ab2d91b82d0a9aaba61bbd39958132fcc4257023d1eca591b3054e2dc81c8200",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("72F3C1", { permissions: "none" }, () => {
+Deno.test("Hex 72F3C1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "dfcce8cf32870cc6a503eadafc87fd6f78918b9b4d0737db6810be996b5497e7e5cc80e312f61e71ff3e9624436073156403f735f56b0b01845c18f6caf772e6",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F8D21A", { permissions: "none" }, () => {
+Deno.test("Hex F8D21A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "02f7ef3a9ce0fff960f67032b296efca3061f4934d690749f2d01c35c81c14f39a67fa350bc8a0359bf1724bffc3bca6d7c7bba4791fd522a3ad353c02ec5aa8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5C8EBD", { permissions: "none" }, () => {
+Deno.test("Hex 5C8EBD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "64be5c6aba65d594844ae78bb022e5bebe127fd6b6ffa5a13703855ab63b624dcd1a363f99203f632ec386f3ea767fc992e8ed9686586aa27555a8599d5b808f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FFE79B", { permissions: "none" }, () => {
+Deno.test("Hex FFE79B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f78585505c4eaa54a8b5be70a61e735e0ff97af944ddb3001e35d86c4e2199d976104b6ae31750a36a726ed285064f5981b503889fef822fcdc2898dddb7889a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D9D1E9", { permissions: "none" }, () => {
+Deno.test("Hex D9D1E9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e4b5566033869572edfd87479a5bb73c80e8759b91232879d96b1dda36c012076ee5a2ed7ae2de63ef8406a06aea82c188031b560beafb583fb3de9e57952a7e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8D0C84", { permissions: "none" }, () => {
+Deno.test("Hex 8D0C84", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e1b3e7ed867f6c9484a2a97f7715f25e25294e992e41f6a7c161ffc2adc6daaeb7113102d5e6090287fe6ad94ce5d6b739c6ca240b05c76fb73f25dd024bf935",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374757677",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("179ADB", { permissions: "none" }, () => {
+Deno.test("Hex 179ADB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "85fd085fdc12a080983df07bd7012b0d402a0f4043fcb2775adf0bad174f9b08d1676e476985785c0a5dcc41dbff6d95ef4d66a3fbdc4a74b82ba52da0512b74",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C2D8E7", { permissions: "none" }, () => {
+Deno.test("Hex C2D8E7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "aed8fa764b0fbff821e05233d2f7b0900ec44d826f95e93c343c1bc3ba5a24374b1d616e7e7aba453a0ada5e4fab5382409e0d42ce9c2bc7fb39a99c340c20f0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576777879",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1D8028", { permissions: "none" }, () => {
+Deno.test("Hex 1D8028", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7ba3b2e297233522eeb343bd3ebcfd835a04007735e87f0ca300cbee6d416565162171581e4020ff4cf176450f1291ea2285cb9ebffe4c56660627685145051c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A764B2", { permissions: "none" }, () => {
+Deno.test("Hex A764B2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "de748bcf89ec88084721e16b85f30adb1a6134d664b5843569babc5bbd1a15ca9b61803c901a4fef32965a1749c9f3a4e243e173939dc5a8dc495c671ab52145",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7D136E", { permissions: "none" }, () => {
+Deno.test("Hex 7D136E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "aaf4d2bdf200a919706d9842dce16c98140d34bc433df320aba9bd429e549aa7a3397652a4d768277786cf993cde2338673ed2e6b66c961fefb82cd20c93338f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8F33E6", { permissions: "none" }, () => {
+Deno.test("Hex 8F33E6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c408218968b788bf864f0997e6bc4c3dba68b276e2125a4843296052ff93bf5767b8cdce7131f0876430c1165fec6c4f47adaa4fd8bcfacef463b5d3d0fa61a0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CDE17E", { permissions: "none" }, () => {
+Deno.test("Hex CDE17E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "76d2d819c92bce55fa8e092ab1bf9b9eab237a25267986cacf2b8ee14d214d730dc9a5aa2d7b596e86a1fd8fa0804c77402d2fcd45083688b218b1cdfa0dcbcb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("9079AE", { permissions: "none" }, () => {
+Deno.test("Hex 9079AE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "72065ee4dd91c2d8509fa1fc28a37c7fc9fa7d5b3f8ad3d0d7a25626b57b1b44788d4caf806290425f9890a3a2a35a905ab4b37acfd0da6e4517b2525c9651e4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2AB1DA", { permissions: "none" }, () => {
+Deno.test("Hex 2AB1DA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "64475dfe7600d7171bea0b394e27c9b00d8e74dd1e416a79473682ad3dfdbb706631558055cfc8a40e07bd015a4540dcdea15883cbbf31412df1de1cd4152b91",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("38BAEB", { permissions: "none" }, () => {
+Deno.test("Hex 38BAEB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "12cd1674a4488a5d7c2b3160d2e2c4b58371bedad793418d6f19c6ee385d70b3e06739369d4df910edb0b0a54cbff43d54544cd37ab3a06cfa0a3ddac8b66c89",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("19A3B8", { permissions: "none" }, () => {
+Deno.test("Hex 19A3B8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "60756966479dedc6dd4bcff8ea7d1d4ce4d4af2e7b097e32e3763518441147cc12b3c0ee6d2ecabf1198cec92e86a3616fba4f4e872f5825330adbb4c1dee444",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3BB58C", { permissions: "none" }, () => {
+Deno.test("Hex 3BB58C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a7803bcb71bc1d0f4383dde1e0612e04f872b715ad30815c2249cf34abb8b024915cb2fc9f4e7cc4c8cfd45be2d5a91eab0941c7d270e2da4ca4a9f7ac68663a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("FC3379", { permissions: "none" }, () => {
+Deno.test("Hex FC3379", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b84ef6a7229a34a750d9a98ee2529871816b87fbe3bc45b45fa5ae82d5141540211165c3c5d7a7476ba5a4aa06d66476f0d9dc49a3f1ee72c3acabd498967414",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8BA9CC", { permissions: "none" }, () => {
+Deno.test("Hex 8BA9CC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fae4b6d8efc3f8c8e64d001dabec3a21f544e82714745251b2b4b393f2f43e0da3d403c64db95a2cb6e23ebb7b9e94cdd5ddac54f07c4a61bd3cb10aa6f93b49",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("59288C", { permissions: "none" }, () => {
+Deno.test("Hex 59288C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "34f7286605a122369540141ded79b8957255da2d4155abbf5a8dbb89c8eb7ede8eeef1daa46dc29d751d045dc3b1d658bb64b80ff8589eddb3824b13da235a6b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C39ECC", { permissions: "none" }, () => {
+Deno.test("Hex C39ECC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3b3b48434be27b9eababba43bf6b35f14b30f6a88dc2e750c358470d6b3aa3c18e47db4017fa55106d8252f016371a00f5f8b070b74ba5f23cffc5511c9f09f0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384858687",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("701C5A", { permissions: "none" }, () => {
+Deno.test("Hex 701C5A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ba289ebd6562c48c3e10a8ad6ce02e73433d1e93d7c9279d4d60a7e879ee11f441a000f48ed9f7c4ed87a45136d7dccdca482109c78a51062b3ba4044ada2469",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F374D2", { permissions: "none" }, () => {
+Deno.test("Hex F374D2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "022939e2386c5a37049856c850a2bb10a13dfea4212b4c732a8840a9ffa5faf54875c5448816b2785a007da8a8d2bc7d71a54e4e6571f10b600cbdb25d13ede3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586878889",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1E59B1", { permissions: "none" }, () => {
+Deno.test("Hex 1E59B1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e6fec19d89ce8717b1a087024670fe026f6c7cbda11caef959bb2d351bf856f8055d1c0ebdaaa9d1b17886fc2c562b5e99642fc064710c0d3488a02b5ed7f6fd",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("6229D3", { permissions: "none" }, () => {
+Deno.test("Hex 6229D3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "94c96f02a8f576aca32ba61c2b206f907285d9299b83ac175c209a8d43d53bfe683dd1d83e7549cb906c28f59ab7c46f8751366a28c39dd5fe2693c9019666c8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3F37A4", { permissions: "none" }, () => {
+Deno.test("Hex 3F37A4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "31a0cd215ebd2cb61de5b9edc91e6195e31c59a5648d5c9f737e125b2605708f2e325ab3381c8dce1a3e958886f1ecdc60318f882cfe20a24191352e617b0f21",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7F7CBB", { permissions: "none" }, () => {
+Deno.test("Hex 7F7CBB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "91ab504a522dce78779f4c6c6ba2e6b6db5565c76d3e7e7c920caf7f757ef9db7c8fcf10e57f03379ea9bf75eb59895d96e149800b6aae01db778bb90afbc989",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("6E7005", { permissions: "none" }, () => {
+Deno.test("Hex 6E7005", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d85cabc6bd5b1a01a5afd8c6734740da9fd1c1acc6db29bfc8a2e5b668b028b6b3154bfb8703fa3180251d589ad38040ceb707c4bad1b5343cb426b61eaa49c1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D4A498", { permissions: "none" }, () => {
+Deno.test("Hex D4A498", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d62efbec2ca9c1f8bd66ce8b3f6a898cb3f7566ba6568c618ad1feb2b65b76c3ce1dd20f7395372faf28427f61c9278049cf0140df434f5633048c86b81e0399",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("918596", { permissions: "none" }, () => {
+Deno.test("Hex 918596", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7c8fdc6175439e2c3db15bafa7fb06143a6a23bc90f449e79deef73c3d492a671715c193b6fea9f036050b946069856b897e08c00768f5ee5ddcf70b7cd6d0e0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0DF064", { permissions: "none" }, () => {
+Deno.test("Hex 0DF064", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "58602ee7468e6bc9df21bd51b23c005f72d6cb013f0a1b48cbec5eca299299f97f09f54a9a01483eaeb315a6478bad37ba47ca1347c7c8fc9e6695592c91d723",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("863883", { permissions: "none" }, () => {
+Deno.test("Hex 863883", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "27f5b79ed256b050993d793496edf4807c1d85a7b0a67c9c4fa99860750b0ae66989670a8ffd7856d7ce411599e58c4d77b232a62bef64d15275be46a68235ff",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("03B07F", { permissions: "none" }, () => {
+Deno.test("Hex 03B07F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3957a976b9f1887bf004a8dca942c92d2b37ea52600f25e0c9bc5707d0279c00c6e85a839b0d2d8eb59c51d94788ebe62474a791cadf52cccf20f5070b6573fc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1D50D3", { permissions: "none" }, () => {
+Deno.test("Hex 1D50D3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "eaa2376d55380bf772ecca9cb0aa4668c95c707162fa86d518c8ce0ca9bf7362b9f2a0adc3ff59922df921b94567e81e452f6c1a07fc817cebe99604b3505d38",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F45477", { permissions: "none" }, () => {
+Deno.test("Hex F45477", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c1e2c78b6b2734e2480ec550434cb5d613111adcc21d475545c3b1b7e6ff12444476e5c055132e2229dc0f807044bb919b1a5662dd38a9ee65e243a3911aed1a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("978E4A", { permissions: "none" }, () => {
+Deno.test("Hex 978E4A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8ab48713389dd0fcf9f965d3ce66b1e559a1f8c58741d67683cd971354f452e62d0207a65e436c5d5d8f8ee71c6abfe50e669004c302b31a7ea8311d4a916051",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("82EFC6", { permissions: "none" }, () => {
+Deno.test("Hex 82EFC6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "24ce0addaa4c65038bd1b1c0f1452a0b128777aabc94a29df2fd6c7e2f85f8ab9ac7eff516b0e0a825c84a24cfe492eaad0a6308e46dd42fe8333ab971bb30ca",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394959697",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("763AA1", { permissions: "none" }, () => {
+Deno.test("Hex 763AA1", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5154f929ee03045b6b0c0004fa778edee1d139893267cc84825ad7b36c63de32798e4a166d24686561354f63b00709a1364b3c241de3febf0754045897467cd4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("38745C", { permissions: "none" }, () => {
+Deno.test("Hex 38745C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e74e907920fd87bd5ad636dd11085e50ee70459c443e1ce5809af2bc2eba39f9e6d7128e0e3712c316da06f4705d78a4838e28121d4344a2c79c5e0db307a677",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596979899",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("AEA7BC", { permissions: "none" }, () => {
+Deno.test("Hex AEA7BC", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bf91a22334bac20f3fd80663b3cd06c4e8802f30e6b59f90d3035cc9798a217ed5a31abbda7fa6842827bdf2a7a1c21f6fcfccbb54c6c52926f32da816269be1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E7C7CA", { permissions: "none" }, () => {
+Deno.test("Hex E7C7CA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d9d5c74be5121b0bd742f26bffb8c89f89171f3f934913492b0903c271bbe2b3395ef259669bef43b57f7fcc3027db01823f6baee66e4f9fead4d6726c741fce",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4CBB17", { permissions: "none" }, () => {
+Deno.test("Hex 4CBB17", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "50c8b8cf34cd879f80e2faab3230b0c0e1cc3e9dcadeb1b9d97ab923415dd9a1fe38addd5c11756c67990b256e95ad6d8f9fedce10bf1c90679cde0ecf1be347",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5824F9", { permissions: "none" }, () => {
+Deno.test("Hex 5824F9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0a386e7cd5dd9b77a035e09fe6fee2c8ce61b5383c87ea43205059c5e4cd4f4408319bb0a82360f6a58e6c9ce3f487c446063bf813bc6ba535e17fc1826cfc91",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("4CA507", { permissions: "none" }, () => {
+Deno.test("Hex 4CA507", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1f1459cb6b61cbac5f0efe8fc487538f42548987fcd56221cfa7beb22504769e792c45adfb1d6b3d60d7b749c8a75b0bdf14e8ea721b95dca538ca6e25711209",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2710BB", { permissions: "none" }, () => {
+Deno.test("Hex 2710BB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e58b3836b7d8fedbb50ca5725c6571e74c0785e97821dab8b6298c10e4c079d4a6cdf22f0fedb55032925c16748115f01a105e77e00cee3d07924dc0d8f90659",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3D78D7", { permissions: "none" }, () => {
+Deno.test("Hex 3D78D7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b929cc6505f020158672deda56d0db081a2ee34c00c1100029bdf8ea98034fa4bf3e8655ec697fe36f40553c5bb46801644a627d3342f4fc92b61f03290fb381",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("78FC18", { permissions: "none" }, () => {
+Deno.test("Hex 78FC18", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "72d353994b49d3e03153929a1e4d4f188ee58ab9e72ee8e512f29bc773913819ce057ddd7002c0433ee0a16114e3d156dd2c4a7e80ee53378b8670f23e33ef56",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BEB1DE", { permissions: "none" }, () => {
+Deno.test("Hex BEB1DE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c70ef9bfd775d408176737a0736d68517ce1aaad7e81a93c8c1ed967ea214f56c8a377b1763e676615b60f3988241eae6eab9685a5124929d28188f29eab06f7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CD80A7", { permissions: "none" }, () => {
+Deno.test("Hex CD80A7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c230f0802679cb33822ef8b3b21bf7a9a28942092901d7dac3760300831026cf354c9232df3e084d9903130c601f63c1f4a4a4b8106e468cd443bbe5a734f45f",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("67913A", { permissions: "none" }, () => {
+Deno.test("Hex 67913A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "6f43094cafb5ebf1f7a4937ec50f56a4c9da303cbb55ac1f27f1f1976cd96beda9464f0e7b9c54620b8a9fba983164b8be3578425a024f5fe199c36356b88972",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5F546F", { permissions: "none" }, () => {
+Deno.test("Hex 5F546F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3745273f4c38225db2337381871a0c6aafd3af9b018c88aa02025850a5dc3a42a1a3e03e56cbf1b0876d63a441f1d2856a39b8801eb5af325201c415d65e97fe",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("880E8C", { permissions: "none" }, () => {
+Deno.test("Hex 880E8C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c50c44cca3ec3edaae779a7e179450ebdda2f97067c690aa6c5a4ac7c30139bb27c0df4db3220e63cb110d64f37ffe078db72653e2daacf93ae3f0a2d1a7eb2e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("8ECE45", { permissions: "none" }, () => {
+Deno.test("Hex 8ECE45", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8aef263e385cbc61e19b28914243262af5afe8726af3ce39a79c27028cf3ecd3f8d2dfd9cfc9ad91b58f6f20778fd5f02894a3d91c7d57d1e4b866a7f364b6be",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2BCEA2", { permissions: "none" }, () => {
+Deno.test("Hex 2BCEA2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "28696141de6e2d9bcb3235578a66166c1448d3e905a1b482d423be4bc5369bc8c74dae0acc9cc123e1d8ddce9f97917e8c019c552da32d39d2219b9abf0fa8c8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("62B7E3", { permissions: "none" }, () => {
+Deno.test("Hex 62B7E3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2fb9eb2085830181903a9dafe3db428ee15be7662224efd643371fb25646aee716e531eca69b2bdc8233f1a8081fa43da1500302975a77f42fa592136710e9dc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A64069", { permissions: "none" }, () => {
+Deno.test("Hex A64069", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "66f9a7143f7a3314a669bf2e24bbb35014261d639f495b6c9c1f104fe8e320aca60d4550d69d52edbd5a3cdeb4014ae65b1d87aa770b69ae5c15f4330b0b0ad8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aa",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("50E15D", { permissions: "none" }, () => {
+Deno.test("Hex 50E15D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f4c4dd1d594c3565e3e25ca43dad82f62abea4835ed4cd811bcd975e46279828d44d4c62c3679f1b7f7b9dd4571d7b49557347b8c5460cbdc1bef690fb2a08c0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaab",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E70799", { permissions: "none" }, () => {
+Deno.test("Hex E70799", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8f1dc9649c3a84551f8f6e91cac68242a43b1f8f328ee92280257387fa7559aa6db12e4aeadc2d26099178749c6864b357f3f83b2fb3efa8d2a8db056bed6bcc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabac",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7D4516", { permissions: "none" }, () => {
+Deno.test("Hex 7D4516", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3139c1a7f97afd1675d460ebbc07f2728aa150df849624511ee04b743ba0a833092f18c12dc91b4dd243f333402f59fe28abdbbbae301e7b659c7a26d5c0f979",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacad",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2A9F09", { permissions: "none" }, () => {
+Deno.test("Hex 2A9F09", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "06f94a2996158a819fe34c40de3cf0379fd9fb85b3e363ba3926a0e7d960e3f4c2e0c70c7ce0ccb2a64fc29869f6e7ab12bd4d3f14fce943279027e785fb5c29",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadae",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("403E5E", { permissions: "none" }, () => {
+Deno.test("Hex 403E5E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c29c399ef3eee8961e87565c1ce263925fc3d0ce267d13e48dd9e732ee67b0f69fad56401b0f10fcaac119201046cca28c5b14abdea3212ae65562f7f138db3d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeaf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("55832F", { permissions: "none" }, () => {
+Deno.test("Hex 55832F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4cec4c9df52eef05c3f6faaa9791bc7445937183224ecc37a1e58d0132d35617531d7e795f52af7b1eb9d147de1292d345fe341823f8e6bc1e5badca5c656108",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("92633B", { permissions: "none" }, () => {
+Deno.test("Hex 92633B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "898bfbae93b3e18d00697eab7d9704fa36ec339d076131cefdf30edbe8d9cc81c3a80b129659b163a323bab9793d4feed92d54dae966c77529764a09be88db45",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2CC03F", { permissions: "none" }, () => {
+Deno.test("Hex 2CC03F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ee9bd0469d3aaf4f14035be48a2c3b84d9b4b1fff1d945e1f1c1d38980a951be197b25fe22c731f20aeacc930ba9c4a1f4762227617ad350fdabb4e80273a0f4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7863D8", { permissions: "none" }, () => {
+Deno.test("Hex 7863D8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3d4d3113300581cd96acbf091c3d0f3c310138cd6979e6026cde623e2dd1b24d4a8638bed1073344783ad0649cc6305ccec04beb49f31c633088a99b65130267",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("81BFC8", { permissions: "none" }, () => {
+Deno.test("Hex 81BFC8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "95c0591ad91f921ac7be6d9ce37e0663ed8011c1cfd6d0162a5572e94368bac02024485e6a39854aa46fe38e97d6c6b1947cd272d86b06bb5b2f78b9b68d559d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E5EAA9", { permissions: "none" }, () => {
+Deno.test("Hex E5EAA9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "227b79ded368153bf46c0a3ca978bfdbef31f3024a5665842468490b0ff748ae04e7832ed4c9f49de9b1706709d623e5c8c15e3caecae8d5e433430ff72f20eb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BFA7F3", { permissions: "none" }, () => {
+Deno.test("Hex BFA7F3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5d34f3952f0105eef88ae8b64c6ce95ebfade0e02c69b08762a8712d2e4911ad3f941fc4034dc9b2e479fdbcd279b902faf5d838bb2e0c6495d372b5b7029813",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B9514E", { permissions: "none" }, () => {
+Deno.test("Hex B9514E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7f939bf8353abce49e77f14f3750af20b7b03902e1a1e7fb6aaf76d0259cd401a83190f15640e74f3e6c5a90e839c7821f6474757f75c7bf9002084ddc7a62dc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3ED838", { permissions: "none" }, () => {
+Deno.test("Hex 3ED838", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "062b61a2f9a33a71d7d0a06119644c70b0716a504de7e5e1be49bd7b86e7ed6817714f9f0fc313d06129597e9a2235ec8521de36f7290a90ccfc1ffa6d0aee29",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("03279E", { permissions: "none" }, () => {
+Deno.test("Hex 03279E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f29e01eeae64311eb7f1c6422f946bf7bea36379523e7b2bbaba7d1d34a22d5ea5f1c5a09d5ce1fe682cced9a4798d1a05b46cd72dff5c1b355440b2a2d476bc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A9CEEE", { permissions: "none" }, () => {
+Deno.test("Hex A9CEEE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ec38cd3bbab3ef35d7cb6d5c914298351d8a9dc97fcee051a8a02f58e3ed6184d0b7810a5615411ab1b95209c3c810114fdeb22452084e77f3f847c6dbaafe16",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9ba",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("387288", { permissions: "none" }, () => {
+Deno.test("Hex 387288", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c2aef5e0ca43e82641565b8cb943aa8ba53550caef793b6532fafad94b816082f0113a3ea2f63608ab40437ecc0f0229cb8fa224dcf1c478a67d9b64162b92d1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2C4AAE", { permissions: "none" }, () => {
+Deno.test("Hex 2C4AAE", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "15f534efff7105cd1c254d074e27d5898b89313b7d366dc2d7d87113fa7d53aae13f6dba487ad8103d5e854c91fdb6e1e74b2ef6d1431769c30767dde067a35c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5110F5", { permissions: "none" }, () => {
+Deno.test("Hex 5110F5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "89acbca0b169897a0a2714c2df8c95b5b79cb69390142b7d6018bb3e3076b099b79a964152a9d912b1b86412b7e372e9cecad7f25d4cbab8a317be36492a67d7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("7F28A6", { permissions: "none" }, () => {
+Deno.test("Hex 7F28A6", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e3c0739190ed849c9c962fd9dbb55e207e624fcac1eb417691515499eea8d8267b7e8f1287a63633af5011fde8c4ddf55bfdf722edf88831414f2cfaed59cb9a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbe",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3D0253", { permissions: "none" }, () => {
+Deno.test("Hex 3D0253", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8d6cf87c08380d2d1506eee46fd4222d21d8c04e585fbfd08269c98f702833a156326a0724656400ee09351d57b440175e2a5de93cc5f80db6daf83576cf75fa",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5DC61D", { permissions: "none" }, () => {
+Deno.test("Hex 5DC61D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "da24bede383666d563eeed37f6319baf20d5c75d1635a6ba5ef4cfa1ac95487e96f8c08af600aab87c986ebad49fc70a58b4890b9c876e091016daf49e1d322e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1A2CE3", { permissions: "none" }, () => {
+Deno.test("Hex 1A2CE3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f9d1d1b1e87ea7ae753a029750cc1cf3d0157d41805e245c5617bb934e732f0ae3180b78e05bfe76c7c3051e3e3ac78b9b50c05142657e1e03215d6ec7bfd0fc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("F761D2", { permissions: "none" }, () => {
+Deno.test("Hex F761D2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "11b7bc1668032048aa43343de476395e814bbbc223678db951a1b03a021efac948cfbe215f97fe9a72a2f6bc039e3956bfa417c1a9f10d6d7ba5d3d32ff323e5",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1D6B1A", { permissions: "none" }, () => {
+Deno.test("Hex 1D6B1A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b8d9000e4fc2b066edb91afee8e7eb0f24e3a201db8b6793c0608581e628ed0bcc4e5aa6787992a4bcc44e288093e63ee83abd0bc3ec6d0934a674a4da13838a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("954C3B", { permissions: "none" }, () => {
+Deno.test("Hex 954C3B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ce325e294f9b6719d6b61278276ae06a2564c03bb0b783fafe785bdf89c7d5acd83e78756d301b445699024eaeb77b54d477336ec2a4f332f2b3f88765ddb0c3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B8C70E", { permissions: "none" }, () => {
+Deno.test("Hex B8C70E", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "29acc30e9603ae2fccf90bf97e6cc463ebe28c1b2f9b4b765e70537c25c702a29dcbfbf14c99c54345ba2b51f17b77b5f15db92bbad8fa95c471f5d070a137cc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D3B121", { permissions: "none" }, () => {
+Deno.test("Hex D3B121", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3379cbaae562a87b4c0425550ffdd6bfe1203f0d666cc7ea095be407a5dfe61ee91441cd5154b3e53b4f5fb31ad4c7a9ad5c7af4ae679aa51a54003a54ca6b2d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("63C4E8", { permissions: "none" }, () => {
+Deno.test("Hex 63C4E8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3095a349d245708c7cf550118703d7302c27b60af5d4e67fc978f8a4e60953c7a04f92fcf41aee64321ccb707a895851552b1e37b00bc5e6b72fa5bcef9e3fff",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C40D4B", { permissions: "none" }, () => {
+Deno.test("Hex C40D4B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "07262d738b09321f4dbccec4bb26f48cb0f0ed246ce0b31b9a6e7bc683049f1f3e5545f28ce932dd985c5ab0f43bd6de0770560af329065ed2e49d34624c2cbb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("09A9ED", { permissions: "none" }, () => {
+Deno.test("Hex 09A9ED", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b6405eca8ee3316c87061cc6ec18dba53e6c250c63ba1f3bae9e55dd3498036af08cd272aa24d713c6020d77ab2f3919af1a32f307420618ab97e73953994fb4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("A528A2", { permissions: "none" }, () => {
+Deno.test("Hex A528A2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "7ee682f63148ee45f6e5315da81e5c6e557c2c34641fc509c7a5701088c38a74756168e2cd8d351e88fd1a451f360a01f5b2580f9b5a2e8cfc138f3dd59a3ffc",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9ca",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B13441", { permissions: "none" }, () => {
+Deno.test("Hex B13441", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1d263c179d6b268f6fa016f3a4f29e943891125ed8593c81256059f5a7b44af2dcb2030d175c00e62ecaf7ee96682aa07ab20a611024a28532b1c25b86657902",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("75370C", { permissions: "none" }, () => {
+Deno.test("Hex 75370C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "106d132cbdb4cd2597812846e2bc1bf732fec5f0a5f65dbb39ec4e6dc64ab2ce6d24630d0f15a805c3540025d84afa98e36703c3dbee713e72dde8465bc1be7e",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("485A63", { permissions: "none" }, () => {
+Deno.test("Hex 485A63", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0e79968226650667a8d862ea8da4891af56a4e3a8b6d1750e394f0dea76d640d85077bcec2cc86886e506751b4f6a5838f7f0b5fef765d9dc90dcdcbaf079f08",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BAA618", { permissions: "none" }, () => {
+Deno.test("Hex BAA618", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "521156a82ab0c4e566e5844d5e31ad9aaf144bbd5a464fdca34dbd5717e8ff711d3ffebbfa085d67fe996a34f6d3e4e60b1396bf4b1610c263bdbb834d560816",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdce",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("11FB1C", { permissions: "none" }, () => {
+Deno.test("Hex 11FB1C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1aba88befc55bc25efbce02db8b9933e46f57661baeabeb21cc2574d2a518a3cba5dc5a38e49713440b25f9c744e75f6b85c9d8f4681f676160f6105357b8406",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5DA79F", { permissions: "none" }, () => {
+Deno.test("Hex 5DA79F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5a9949fcb2c473cda968ac1b5d08566dc2d816d960f57e63b898fa701cf8ebd3f59b124d95bfbbedc5f1cf0e17d5eaed0c02c50b69d8a402cabcca4433b51fd4",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CA78C8", { permissions: "none" }, () => {
+Deno.test("Hex CA78C8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b0cead09807c672af2eb2b0f06dde46cf5370e15a4096b1a7d7cbb36ec31c205fbefca00b7a4162fa89fb4fb3eb78d79770c23f44e7206664ce3cd931c291e5d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("EFA8A4", { permissions: "none" }, () => {
+Deno.test("Hex EFA8A4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "bb6664931ec97044e45b2ae420ae1c551a8874bc937d08e969399c3964ebdba8346cdd5d09caafe4c28ba7ec788191ceca65ddd6f95f18583e040d0f30d0364d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B1E7D7", { permissions: "none" }, () => {
+Deno.test("Hex B1E7D7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "65bc770a5faa3792369803683e844b0be7ee96f29f6d6a35568006bd5590f9a4ef639b7a8061c7b0424b66b60ac34af3119905f33a9d8c3ae18382ca9b689900",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("53C69B", { permissions: "none" }, () => {
+Deno.test("Hex 53C69B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "ea9b4dca333336aaf839a45c6eaa48b8cb4c7ddabffea4f643d6357ea6628a480a5b45f2b052c1b07d1fedca918b6f1139d80f74c24510dcbaa4be70eacc1b06",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("47CC99", { permissions: "none" }, () => {
+Deno.test("Hex 47CC99", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "e6342fb4a780ad975d0e24bce149989b91d360557e87994f6b457b895575cc02d0c15bad3ce7577f4c63927ff13f3e381ff7e72bdbe745324844a9d27e3f1c01",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("23BE37", { permissions: "none" }, () => {
+Deno.test("Hex 23BE37", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3e209c9b33e8e461178ab46b1c64b49a07fb745f1c8bc95fbfb94c6b87c69516651b264ef980937fad41238b91ddc011a5dd777c7efd4494b4b6ecd3a9c22ac0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("09F4E2", { permissions: "none" }, () => {
+Deno.test("Hex 09F4E2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "fd6a3d5b1875d80486d6e69694a56dbb04a99a4d051f15db2689776ba1c4882e6d462a603b7015dc9f4b7450f05394303b8652cfb404a266962c41bae6e18a94",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("1D7A39", { permissions: "none" }, () => {
+Deno.test("Hex 1D7A39", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "951e27517e6bad9e4195fc8671dee3e7e9be69cee1422cb9fecfce0dba875f7b310b93ee3a3d558f941f635f668ff832d2c1d033c5e2f0997e4c66f147344e02",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D82462", { permissions: "none" }, () => {
+Deno.test("Hex D82462", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8eba2f874f1ae84041903c7c4253c82292530fc8509550bfdc34c95c7e2889d5650b0ad8cb988e5c4894cb87fbfbb19612ea93ccc4c5cad17158b9763464b492",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("464F46", { permissions: "none" }, () => {
+Deno.test("Hex 464F46", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "16f712eaa1b7c6354719a8e7dbdfaf55e4063a4d277d947550019b38dfb564830911057d50506136e2394c3b28945cc964967d54e3000c2181626cfb9b73efd2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9da",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("676EAA", { permissions: "none" }, () => {
+Deno.test("Hex 676EAA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c39639e7d5c7fb8cdd0fd3e6a52096039437122f21c78f1679cea9d78a734c56ecbeb28654b4f18e342c331f6f7229ec4b4bc281b2d80a6eb50043f31796c88c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("071357", { permissions: "none" }, () => {
+Deno.test("Hex 071357", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "72d081af99f8a173dcc9a0ac4eb3557405639a29084b54a40172912a2f8a395129d5536f0918e902f9e8fa6000995f4168ddc5f893011be6a0dbc9b8a1a3f5bb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("76D686", { permissions: "none" }, () => {
+Deno.test("Hex 76D686", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c11aa81e5efd24d5fc27ee586cfd8847fbb0e27601ccece5ecca0198e3c7765393bb74457c7e7a27eb9170350e1fb53857177506be3e762cc0f14d8c3afe9077",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("EC2D07", { permissions: "none" }, () => {
+Deno.test("Hex EC2D07", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c28f2150b452e6c0c424bcde6f8d72007f9310fed7f2f87de0dbb64f4479d6c1441ba66f44b2accee61609177ed340128b407ecec7c64bbe50d63d22d8627727",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcddde",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("40C0AA", { permissions: "none" }, () => {
+Deno.test("Hex 40C0AA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f63d88122877ec30b8c8b00d22e89000a966426112bd44166e2f525b769ccbe9b286d437a0129130dde1a86c43e04bedb594e671d98283afe64ce331de9828fd",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B35BB5", { permissions: "none" }, () => {
+Deno.test("Hex B35BB5", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "348b0532880b88a6614a8d7408c3f913357fbb60e995c60205be9139e74998aede7f4581e42f6b52698f7fa1219708c14498067fd1e09502de83a77dd281150c",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("EEA672", { permissions: "none" }, () => {
+Deno.test("Hex EEA672", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5133dc8bef725359dff59792d85eaf75b7e1dcd1978b01c35b1b85fcebc63388ad99a17b6346a217dc1a9622ebd122ecf6913c4d31a6b52a695b86af00d741a0",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("749A7A", { permissions: "none" }, () => {
+Deno.test("Hex 749A7A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "2753c4c0e98ecad806e88780ec27fccd0f5c1ab547f9e4bf1659d192c23aa2cc971b58b6802580baef8adc3b776ef7086b2545c2987f348ee3719cdef258c403",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CEB81C", { permissions: "none" }, () => {
+Deno.test("Hex CEB81C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b1663573ce4b9d8caefc865012f3e39714b9898a5da6ce17c25a6a47931a9ddb9bbe98adaa553beed436e89578455416c2a52a525cf2862b8d1d49a2531b7391",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("C6E755", { permissions: "none" }, () => {
+Deno.test("Hex C6E755", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "64f58bd6bfc856f5e873b2a2956ea0eda0d6db0da39c8c7fc67c9f9feefcff3072cdf9e6ea37f69a44f0c61aa0da3693c2db5b54960c0281a088151db42b11e8",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CD07E3", { permissions: "none" }, () => {
+Deno.test("Hex CD07E3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0764c7be28125d9065c4b98a69d60aede703547c66a12e17e1c618994132f5ef82482c1e3fe3146cc65376cc109f0138ed9a80e49f1f3c7d610d2f2432f20605",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("131FD4", { permissions: "none" }, () => {
+Deno.test("Hex 131FD4", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "f748784398a2ff03ebeb07e155e66116a839741a336e32da71ec696001f0ad1b25cd48c69cfca7265eca1dd71904a0ce748ac4124f3571076dfa7116a9cf00e9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B2D3C7", { permissions: "none" }, () => {
+Deno.test("Hex B2D3C7", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3f0dbc0186bceb6b785ba78d2a2a013c910be157bdaffae81bb6663b1a73722f7f1228795f3ecada87cf6ef0078474af73f31eca0cc200ed975b6893f761cb6d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3DB7C9", { permissions: "none" }, () => {
+Deno.test("Hex 3DB7C9", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d4762cd4599876ca75b2b8fe249944dbd27ace741fdab93616cbc6e425460feb51d4e7adcc38180e7fc47c89024a7f56191adb878dfde4ead62223f5a2610efe",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("BC8A16", { permissions: "none" }, () => {
+Deno.test("Hex BC8A16", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "cd36b3d5b4c91b90fcbba79513cfee1907d8645a162afd0cd4cf4192d4a5f4c892183a8eacdb2b6b6a9d9aa8c11ac1b261b380dbee24ca468f1bfd043c58eefe",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E1DDC8", { permissions: "none" }, () => {
+Deno.test("Hex E1DDC8", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "98593452281661a53c48a9d8cd790826c1a1ce567738053d0bee4a91a3d5bd92eefdbabebe3204f2031ca5f781bda99ef5d8ae56e5b04a9e1ecd21b0eb05d3e1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9ea",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("CBD76A", { permissions: "none" }, () => {
+Deno.test("Hex CBD76A", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "771f57dd2775ccdab55921d3e8e30ccf484d61fe1c1b9c2ae819d0fb2a12fab9be70c4a7a138da84e8280435daade5bbe66af0836a154f817fb17f3397e725a3",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaeb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3BE146", { permissions: "none" }, () => {
+Deno.test("Hex 3BE146", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "c60897c6f828e21f16fbb5f15b323f87b6c8955eabf1d38061f707f608abdd993fac3070633e286cf8339ce295dd352df4b4b40b2f29da1dd50b3a05d079e6bb",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebec",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("23A607", { permissions: "none" }, () => {
+Deno.test("Hex 23A607", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "8210cd2c2d3b135c2cf07fa0d1433cd771f325d075c6469d9c7f1ba0943cd4ab09808cabf4acb9ce5bb88b498929b4b847f681ad2c490d042db2aec94214b06b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebeced",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0E545F", { permissions: "none" }, () => {
+Deno.test("Hex 0E545F", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1d4edfffd8fd80f7e4107840fa3aa31e32598491e4af7013c197a65b7f36dd3ac4b478456111cd4309d9243510782fa31b7c4c95fa951520d020eb7e5c36e4ef",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedee",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("E048DB", { permissions: "none" }, () => {
+Deno.test("Hex E048DB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "af8e6e91fab46ce4873e1a50a8ef448cc29121f7f74deef34a71ef89cc00d9274bc6c2454bbb3230d8b2ec94c62b1dec85f3593bfa30ea6f7a44d7c09465a253",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeef",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("5C341C", { permissions: "none" }, () => {
+Deno.test("Hex 5C341C", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "29fd384ed4906f2d13aa9fe7af905990938bed807f1832454a372ab412eea1f5625a1fcc9ac8343b7c67c5aba6e0b1cc4644654913692c6b39eb9187ceacd3ec",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("9E2AFA", { permissions: "none" }, () => {
+Deno.test("Hex 9E2AFA", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a268c7885d9874a51c44dffed8ea53e94f78456e0b2ed99ff5a3924760813826d960a15edbedbb5de5226ba4b074e71b05c55b9756bb79e55c02754c2c7b6c8a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("6C062B", { permissions: "none" }, () => {
+Deno.test("Hex 6C062B", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "0cf8545488d56a86817cd7ecb10f7116b7ea530a45b6ea497b6c72c997e09e3d0da8698f46bb006fc977c2cd3d1177463ac9057fdd1662c85d0c126443c10473",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D0D018", { permissions: "none" }, () => {
+Deno.test("Hex D0D018", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b39614268fdd8781515e2cfebf89b4d5402bab10c226e6344e6b9ae000fb0d6c79cb2f3ec80e80eaeb1980d2f8698916bd2e9f747236655116649cd3ca23a837",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("B7A777", { permissions: "none" }, () => {
+Deno.test("Hex B7A777", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "74bef092fc6f1e5dba3663a3fb003b2a5ba257496536d99f62b9d73f8f9eb3ce9ff3eec709eb883655ec9eb896b9128f2afc89cf7d1ab58a72f4a3bf034d2b4a",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("3E1DCD", { permissions: "none" }, () => {
+Deno.test("Hex 3E1DCD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "3a988d38d75611f3ef38b8774980b33e573b6c57bee0469ba5eed9b44f29945e7347967fba2c162e1c3be7f310f2f75ee2381e7bfd6b3f0baea8d95dfb1dafb1",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D2778D", { permissions: "none" }, () => {
+Deno.test("Hex D2778D", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "58aedfce6f67ddc85a28c992f1c0bd0969f041e66f1ee88020a125cbfcfebcd61709c9c4eba192c15e69f020d462486019fa8dea0cd7a42921a19d2fe546d43d",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("604459", { permissions: "none" }, () => {
+Deno.test("Hex 604459", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "9347bd291473e6b4e368437b8e561e065f649a6d8ada479ad09b1999a8f26b91cf6120fd3bfe014e83f23acfa4c0ad7b3712b2c3c0733270663112ccd9285cd9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("95AEBD", { permissions: "none" }, () => {
+Deno.test("Hex 95AEBD", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "b32163e7c5dbb5f51fdc11d2eac875efbbcb7e7699090a7e7ff8a8d50795af5d74d9ff98543ef8cdf89ac13d0485278756e0ef00c817745661e1d59fe38e7537",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("2546C3", { permissions: "none" }, () => {
+Deno.test("Hex 2546C3", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "1085d78307b1c4b008c57a2e7e5b234658a0a82e4ff1e4aaac72b312fda0fe27d233bc5b10e9cc17fdc7697b540c7d95eb215a19a1a0e20e1abfa126efd568c7",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("61D865", { permissions: "none" }, () => {
+Deno.test("Hex 61D865", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "4e5c734c7dde011d83eac2b7347b373594f92d7091b9ca34cb9c6f39bdf5a8d2f134379e16d822f6522170ccf2ddd55c84b9e6c64fc927ac4cf8dfb2a17701f2",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fa",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0F3ACF", { permissions: "none" }, () => {
+Deno.test("Hex 0F3ACF", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "695d83bd990a1117b3d0ce06cc888027d12a054c2677fd82f0d4fbfc93575523e7991a5e35a3752e9b70ce62992e268a877744cdd435f5f130869c9a2074b338",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("0036AB", { permissions: "none" }, () => {
+Deno.test("Hex 0036AB", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "a6213743568e3b3158b9184301f3690847554c68457cb40fc9a4b8cfd8d4a118c301a07737aeda0f929c68913c5f51c80394f53bff1c3e83b2e40ca97eba9e15",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("10E053", { permissions: "none" }, () => {
+Deno.test("Hex 10E053", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "d444bfa2362a96df213d070e33fa841f51334e4e76866b8139e8af3bb3398be2dfaddcbc56b9146de9f68118dc5829e74b0c28d7711907b121f9161cb92b69a9",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("D08DE2", { permissions: "none" }, () => {
+Deno.test("Hex D08DE2", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "142709d62e28fcccd0af97fad0f8465b971e82201dc51070faa0372aa43e92484be1c1e73ba10906d5d1853db6a4106e0a7bf9800d373d6dee2d46d62ef2a461",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
 	});
 });
-Deno.test("87D31E", { permissions: "none" }, () => {
+Deno.test("Hex 87D31E", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 1,
 		expected: "ba",
@@ -3365,7 +3382,7 @@ Deno.test("87D31E", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("C29733", { permissions: "none" }, () => {
+Deno.test("Hex C29733", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 2,
 		expected: "6139",
@@ -3375,7 +3392,7 @@ Deno.test("C29733", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("DFF98A", { permissions: "none" }, () => {
+Deno.test("Hex DFF98A", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 3,
 		expected: "3a1666",
@@ -3385,7 +3402,7 @@ Deno.test("DFF98A", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("6BFA46", { permissions: "none" }, () => {
+Deno.test("Hex 6BFA46", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 4,
 		expected: "5797e9d0",
@@ -3395,7 +3412,7 @@ Deno.test("6BFA46", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("BAE3C1", { permissions: "none" }, () => {
+Deno.test("Hex BAE3C1", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 5,
 		expected: "834a26efe6",
@@ -3405,7 +3422,7 @@ Deno.test("BAE3C1", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("05078F", { permissions: "none" }, () => {
+Deno.test("Hex 05078F", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 6,
 		expected: "d7e9e862bbce",
@@ -3415,7 +3432,7 @@ Deno.test("05078F", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("921D1D", { permissions: "none" }, () => {
+Deno.test("Hex 921D1D", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 7,
 		expected: "40d8b84c374750",
@@ -3425,7 +3442,7 @@ Deno.test("921D1D", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("A63317", { permissions: "none" }, () => {
+Deno.test("Hex A63317", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 8,
 		expected: "276789189244cf04",
@@ -3435,7 +3452,7 @@ Deno.test("A63317", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("4350DA", { permissions: "none" }, () => {
+Deno.test("Hex 4350DA", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 9,
 		expected: "16f73ffe0673cc9992",
@@ -3445,7 +3462,7 @@ Deno.test("4350DA", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("FE5BD4", { permissions: "none" }, () => {
+Deno.test("Hex FE5BD4", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 10,
 		expected: "b3835bfaf6eb71d94078",
@@ -3455,7 +3472,7 @@ Deno.test("FE5BD4", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("84C732", { permissions: "none" }, () => {
+Deno.test("Hex 84C732", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 11,
 		expected: "8c624e844d34f4a59f34cc",
@@ -3465,7 +3482,7 @@ Deno.test("84C732", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("9B1B3E", { permissions: "none" }, () => {
+Deno.test("Hex 9B1B3E", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 12,
 		expected: "e0a394962413ad09975df3cf",
@@ -3475,7 +3492,7 @@ Deno.test("9B1B3E", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("CBC541", { permissions: "none" }, () => {
+Deno.test("Hex CBC541", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 13,
 		expected: "47f043c3aacb501f97e0458ae3",
@@ -3485,7 +3502,7 @@ Deno.test("CBC541", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("13B59E", { permissions: "none" }, () => {
+Deno.test("Hex 13B59E", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 14,
 		expected: "b4a11f2fb72a7e6f96fdacf98d49",
@@ -3495,7 +3512,7 @@ Deno.test("13B59E", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("E27151", { permissions: "none" }, () => {
+Deno.test("Hex E27151", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 15,
 		expected: "f434079e9adeb244047cb6855f9854",
@@ -3505,7 +3522,7 @@ Deno.test("E27151", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("86CDC8", { permissions: "none" }, () => {
+Deno.test("Hex 86CDC8", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 16,
 		expected: "5fbe885c4b2d4e0d78dc5905622a277a",
@@ -3515,7 +3532,7 @@ Deno.test("86CDC8", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("93CB12", { permissions: "none" }, () => {
+Deno.test("Hex 93CB12", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 17,
 		expected: "e262ba3e2ab76efdf83513108e3b987d1b",
@@ -3525,7 +3542,7 @@ Deno.test("93CB12", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("CC0AE1", { permissions: "none" }, () => {
+Deno.test("Hex CC0AE1", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 18,
 		expected: "add93dde78d32e77bc039c34a49043f19d26",
@@ -3535,7 +3552,7 @@ Deno.test("CC0AE1", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("D56132", { permissions: "none" }, () => {
+Deno.test("Hex D56132", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 19,
 		expected: "093842ac10e2eb1237ddc9ca9e7990cf397772",
@@ -3545,7 +3562,7 @@ Deno.test("D56132", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("25E0F3", { permissions: "none" }, () => {
+Deno.test("Hex 25E0F3", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 20,
 		expected: "09e7f6a0e2ea4888f1dbf6562effd1561c65029c",
@@ -3555,7 +3572,7 @@ Deno.test("25E0F3", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("8D6859", { permissions: "none" }, () => {
+Deno.test("Hex 8D6859", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 21,
 		expected: "bd33a9ec914f5b81864a49184338e4062d6c6b2b2e",
@@ -3565,7 +3582,7 @@ Deno.test("8D6859", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("920314", { permissions: "none" }, () => {
+Deno.test("Hex 920314", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 22,
 		expected: "8dc46295235d94f5881d429a5ad47f9db9e35cf8c6b3",
@@ -3575,7 +3592,7 @@ Deno.test("920314", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("634C8D", { permissions: "none" }, () => {
+Deno.test("Hex 634C8D", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 23,
 		expected: "ba5df554dca7ac1cba4889fa88adf3070fbf4ab5d187b5",
@@ -3585,7 +3602,7 @@ Deno.test("634C8D", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("62A9BB", { permissions: "none" }, () => {
+Deno.test("Hex 62A9BB", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 24,
 		expected: "1ff84715e71c66214d271d421395fb6166db97b1d47ed697",
@@ -3595,7 +3612,7 @@ Deno.test("62A9BB", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("4D85D8", { permissions: "none" }, () => {
+Deno.test("Hex 4D85D8", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 25,
 		expected: "75a0d227c70549f5b0c933b7b21f151355bd47e04b6085c91f",
@@ -3605,7 +3622,7 @@ Deno.test("4D85D8", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("AFC0B8", { permissions: "none" }, () => {
+Deno.test("Hex AFC0B8", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 26,
 		expected: "a32a5c9439a0fa771dcbe7f338b5dcef62a754edc4952614d6f0",
@@ -3615,7 +3632,7 @@ Deno.test("AFC0B8", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("2CE6DA", { permissions: "none" }, () => {
+Deno.test("Hex 2CE6DA", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 27,
 		expected: "53a87de519cdcc7f64730d58bce6baaf7b44c5c428a4611a208ad4",
@@ -3625,7 +3642,7 @@ Deno.test("2CE6DA", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("AE48B3", { permissions: "none" }, () => {
+Deno.test("Hex AE48B3", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 28,
 		expected: "5e5ad8f0c4f083f9b7a5154d9c0dfd0f3d2fce94cf54fc215450314a",
@@ -3635,7 +3652,7 @@ Deno.test("AE48B3", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("1BF72A", { permissions: "none" }, () => {
+Deno.test("Hex 1BF72A", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 29,
 		expected: "9c76b9e63c77e6564b1e5111c2fb140046e1e5a4f900a7cfc2bac3fcfa",
@@ -3645,7 +3662,7 @@ Deno.test("1BF72A", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("80764D", { permissions: "none" }, () => {
+Deno.test("Hex 80764D", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 30,
 		expected: "bb919251ca310eb9b994e5d7883bc9fa2144b59b8d5d940677b7130ac777",
@@ -3655,7 +3672,7 @@ Deno.test("80764D", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("2461DC", { permissions: "none" }, () => {
+Deno.test("Hex 2461DC", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 31,
 		expected: "faa492a66f08ef0c7adb868fcb7b523aedd35b8ff1414bd1d554794f144474",
@@ -3665,7 +3682,7 @@ Deno.test("2461DC", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("62DB4A", { permissions: "none" }, () => {
+Deno.test("Hex 62DB4A", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 32,
 		expected: "9b273ebe335540b87be899abe169389ed61ed262c3a0a16e4998bbf752f0bee3",
@@ -3675,7 +3692,7 @@ Deno.test("62DB4A", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("90390A", { permissions: "none" }, () => {
+Deno.test("Hex 90390A", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 33,
 		expected: "1e0070b92429c151b33bdd1bb4430a0e650a3dfc94d404054e93c8568330ecc505",
@@ -3685,7 +3702,7 @@ Deno.test("90390A", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("E26312", { permissions: "none" }, () => {
+Deno.test("Hex E26312", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 34,
 		expected: "e3b64149f1b76231686d592d1d4af984ce2826ba03c2224a92f95f9526130ce4eb40",
@@ -3695,7 +3712,7 @@ Deno.test("E26312", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("EB3253", { permissions: "none" }, () => {
+Deno.test("Hex EB3253", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 35,
 		expected: "5f8e378120b73db9eefa65ddcdcdcb4acd8046c31a5e47f298caa400937d5623f1394b",
@@ -3705,7 +3722,7 @@ Deno.test("EB3253", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("2D3AA1", { permissions: "none" }, () => {
+Deno.test("Hex 2D3AA1", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 36,
 		expected: "74c757a4165a1782c933e587353a9fd8f6d7bf26b7f51b52c542747030bfb3d560c2e5c2",
@@ -3715,7 +3732,7 @@ Deno.test("2D3AA1", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("8520DF", { permissions: "none" }, () => {
+Deno.test("Hex 8520DF", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 37,
 		expected: "2d5ee85cc238b923806dd98db18919d1924f2340ec88917d4ce1799cbfd5f2cb9df99db2e1",
@@ -3725,7 +3742,7 @@ Deno.test("8520DF", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("CA7361", { permissions: "none" }, () => {
+Deno.test("Hex CA7361", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 38,
 		expected: "c93ff727e6f9822efec0a77eed0025c0eff19127bf8746b7c71c2a098f57cef02febb86a1e6c",
@@ -3735,7 +3752,7 @@ Deno.test("CA7361", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("56B3B3", { permissions: "none" }, () => {
+Deno.test("Hex 56B3B3", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 39,
 		expected: "adfb6d7ba13779a5dd1bbf268e400f4156f0f5c9d5b670ff539e1d9c1a63373416f3001f338407",
@@ -3745,7 +3762,7 @@ Deno.test("56B3B3", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("BE2087", { permissions: "none" }, () => {
+Deno.test("Hex BE2087", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 40,
 		expected: "3a6900e58a448887d77c5911e4bdde620e64f25b2d71723fa60f7cb3efa7c320b6153bdbc3287949",
@@ -3755,7 +3772,7 @@ Deno.test("BE2087", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("392575", { permissions: "none" }, () => {
+Deno.test("Hex 392575", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 41,
 		expected: "413eb0fd379b32dd88e82242a87cc58ce3e64c72352387a4c70f92ee5c8d23fa7ecd86f6df170a32d2",
@@ -3765,7 +3782,7 @@ Deno.test("392575", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("58B6C1", { permissions: "none" }, () => {
+Deno.test("Hex 58B6C1", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 42,
 		expected: "92d0d3cacc3e25628caf6f2c4cd50d25d154ac45098f531d690230b859f37cfe089eb169f76bba72a3ff",
@@ -3775,7 +3792,7 @@ Deno.test("58B6C1", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("D5D2B9", { permissions: "none" }, () => {
+Deno.test("Hex D5D2B9", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 43,
 		expected: "92f6ccc11a9a3bee520b17e0cddc4550c0e9cf47ddd9a6161284259ffb161c1d0675b505cb1066872768e8",
@@ -3785,7 +3802,7 @@ Deno.test("D5D2B9", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("0FD837", { permissions: "none" }, () => {
+Deno.test("Hex 0FD837", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 44,
 		expected: "a3cd675804e6be7f120138a9eaadcd56bb7763d1c046e87fe0d358c8276b0d24621f46c60b46e397933b75b4",
@@ -3795,7 +3812,7 @@ Deno.test("0FD837", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("3E1ADB", { permissions: "none" }, () => {
+Deno.test("Hex 3E1ADB", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 45,
 		expected: "304a1af53cbdd6486b8419d1ebd5e9528c540d8dc46a10be49067f46a0617229577015d776783f702b2954df43",
@@ -3805,7 +3822,7 @@ Deno.test("3E1ADB", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("E6C3E8", { permissions: "none" }, () => {
+Deno.test("Hex E6C3E8", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 46,
 		expected: "d8a6358970446453ac0c82c758644ab68989b5b4f06f9768807ce0c5f2a0dbac1e8450f4e3a02deecf7b54b6a45d",
@@ -3815,7 +3832,7 @@ Deno.test("E6C3E8", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("40D59B", { permissions: "none" }, () => {
+Deno.test("Hex 40D59B", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 47,
 		expected: "1264b8dee9ac4aa8de69a43ada95cc95f20230f33836d4a1db8c2466ab38361686e5ac282025ccc2e0f6a1cd98a4dd",
@@ -3825,7 +3842,7 @@ Deno.test("40D59B", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("A9C8D3", { permissions: "none" }, () => {
+Deno.test("Hex A9C8D3", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 48,
 		expected: "7eed787abaa7f4e8b8aa3090f0676201cfbaaf350899661cdd5216ac0b5cd874443f5c0688ffd7ca1ccbfe1ca7e1a3f5",
@@ -3835,7 +3852,7 @@ Deno.test("A9C8D3", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("DB0497", { permissions: "none" }, () => {
+Deno.test("Hex DB0497", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 49,
 		expected: "8907f0218585167962a8e8213559a643dd03c2bf1a7a5ad3e3bc5f88c0ff1532ee8cd29880e7e0e68da22a5798aef27cc5",
@@ -3845,7 +3862,7 @@ Deno.test("DB0497", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("AF99BE", { permissions: "none" }, () => {
+Deno.test("Hex AF99BE", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 50,
 		expected: "12dea17b0733e5060751b1115e10c3d4b2f4583bcd009d9f1f42ec23d4a6a0df1185d3abbdbe86de08569e70583d6de1c1fe",
@@ -3855,7 +3872,7 @@ Deno.test("AF99BE", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("B3EC59", { permissions: "none" }, () => {
+Deno.test("Hex B3EC59", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 51,
 		expected: "8ff75e91f1de547dc3a25472db2f51f5910a290c449603da54207b5e39bd735d240ec913b52df90709b5d29357971d6c341452",
@@ -3865,7 +3882,7 @@ Deno.test("B3EC59", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("447F92", { permissions: "none" }, () => {
+Deno.test("Hex 447F92", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 52,
 		expected: "4a3b16b12400f38e74778efc3a4caa52ec6fdf6b0180a5bfac9189e52e162c10e8911a54ab33e2b389ee1949e58edaa119e2b2b9",
@@ -3875,7 +3892,7 @@ Deno.test("447F92", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("BDF93B", { permissions: "none" }, () => {
+Deno.test("Hex BDF93B", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 53,
 		expected: "c9943e7186fdc9bbfa1d7087fa7086babe6fcf95a6196d1772187854071304e2f1fff39e6e6f48f76addb16d5c00249e0523aac91f",
@@ -3885,7 +3902,7 @@ Deno.test("BDF93B", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("3E9FF2", { permissions: "none" }, () => {
+Deno.test("Hex 3E9FF2", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 54,
 		expected: "0297f16fdd34add9cc87b4adf816525b590ba08ac733c43f8d225d194df4f9c83b4dce617be51e25b5f6c80dff249f27c707de20e422",
@@ -3895,7 +3912,7 @@ Deno.test("3E9FF2", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("7E8EAD", { permissions: "none" }, () => {
+Deno.test("Hex 7E8EAD", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 55,
 		expected: "576bb891eab9930998e2e73b5d0498e3c5f040f8dec9397a8c7a622c17de01fee7cc936e3bd4de1f7fd8b31dea9e70c65462bbb5dc7b50",
@@ -3905,7 +3922,7 @@ Deno.test("7E8EAD", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("CB0948", { permissions: "none" }, () => {
+Deno.test("Hex CB0948", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 56,
 		expected: "9416a57ae7c8c51c6e008f940fe06d8ebc02c350c19a2f71583a6d260b085670d73a95248fef0f4cae5292ba7db1189a7cd9c51122ba7913",
@@ -3915,7 +3932,7 @@ Deno.test("CB0948", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("B7E46F", { permissions: "none" }, () => {
+Deno.test("Hex B7E46F", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 57,
 		expected: "ea644b9051cca5eee8868a553e3f0f4e14739e1555474151156e10578256b288a233870dd43a380765400ea446df7f452c1e03a9e5b6731256",
@@ -3925,7 +3942,7 @@ Deno.test("B7E46F", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("2979DC", { permissions: "none" }, () => {
+Deno.test("Hex 2979DC", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 58,
 		expected: "f99cc1603de221abc1ecb1a7eb4bbf06e99561d1cc5541d8d601bae2b1dd3cbe448ac276667f26de5e269183a09f7deaf35d33174b3cc8ad4aa2",
@@ -3935,7 +3952,7 @@ Deno.test("2979DC", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("DC4BEA", { permissions: "none" }, () => {
+Deno.test("Hex DC4BEA", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 59,
 		expected: "ee2be1ec57fdac23f89402a534177eca0f4b982a4ed2c2e900b6a79e1f47a2d023eff2e647baf4f4c0da3a28d08a44bc780516974074e2523e6651",
@@ -3945,7 +3962,7 @@ Deno.test("DC4BEA", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("3F6301", { permissions: "none" }, () => {
+Deno.test("Hex 3F6301", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 60,
 		expected: "9cda001868949a2bad96c5b3950a8315e6e5214d0b54dcd596280565d351806ef22cf3053f63623da72fcad9afa3896641658632334c9ec4f644c984",
@@ -3955,7 +3972,7 @@ Deno.test("3F6301", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("98E118", { permissions: "none" }, () => {
+Deno.test("Hex 98E118", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 61,
 		expected: "c6d6722a916651a8671383d8260873347d9c248696b4cb3dac4dea9ba57ed971127cb18e44211d7e14177ace248b3c6e0785356ee261ebdc6ef0faf143",
@@ -3965,7 +3982,7 @@ Deno.test("98E118", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("F2D3D7", { permissions: "none" }, () => {
+Deno.test("Hex F2D3D7", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 62,
 		expected: "5dd258a3e7505bc6b9776b0df25676a1c19e2c8258c7b5f2e361423523d96299eb6827bc7c27e7bca2d2b59d717c2ebcb05e6dcaa32289d96fae9a4077ef",
@@ -3975,7 +3992,7 @@ Deno.test("F2D3D7", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("12D4AA", { permissions: "none" }, () => {
+Deno.test("Hex 12D4AA", { permissions: "none" }, () => {
 	testerFromHex({
 		length: 63,
 		expected: "19c14de35fe19c92cc0e624280e4136355d4cfa9a0a98b090c4b06f5665021920725852ff1f566b0c8c37157b25fb9f947a2e70b40577a17860a0732c170ac",
@@ -3985,7 +4002,7 @@ Deno.test("12D4AA", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("564436", { permissions: "none" }, () => {
+Deno.test("Hex 564436", { permissions: "none" }, () => {
 	testerFromHex({
 		expected: "5fcdcc02be7714a0dbc77df498bf999ea9225d564adca1c121c9af03af92cac8177b9b4a86bcc47c79aa32aac58a3fef967b2132e9352d4613fe890beed2571b",
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e",
@@ -3994,3331 +4011,3359 @@ Deno.test("564436", { permissions: "none" }, () => {
 		personal: "35313236666232613337343030643261"
 	});
 });
-Deno.test("4DADC5", { permissions: "none" }, () => {
+Deno.test("Hex 4DADC5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "",
 		expected: "786a02f742015903c6c6fd852552d272912f4740e15847618a86e217f71f5419d25e1031afee585313896444934eb04b903a685b1448b755d56f701afe9be2ce"
 	});
 });
-Deno.test("CB5AF9", { permissions: "none" }, () => {
+Deno.test("Hex CB5AF9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00",
 		expected: "2fa3f686df876995167e7c2e5d74c4c7b6e48f8068fe0e44208344d480f7904c36963e44115fe3eb2a3ac8694c28bcb4f5a0f3276f2e79487d8219057a506e4b"
 	});
 });
-Deno.test("510619", { permissions: "none" }, () => {
+Deno.test("Hex 510619", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001",
 		expected: "1c08798dc641aba9dee435e22519a4729a09b2bfe0ff00ef2dcd8ed6f8a07d15eaf4aee52bbf18ab5608a6190f70b90486c8a7d4873710b1115d3debbb4327b5"
 	});
 });
-Deno.test("C942B8", { permissions: "none" }, () => {
+Deno.test("Hex C942B8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102",
 		expected: "40a374727302d9a4769c17b5f409ff32f58aa24ff122d7603e4fda1509e919d4107a52c57570a6d94e50967aea573b11f86f473f537565c66f7039830a85d186"
 	});
 });
-Deno.test("0F672B", { permissions: "none" }, () => {
+Deno.test("Hex 0F672B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203",
 		expected: "77ddf4b14425eb3d053c1e84e3469d92c4cd910ed20f92035e0c99d8a7a86cecaf69f9663c20a7aa230bc82f60d22fb4a00b09d3eb8fc65ef547fe63c8d3ddce"
 	});
 });
-Deno.test("82E825", { permissions: "none" }, () => {
+Deno.test("Hex 82E825", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001020304",
 		expected: "cbaa0ba7d482b1f301109ae41051991a3289bc1198005af226c5e4f103b66579f461361044c8ba3439ff12c515fb29c52161b7eb9c2837b76a5dc33f7cb2e2e8"
 	});
 });
-Deno.test("9BCAAB", { permissions: "none" }, () => {
+Deno.test("Hex 9BCAAB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405",
 		expected: "f95d45cf69af5c2023bdb505821e62e85d7caedf7beda12c0248775b0c88205eeb35af3a90816f6608ce7dd44ec28db1140614e1ddebf3aa9cd1843e0fad2c36"
 	});
 });
-Deno.test("9747DE", { permissions: "none" }, () => {
+Deno.test("Hex 9747DE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203040506",
 		expected: "8f945ba700f2530e5c2a7df7d5dce0f83f9efc78c073fe71ae1f88204a4fd1cf70a073f5d1f942ed623aa16e90a871246c90c45b621b3401a5ddbd9df6264165"
 	});
 });
-Deno.test("6F4221", { permissions: "none" }, () => {
+Deno.test("Hex 6F4221", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001020304050607",
 		expected: "e998e0dc03ec30eb99bb6bfaaf6618acc620320d7220b3af2b23d112d8e9cb1262f3c0d60d183b1ee7f096d12dae42c958418600214d04f5ed6f5e718be35566"
 	});
 });
-Deno.test("22A2A2", { permissions: "none" }, () => {
+Deno.test("Hex 22A2A2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708",
 		expected: "6a9a090c61b3410aede7ec9138146ceb2c69662f460c3da53c6515c1eb31f41ca3d280e567882f95cf664a94147d78f42cfc714a40d22ef19470e053493508a2"
 	});
 });
-Deno.test("056511", { permissions: "none" }, () => {
+Deno.test("Hex 056511", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203040506070809",
 		expected: "29102511d749db3cc9b4e335fa1f5e8faca8421d558f6a3f3321d50d044a248ba595cfc3efd3d2adc97334da732413f5cbf4751c362ba1d53862ac1e8dabeee8"
 	});
 });
-Deno.test("9C13BA", { permissions: "none" }, () => {
+Deno.test("Hex 9C13BA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a",
 		expected: "c97a4779d47e6f77729b5917d0138abb35980ab641bd73a8859eb1ac98c05362ed7d608f2e9587d6ba9e271d343125d40d933a8ed04ec1fe75ec407c7a53c34e"
 	});
 });
-Deno.test("C2EA33", { permissions: "none" }, () => {
+Deno.test("Hex C2EA33", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b",
 		expected: "10f0dc91b9f845fb95fad6860e6ce1adfa002c7fc327116d44d047cd7d5870d772bb12b5fac00e02b08ac2a0174d0446c36ab35f14ca31894cd61c78c849b48a"
 	});
 });
-Deno.test("BD56CB", { permissions: "none" }, () => {
+Deno.test("Hex BD56CB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c",
 		expected: "dea9101cac62b8f6a3c650f90eea5bfae2653a4eafd63a6d1f0f132db9e4f2b1b662432ec85b17bcac41e775637881f6aab38dd66dcbd080f0990a7a6e9854fe"
 	});
 });
-Deno.test("AD6922", { permissions: "none" }, () => {
+Deno.test("Hex AD6922", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d",
 		expected: "441ffaa08cd79dff4afc9b9e5b5620eec086730c25f661b1d6fbfbd1cec3148dd72258c65641f2fca5eb155fadbcabb13c6e21dc11faf72c2a281b7d56145f19"
 	});
 });
-Deno.test("F6C369", { permissions: "none" }, () => {
+Deno.test("Hex F6C369", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e",
 		expected: "444b240fe3ed86d0e2ef4ce7d851edde22155582aa0914797b726cd058b6f45932e0e129516876527b1dd88fc66d7119f4ab3bed93a61a0e2d2d2aeac336d958"
 	});
 });
-Deno.test("D5481C", { permissions: "none" }, () => {
+Deno.test("Hex D5481C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f",
 		expected: "bfbabbef45554ccfa0dc83752a19cc35d5920956b301d558d772282bc867009168e9e98606bb5ba73a385de5749228c925a85019b71f72fe29b3cd37ca52efe6"
 	});
 });
-Deno.test("5DFCA5", { permissions: "none" }, () => {
+Deno.test("Hex 5DFCA5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10",
 		expected: "9c4d0c3e1cdbbf485bec86f41cec7c98373f0e09f392849aaa229ebfbf397b22085529cb7ef39f9c7c2222a514182b1effaa178cc3687b1b2b6cbcb6fdeb96f8"
 	});
 });
-Deno.test("2D15BF", { permissions: "none" }, () => {
+Deno.test("Hex 2D15BF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011",
 		expected: "477176b3bfcbadd7657c23c24625e4d0d674d1868f006006398af97aa41877c8e70d3d14c3bbc9bbcdcea801bd0e1599af1f3eec67405170f4e26c964a57a8b7"
 	});
 });
-Deno.test("BAF4A2", { permissions: "none" }, () => {
+Deno.test("Hex BAF4A2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112",
 		expected: "a78c490eda3173bb3f10dee52f110fb1c08e0302230b85ddd7c11257d92de148785ef00c039c0bb8eb9808a35b2d8c080f572859714c9d4069c5bcaf090e898e"
 	});
 });
-Deno.test("612564", { permissions: "none" }, () => {
+Deno.test("Hex 612564", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213",
 		expected: "58d023397beb5b4145cb2255b07d74290b36d9fd1e594afbd8eea47c205b2efbfe6f46190faf95af504ab072e36f6c85d767a321bfd7f22687a4abbf494a689c"
 	});
 });
-Deno.test("D58108", { permissions: "none" }, () => {
+Deno.test("Hex D58108", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011121314",
 		expected: "4001ec74d5a46fd29c2c3cdbe5d1b9f20e51a941be98d2a4e1e2fbf866a672121db6f81a514cfd10e7358d571bdba48e4ce708b9d124894bc0b5ed554935f73a"
 	});
 });
-Deno.test("3D89B1", { permissions: "none" }, () => {
+Deno.test("Hex 3D89B1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415",
 		expected: "ccd1b22dab6511225d2401ea2d8625d206a12473cc732b615e5640cefff0a4adf971b0e827a619e0a80f5db9ccd0962329010d07e34a2064e731c520817b2183"
 	});
 });
-Deno.test("D94159", { permissions: "none" }, () => {
+Deno.test("Hex D94159", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213141516",
 		expected: "b4a0a9e3574edb9e1e72aa31e39cc5f30dbf943f8cabc408449654a39131e66d718a18819143e3ea96b4a1895988a1c0056cf2b6e04f9ac19d657383c2910c44"
 	});
 });
-Deno.test("580232", { permissions: "none" }, () => {
+Deno.test("Hex 580232", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011121314151617",
 		expected: "447becab16630608d39f4f058b16f7af95b85a76aa0fa7cea2b80755fb76e9c804f2ca78f02643c915fbf2fce5e19de86000de03b18861815a83126071f8a37b"
 	});
 });
-Deno.test("BABD93", { permissions: "none" }, () => {
+Deno.test("Hex BABD93", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718",
 		expected: "54e6dab9977380a5665822db93374eda528d9beb626f9b94027071cb26675e112b4a7fec941ee60a81e4d2ea3ff7bc52cfc45dfbfe735a1c646b2cf6d6a49b62"
 	});
 });
-Deno.test("72B3DC", { permissions: "none" }, () => {
+Deno.test("Hex 72B3DC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213141516171819",
 		expected: "3ea62625949e3646704d7e3c906f82f6c028f540f5f72a794b0c57bf97b7649bfeb90b01d3ca3e829de21b3826e6f87014d3c77350cb5a15ff5d468a81bec160"
 	});
 });
-Deno.test("ED38A1", { permissions: "none" }, () => {
+Deno.test("Hex ED38A1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a",
 		expected: "213cfe145c54a33691569980e5938c8883a46d84d149c8ff1a67cd287b4d49c6da69d3a035443db085983d0efe63706bd5b6f15a7da459e8d50a19093db55e80"
 	});
 });
-Deno.test("7D2C33", { permissions: "none" }, () => {
+Deno.test("Hex 7D2C33", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b",
 		expected: "5716c4a38f38db104e494a0a27cbe89a26a6bb6f499ec01c8c01aa7cb88497e75148cd6eee12a7168b6f78ab74e4be749251a1a74c38c86d6129177e2889e0b6"
 	});
 });
-Deno.test("94D245", { permissions: "none" }, () => {
+Deno.test("Hex 94D245", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c",
 		expected: "030460a98bdf9ff17cd96404f28fc304f2b7c04eaade53677fd28f788ca22186b8bc80dd21d17f8549c711aff0e514e19d4e15f5990252a03e082f28dc2052f6"
 	});
 });
-Deno.test("D2E561", { permissions: "none" }, () => {
+Deno.test("Hex D2E561", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d",
 		expected: "19e7f1ccee88a10672333e390cf22013a8c734c6cb9eab41f17c3c8032a2e4aca0569ea36f0860c7a1af28fa476840d66011168859334a9e4ef9cc2e61a0e29e"
 	});
 });
-Deno.test("0EF22F", { permissions: "none" }, () => {
+Deno.test("Hex 0EF22F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e",
 		expected: "29f8b8c78c80f2fcb4bdf7825ed90a70d625ff785d262677e250c04f3720c888d03f8045e4edf3f5285bd39d928a10a7d0a5df00b8484ac2868142a1e8bea351"
 	});
 });
-Deno.test("35BF78", { permissions: "none" }, () => {
+Deno.test("Hex 35BF78", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
 		expected: "5c52920a7263e39d57920ca0cb752ac6d79a04fef8a7a216a1ecb7115ce06d89fd7d735bd6f4272555dba22c2d1c96e6352322c62c5630fde0f4777a76c3de2c"
 	});
 });
-Deno.test("855FE5", { permissions: "none" }, () => {
+Deno.test("Hex 855FE5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
 		expected: "83b098f262251bf660064a9d3511ce7687a09e6dfbb878299c30e93dfb43a9314db9a600337db26ebeedaf2256a96dabe9b29e7573ad11c3523d874dde5be7ed"
 	});
 });
-Deno.test("C71B0E", { permissions: "none" }, () => {
+Deno.test("Hex C71B0E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021",
 		expected: "9447d98aa5c9331352f43d3e56d0a9a9f9581865998e2885cc56dd0a0bd5a7b50595bd10f7529bcd31f37dc16a1465d594079667da2a3fcb70401498837cedeb"
 	});
 });
-Deno.test("B7E6FD", { permissions: "none" }, () => {
+Deno.test("Hex B7E6FD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122",
 		expected: "867732f2feeb23893097561ac710a4bff453be9cfbedba8ba324f9d312a82d732e1b83b829fdcd177b882ca0c1bf544b223be529924a246a63cf059bfdc50a1b"
 	});
 });
-Deno.test("5435B5", { permissions: "none" }, () => {
+Deno.test("Hex 5435B5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223",
 		expected: "f15ab26d4cdfcf56e196bb6ba170a8fccc414de9285afd98a3d3cf2fb88fcbc0f19832ac433a5b2cc2392a4ce34332987d8d2c2bef6c3466138db0c6e42fa47b"
 	});
 });
-Deno.test("15D261", { permissions: "none" }, () => {
+Deno.test("Hex 15D261", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324",
 		expected: "2813516d68ed4a08b39d648aa6aacd81e9d655ecd5f0c13556c60fdf0d333ea38464b36c02baccd746e9575e96c63014f074ae34a0a25b320f0fbedd6acf7665"
 	});
 });
-Deno.test("036671", { permissions: "none" }, () => {
+Deno.test("Hex 036671", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425",
 		expected: "d3259afca8a48962fa892e145acf547f26923ae8d4924c8a531581526b04b44c7af83c643ef5a0bc282d36f3fb04c84e28b351f40c74b69dc7840bc717b6f15f"
 	});
 });
-Deno.test("C7ACD5", { permissions: "none" }, () => {
+Deno.test("Hex C7ACD5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526",
 		expected: "f14b061ae359fa31b989e30332bfe8de8cc8cdb568e14be214a2223b84caab7419549ecfcc96ce2acec119485d87d157d3a8734fc426597d64f36570ceaf224d"
 	});
 });
-Deno.test("22D973", { permissions: "none" }, () => {
+Deno.test("Hex 22D973", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627",
 		expected: "55e70b01d1fbf8b23b57fb62e26c2ce54f13f8fa2464e6eb98d16a6117026d8b90819012496d4071ebe2e59557ece3519a7aa45802f9615374877332b73490b3"
 	});
 });
-Deno.test("07C752", { permissions: "none" }, () => {
+Deno.test("Hex 07C752", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728",
 		expected: "25261eb296971d6e4a71b2928e64839c67d422872bf9f3c31993615222de9f8f0b2c4be8548559b4b354e736416e3218d4e8a1e219a4a6d43e1a9a521d0e75fc"
 	});
 });
-Deno.test("D3A6A9", { permissions: "none" }, () => {
+Deno.test("Hex D3A6A9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829",
 		expected: "08307f347c41294e34bb54cb42b1522d22f824f7b6e5db50fda096798e181a8f026fa27b4ae45d52a62caf9d5198e24a4913c6671775b2d723c1239bfbf016d7"
 	});
 });
-Deno.test("F41114", { permissions: "none" }, () => {
+Deno.test("Hex F41114", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a",
 		expected: "1e5c62e7e9bfa1b118747a2de08b3ca10112af96a46e4b22c3fc06f9bfee4eb5c49e057a4a4886234324572576bb9b5ecfde0d99b0de4f98ec16e4d1b85fa947"
 	});
 });
-Deno.test("97FAE6", { permissions: "none" }, () => {
+Deno.test("Hex 97FAE6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b",
 		expected: "c74a77395fb8bc126447454838e561e962853dc7eb49a1e3cb67c3d0851f3e39517be8c350ac910903d49cd2bfdf545c99316d0346170b739f0add5d533c2cfc"
 	});
 });
-Deno.test("741057", { permissions: "none" }, () => {
+Deno.test("Hex 741057", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c",
 		expected: "0dd57b423cc01eb2861391eb886a0d17079b933fc76eb3fc08a19f8a74952cb68f6bcdc644f77370966e4d13e80560bcf082ef0479d48fbbab4df03b53a4e178"
 	});
 });
-Deno.test("D111DC", { permissions: "none" }, () => {
+Deno.test("Hex D111DC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d",
 		expected: "4d8dc3923edccdfce70072398b8a3da5c31fcb3ee3b645c85f717cbaeb4b673a19394425a585bfb464d92f1597d0b754d163f97ced343b25db5a70ef48ebb34f"
 	});
 });
-Deno.test("C9B7E9", { permissions: "none" }, () => {
+Deno.test("Hex C9B7E9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e",
 		expected: "f0a50553e4dfb0c4e3e3d3ba82034857e3b1e50918f5b8a7d698e10d242b0fb544af6c92d0c3aaf9932220416117b4e78ecb8a8f430e13b82a5915290a5819c5"
 	});
 });
-Deno.test("64FACF", { permissions: "none" }, () => {
+Deno.test("Hex 64FACF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f",
 		expected: "b15543f3f736086627cc5365e7e8988c2ef155c0fd4f428961b00d1526f04d6d6a658b4b8ed32c5d8621e7f4f8e8a933d9ecc9dd1b8333cbe28cfc37d9719e1c"
 	});
 });
-Deno.test("3E1A45", { permissions: "none" }, () => {
+Deno.test("Hex 3E1A45", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30",
 		expected: "7b4fa158e415fef023247264cbbe15d16d91a44424a8db707eb1e2033c30e9e1e7c8c0864595d2cb8c580eb47e9d16abbd7e44e824f7cedb7def57130e52cfe9"
 	});
 });
-Deno.test("4D60B3", { permissions: "none" }, () => {
+Deno.test("Hex 4D60B3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031",
 		expected: "60424ff23234c34dc9687ad502869372cc31a59380186bc2361c835d972f49666eb1ac69629de646f03f9b4db9e2ace093fbfdf8f20ab5f98541978be8ef549f"
 	});
 });
-Deno.test("10C2E2", { permissions: "none" }, () => {
+Deno.test("Hex 10C2E2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132",
 		expected: "7406018ce704d84f5eb9c79fea97da345699468a350ee0b2d0f3a4bf2070304ea862d72a51c57d3064947286f531e0eaf7563702262e6c724abf5ed8c8398d17"
 	});
 });
-Deno.test("64A1B9", { permissions: "none" }, () => {
+Deno.test("Hex 64A1B9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233",
 		expected: "14ef5c6d647b3bd1e6e32006c231199810de5c4dc88e70240273b0ea18e651a3eb4f5ca3114b8a56716969c7cda27e0c8db832ad5e89a2dc6cb0adbe7d93abd1"
 	});
 });
-Deno.test("35B4E5", { permissions: "none" }, () => {
+Deno.test("Hex 35B4E5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334",
 		expected: "38cf6c24e3e08bcf1f6cf3d1b1f65b905239a3118033249e448113ec632ea6dc346feeb2571c38bd9a7398b2221280328002b23e1a45adaffe66d93f6564eaa2"
 	});
 });
-Deno.test("A49A18", { permissions: "none" }, () => {
+Deno.test("Hex A49A18", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435",
 		expected: "6cd7208a4bc7e7e56201bbba02a0f489cd384abe40afd4222f158b3d986ee72a54c50fb64fd4ed2530eda2c8af2928a0da6d4f830ae1c9db469dfd970f12a56f"
 	});
 });
-Deno.test("BEBDA5", { permissions: "none" }, () => {
+Deno.test("Hex BEBDA5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536",
 		expected: "659858f0b5c9edab5b94fd732f6e6b17c51cc096104f09beb3afc3aa467c2ecf885c4c6541effa9023d3b5738ae5a14d867e15db06fe1f9d1127b77e1aabb516"
 	});
 });
-Deno.test("3F3DE8", { permissions: "none" }, () => {
+Deno.test("Hex 3F3DE8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637",
 		expected: "26cca0126f5d1a813c62e5c71001c046f9c92095704550be5873a495a999ad010a4f79491f24f286500adce1a137bc2084e4949f5b7294cefe51ecaff8e95cba"
 	});
 });
-Deno.test("CD2D21", { permissions: "none" }, () => {
+Deno.test("Hex CD2D21", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738",
 		expected: "4147c1f55172788c5567c561feef876f621fff1ce87786b8467637e70dfbcd0dbdb6415cb600954ab9c04c0e457e625b407222c0fe1ae21b2143688ada94dc58"
 	});
 });
-Deno.test("D3D863", { permissions: "none" }, () => {
+Deno.test("Hex D3D863", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536373839",
 		expected: "5b1bf154c62a8af6e93d35f18f7f90abb16a6ef0e8d1aecd118bf70167bab2af08935c6fdc0663ce74482d17a8e54b546d1c296631c65f3b522a515839d43d71"
 	});
 });
-Deno.test("3EA134", { permissions: "none" }, () => {
+Deno.test("Hex 3EA134", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a",
 		expected: "9f600419a4e8f4fb834c24b0f7fc13bf4e279d98e8a3c765ee934917403e3a66097182ea21453cb63ebbe8b73a9c2167596446438c57627f330badd4f569f7d6"
 	});
 });
-Deno.test("886354", { permissions: "none" }, () => {
+Deno.test("Hex 886354", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
 		expected: "457ef6466a8924fd8011a34471a5a1ac8ccd9bd0d07a97414ac943021ce4b9e4b9c8db0a28f016ed43b1542481990022147b313e194671131e708dd43a3ed7dc"
 	});
 });
-Deno.test("BBFBDE", { permissions: "none" }, () => {
+Deno.test("Hex BBFBDE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
 		expected: "9997b2194d9af6dfcb9143f41c0ed83d3a3f4388361103d38c2a49b280a581212715fd908d41c651f5c715ca38c0ce2830a37e00e508ced1bcdc320e5e4d1e2e"
 	});
 });
-Deno.test("47659D", { permissions: "none" }, () => {
+Deno.test("Hex 47659D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d",
 		expected: "5c6bbf16baa180f986bd40a1287ed4c549770e7284858fc47bc21ab95ebbf3374b4ee3fd9f2af60f3395221b2acc76f2d34c132954049f8a3a996f1e32ec84e5"
 	});
 });
-Deno.test("82E87E", { permissions: "none" }, () => {
+Deno.test("Hex 82E87E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e",
 		expected: "d10bf9a15b1c9fc8d41f89bb140bf0be08d2f3666176d13baac4d381358ad074c9d4748c300520eb026daeaea7c5b158892fde4e8ec17dc998dcd507df26eb63"
 	});
 });
-Deno.test("A30604", { permissions: "none" }, () => {
+Deno.test("Hex A30604", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2fc6e69fa26a89a5ed269092cb9b2a449a4409a7a44011eecad13d7c4b0456602d402fa5844f1a7a758136ce3d5d8d0e8b86921ffff4f692dd95bdc8e5ff0052"
 	});
 });
-Deno.test("ED63A5", { permissions: "none" }, () => {
+Deno.test("Hex ED63A5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40",
 		expected: "fcbe8be7dcb49a32dbdf239459e26308b84dff1ea480df8d104eeff34b46fae98627b450c2267d48c0946a697c5b59531452ac0484f1c84e3a33d0c339bb2e28"
 	});
 });
-Deno.test("818CD8", { permissions: "none" }, () => {
+Deno.test("Hex 818CD8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041",
 		expected: "a19093a6e3bcf5952f850f2030f69b9606f147f90b8baee3362da71d9f35b44ef9d8f0a7712ba1877fddcd2d8ea8f1e5a773d0b745d4725605983a2de901f803"
 	});
 });
-Deno.test("50CD1D", { permissions: "none" }, () => {
+Deno.test("Hex 50CD1D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142",
 		expected: "3c2006423f73e268fa59d2920377eb29a4f9a8b462be15983ee3b85ae8a78e992633581a9099893b63db30241c34f643027dc878279af5850d7e2d4a2653073a"
 	});
 });
-Deno.test("07C2A6", { permissions: "none" }, () => {
+Deno.test("Hex 07C2A6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243",
 		expected: "d0f2f2e3787653f77cce2fa24835785bbd0c433fc779465a115149905a9dd1cb827a628506d457fcf124a0c2aef9ce2d2a0a0f63545570d8667ff9e2eba07334"
 	});
 });
-Deno.test("7219B7", { permissions: "none" }, () => {
+Deno.test("Hex 7219B7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344",
 		expected: "78a9fc048e25c6dcb5de45667de8ffdd3a93711141d594e9fa62a959475da6075ea8f0916e84e45ad911b75467077ee52d2c9aebf4d58f20ce4a3a00458b05d4"
 	});
 });
-Deno.test("D05678", { permissions: "none" }, () => {
+Deno.test("Hex D05678", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445",
 		expected: "45813f441769ab6ed37d349ff6e72267d76ae6bb3e3c612ec05c6e02a12af5a37c918b52bf74267c3f6a3f183a8064ff84c07b193d08066789a01accdb6f9340"
 	});
 });
-Deno.test("B27C1D", { permissions: "none" }, () => {
+Deno.test("Hex B27C1D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546",
 		expected: "956da1c68d83a7b881e01b9a966c3c0bf27f68606a8b71d457bd016d4c41dd8a380c709a296cb4c6544792920fd788835771a07d4a16fb52ed48050331dc4c8b"
 	});
 });
-Deno.test("B8DB9D", { permissions: "none" }, () => {
+Deno.test("Hex B8DB9D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344454647",
 		expected: "df186c2dc09caa48e14e942f75de5ac1b7a21e4f9f072a5b371e09e07345b0740c76177b01278808fec025eded9822c122afd1c63e6f0ce2e32631041063145c"
 	});
 });
-Deno.test("2F1E84", { permissions: "none" }, () => {
+Deno.test("Hex 2F1E84", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748",
 		expected: "87475640966a9fdcd6d3a3b5a2cca5c08f0d882b10243c0ec1bf3c6b1c37f2cd3212f19a057864477d5eaf8faed73f2937c768a0af415e84bbce6bd7de23b660"
 	});
 });
-Deno.test("E420DD", { permissions: "none" }, () => {
+Deno.test("Hex E420DD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546474849",
 		expected: "c3b573bbe10949a0fbd4ff884c446f2229b76902f9dfdbb8a0353da5c83ca14e8151bbaac82fd1576a009adc6f1935cf26edd4f1fb8da483e6c5cd9d8923adc3"
 	});
 });
-Deno.test("D69A5D", { permissions: "none" }, () => {
+Deno.test("Hex D69A5D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a",
 		expected: "b09d8d0bba8a7286e43568f7907550e42036d674e3c8fc34d8ca46f771d6466b70fb605875f6a863c877d12f07063fdc2e90ccd459b1910dcd52d8f10b2b0a15"
 	});
 });
-Deno.test("0725FA", { permissions: "none" }, () => {
+Deno.test("Hex 0725FA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b",
 		expected: "af3a22bf75b21abfb0acd54422ba1b7300a952eff02ebeb65b5c234471a98df32f4f9643ce1904108a168767924280bd76c83f8c82d9a79d9259b195362a2a04"
 	});
 });
-Deno.test("4A8D97", { permissions: "none" }, () => {
+Deno.test("Hex 4A8D97", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c",
 		expected: "bf4ff2221b7e6957a724cd964aa3d5d0d9941f540413752f4699d8101b3e537508bf09f8508b317736ffd265f2847aa7d84bd2d97569c49d632aed9945e5fa5e"
 	});
 });
-Deno.test("819791", { permissions: "none" }, () => {
+Deno.test("Hex 819791", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d",
 		expected: "9c6b6b78199b1bdacb4300e31479fa622a6b5bc80d4678a6078f88a8268cd7206a2799e8d4621a464ef6b43dd8adffe97caf221b22b6b8778b149a822aefbb09"
 	});
 });
-Deno.test("FCE82C", { permissions: "none" }, () => {
+Deno.test("Hex FCE82C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e",
 		expected: "890656f09c99d280b5ecb381f56427b813751bc652c7828078b23a4af83b4e3a61fdbac61f89bee84ea6bee760c047f25c6b0a201c69a38fd6fd971af18588bb"
 	});
 });
-Deno.test("7E62A8", { permissions: "none" }, () => {
+Deno.test("Hex 7E62A8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f",
 		expected: "31a046f7882ffe6f83ce472e9a0701832ec7b3f76fbcfd1df60fe3ea48fde1651254247c3fd95e100f9172731e17fd5297c11f4bb328363ca361624a81af797c"
 	});
 });
-Deno.test("733FBB", { permissions: "none" }, () => {
+Deno.test("Hex 733FBB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50",
 		expected: "27a60b2d00e7a671d47d0aec2a686a0ac04b52f40ab6629028eb7d13f4baa99ac0fe46ee6c814944f2f4b4d20e9378e4847ea44c13178091e277b87ea7a55711"
 	});
 });
-Deno.test("3AAB61", { permissions: "none" }, () => {
+Deno.test("Hex 3AAB61", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051",
 		expected: "8b5ccef194162c1f19d68f91e0b0928f289ec5283720840c2f73d253111238dcfe94af2b59c2c1ca2591901a7bc060e7459b6c47df0f71701a35cc0aa831b5b6"
 	});
 });
-Deno.test("5A6ECB", { permissions: "none" }, () => {
+Deno.test("Hex 5A6ECB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152",
 		expected: "57ab6c4b2229aeb3b70476d803cd63812f107ce6da17fed9b17875e8f86c724f49e024cbf3a1b8b119c50357652b81879d2ade2d588b9e4f7cedba0e4644c9ee"
 	});
 });
-Deno.test("CAE452", { permissions: "none" }, () => {
+Deno.test("Hex CAE452", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253",
 		expected: "0190a8dac320a739f322e15731aa140ddaf5bed294d5c82e54fef29f214e18aafaa84f8be99af62950266b8f901f15dd4c5d35516fc35b4cab2e96e4695bbe1c"
 	});
 });
-Deno.test("396913", { permissions: "none" }, () => {
+Deno.test("Hex 396913", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354",
 		expected: "d14d7c4c415eeb0e10b159224bea127ebd84f9591c702a330f5bb7bb7aa44ea39de6ed01f18da7adf40cfb97c5d152c27528824b21e239526af8f36b214e0cfb"
 	});
 });
-Deno.test("5ECD9F", { permissions: "none" }, () => {
+Deno.test("Hex 5ECD9F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455",
 		expected: "be28c4be706970488fac7d29c3bd5c4e986085c4c3332f1f3fd30973db614164ba2f31a78875ffdc150325c88327a9443ed04fdfe5be93876d1628560c764a80"
 	});
 });
-Deno.test("693CF3", { permissions: "none" }, () => {
+Deno.test("Hex 693CF3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556",
 		expected: "031da1069e3a2e9c3382e436ffd79df74b1ca6a8adb2deabe676ab45994cbc054f037d2f0eace858d32c14e2d1c8b46077308e3bdc2c1b53172ecf7a8c14e349"
 	});
 });
-Deno.test("909C6B", { permissions: "none" }, () => {
+Deno.test("Hex 909C6B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354555657",
 		expected: "4665cef8ba4db4d0acb118f2987f0bb09f8f86aa445aa3d5fc9a8b346864787489e8fcecc125d17e9b56e12988eac5ecc7286883db0661b8ff05da2afff30fe4"
 	});
 });
-Deno.test("0096BD", { permissions: "none" }, () => {
+Deno.test("Hex 0096BD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758",
 		expected: "63b7032e5f930cc9939517f9e986816cfbec2be59b9568b13f2ead05bae7777cab620c6659404f7409e4199a3be5f7865aa7cbdf8c4253f7e8219b1bd5f46fea"
 	});
 });
-Deno.test("59936A", { permissions: "none" }, () => {
+Deno.test("Hex 59936A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556575859",
 		expected: "9f09bf093a2b0ff8c2634b49e37f1b2135b447aa9144c9787dbfd92129316c99e88aab8a21fdef2372d1189aec500f95775f1f92bfb45545e4259fb9b7b02d14"
 	});
 });
-Deno.test("8D5519", { permissions: "none" }, () => {
+Deno.test("Hex 8D5519", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a",
 		expected: "f9f8493c68088807df7f6a2693d64ea59f03e9e05a223e68524ca32195a4734b654fcea4d2734c866cf95c889fb10c49159be2f5043dc98bb55e02ef7bdcb082"
 	});
 });
-Deno.test("AB2F08", { permissions: "none" }, () => {
+Deno.test("Hex AB2F08", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b",
 		expected: "3c9a7359ab4febce07b20ac447b06a240b7fe1dae5439c49b60b5819f7812e4c172406c1aac316713cf0dded1038077258e2eff5b33913d9d95caeb4e6c6b970"
 	});
 });
-Deno.test("A461CA", { permissions: "none" }, () => {
+Deno.test("Hex A461CA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c",
 		expected: "ad6aab8084510e822cfce8625d62cf4de655f4763884c71e80bab9ac9d5318dba4a6033ed29084e65216c031606ca17615dcfe3ba11d26851ae0999ca6e232cf"
 	});
 });
-Deno.test("C6ECBE", { permissions: "none" }, () => {
+Deno.test("Hex C6ECBE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d",
 		expected: "156e9e6261374c9dc884f36e70f0fe1ab9297997b836fa7d170a9c9ebf575b881e7bcea44d6c0248d35597907154828955be19135852f9228815eca024a8adfb"
 	});
 });
-Deno.test("108FCB", { permissions: "none" }, () => {
+Deno.test("Hex 108FCB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e",
 		expected: "4215407633f4cca9b6788be93e6aa3d963c7d6ce4b147247099f46a3acb500a30038cb3e788c3d29f132ad844e80e9e99251f6db96acd8a091cfc770af53847b"
 	});
 });
-Deno.test("49FA17", { permissions: "none" }, () => {
+Deno.test("Hex 49FA17", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
 		expected: "1c077e279de6548523502b6df800ffdab5e2c3e9442eb838f58c295f3b147cef9d701c41c321283f00c71affa0619310399126295b78dd4d1a74572ef9ed5135"
 	});
 });
-Deno.test("3F73DC", { permissions: "none" }, () => {
+Deno.test("Hex 3F73DC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60",
 		expected: "f07a555f49fe481cf4cd0a87b71b82e4a95064d06677fdd90a0eb598877ba1c83d4677b393c3a3b6661c421f5b12cb99d20376ba7275c2f3a8f5a9b7821720da"
 	});
 });
-Deno.test("C03D33", { permissions: "none" }, () => {
+Deno.test("Hex C03D33", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061",
 		expected: "b5911b380d20c7b04323e4026b38e200f534259233b581e02c1e3e2d8438d6c66d5a4eb201d5a8b75072c4ec29106334da70bc79521b0ced2cfd533f5ff84f95"
 	});
 });
-Deno.test("500457", { permissions: "none" }, () => {
+Deno.test("Hex 500457", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162",
 		expected: "01f070a09bae911296361f91aa0e8e0d09a7725478536d9d48c5fe1e5e7c3c5b9b9d6eb07796f6da57ae562a7d70e882e37adfde83f0c433c2cd363536bb22c8"
 	});
 });
-Deno.test("1287BB", { permissions: "none" }, () => {
+Deno.test("Hex 1287BB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263",
 		expected: "6f793eb4374a48b0775acaf9adcf8e45e54270c9475f004ad8d5973e2aca52747ff4ed04ae967275b9f9eb0e1ff75fb4f794fa8be9add7a41304868d103fab10"
 	});
 });
-Deno.test("0918F3", { permissions: "none" }, () => {
+Deno.test("Hex 0918F3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364",
 		expected: "965f20f139765fcc4ce4ba3794675863cac24db472cd2b799d035bce3dbea502da7b524865f6b811d8c5828d3a889646fe64a380da1aa7c7044e9f245dced128"
 	});
 });
-Deno.test("4D4D76", { permissions: "none" }, () => {
+Deno.test("Hex 4D4D76", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465",
 		expected: "ec295b5783601244c30e4641e3b45be222c4dce77a58700f53bc8ec52a941690b4d0b087fb6fcb3f39832b9de8f75ec20bd43079811749cdc907edb94157d180"
 	});
 });
-Deno.test("CEB6C5", { permissions: "none" }, () => {
+Deno.test("Hex CEB6C5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566",
 		expected: "61c72f8ccc91dbb54ca6750bc489672de09faedb8fdd4f94ff2320909a303f5d5a98481c0bc1a625419fb4debfbf7f8a53bb07ec3d985e8ea11e72d559940780"
 	});
 });
-Deno.test("6D9DA4", { permissions: "none" }, () => {
+Deno.test("Hex 6D9DA4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364656667",
 		expected: "afd8145b259eefc8d12620c3c5b03e1ed8fd2ccefe0365078c80fd42c1770e28b44948f27e65a1886690110db814397b68e43d80d1ba16dfa358e739c898cfa3"
 	});
 });
-Deno.test("A4FFC9", { permissions: "none" }, () => {
+Deno.test("Hex A4FFC9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768",
 		expected: "552fc7893cf1ce933ada35c0da98844e41545e244c3157a1428d7b4c21f9cd7e4071aed77b7ca9f1c38fba32237412ef21a342742ec8324378f21e507fafdd88"
 	});
 });
-Deno.test("0F7B14", { permissions: "none" }, () => {
+Deno.test("Hex 0F7B14", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566676869",
 		expected: "467a33fbadf5ebc52596ef86aaaefc6faba8ee651b1ce04de368a03a5a9040ef2835e00adb09abb3fbd2bce818a2413d0b0253b5bda4fc5b2f6f85f3fd5b55f2"
 	});
 });
-Deno.test("ECD964", { permissions: "none" }, () => {
+Deno.test("Hex ECD964", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a",
 		expected: "22eff8e6dd5236f5f57d94ede874d6c9428e8f5d566f17cd6d1848cd752fe13c655cb10fbaaff76872f2bf2da99e15dc624075e1ec2f58a3f64072121838569e"
 	});
 });
-Deno.test("78CE58", { permissions: "none" }, () => {
+Deno.test("Hex 78CE58", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b",
 		expected: "9cec6bbf62c4bce4138abae1cbec8dad31950444e90321b1347196834c114b864af3f3cc3508f83751ffb4eda7c84d140734bb4263c3625c00f04f4c8068981b"
 	});
 });
-Deno.test("622B2B", { permissions: "none" }, () => {
+Deno.test("Hex 622B2B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c",
 		expected: "a8b60fa4fc2442f6f1514ad7402626920cc7c2c9f72124b8cba8ee2cb7c4586f658a4410cffcc0ab88343955e094c6af0d20d0c714fb0a988f543f300f58d389"
 	});
 });
-Deno.test("F3D47F", { permissions: "none" }, () => {
+Deno.test("Hex F3D47F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d",
 		expected: "8271cc45dfa5e4170e847e8630b952cf9c2aa777d06f26a7585b8381f188dacc7337391cfcc94b053dc4ec29cc17f077870428f1ac23fddda165ef5a3f155f39"
 	});
 });
-Deno.test("AD23F4", { permissions: "none" }, () => {
+Deno.test("Hex AD23F4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e",
 		expected: "bf23c0c25c8060e4f6995f1623a3bebecaa96e308680000a8aa3cd56bb1a6da099e10d9231b37f4519b2efd2c24de72f31a5f19535241b4a59fa3c03ceb790e7"
 	});
 });
-Deno.test("AA285F", { permissions: "none" }, () => {
+Deno.test("Hex AA285F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f",
 		expected: "877fd652c05281009c0a5250e7a3a671f8b18c108817fe4a874de22da8e45db11958a600c5f62e67d36cbf84474cf244a9c2b03a9fb9dc711cd1a2cab6f3fae0"
 	});
 });
-Deno.test("803D0C", { permissions: "none" }, () => {
+Deno.test("Hex 803D0C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70",
 		expected: "29df4d87ea444baf5bcdf5f4e41579e28a67de84149f06c03f110ea84f572a9f676addd04c4878f49c5c00accda441b1a387caceb2e993bb7a10cd8c2d6717e1"
 	});
 });
-Deno.test("C27E0F", { permissions: "none" }, () => {
+Deno.test("Hex C27E0F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071",
 		expected: "710dacb166844639cd7b637c274209424e2449dc35d790bbfa4f76177054a36b3b76fac0ca6e61df1e687000678ac0746df75d0a3954897681fd393a155a1bb4"
 	});
 });
-Deno.test("9252A2", { permissions: "none" }, () => {
+Deno.test("Hex 9252A2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172",
 		expected: "c1d5f93b8dea1f2571babccbc01764541a0cda87e444d673c50966ca559c33354b3acb26e5d5781ffb28847a4b4754d77008c62a835835f500dea7c3b58bdae2"
 	});
 });
-Deno.test("E12614", { permissions: "none" }, () => {
+Deno.test("Hex E12614", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273",
 		expected: "a41e41271cdab8af4d72b104bfb2ad041ac4df14677da671d85640c4b187f50c2b66513c4619fbd5d5dc4fe65dd37b9042e9848dda556a504caa2b1c6afe4730"
 	});
 });
-Deno.test("571D31", { permissions: "none" }, () => {
+Deno.test("Hex 571D31", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374",
 		expected: "e7bcbacdc379c43d81ebadcb37781552fc1d753e8cf310d968392d06c91f1d64cc9e90ce1d22c32d277fc6cda433a4d442c762e9eacf2c259f32d64cf9da3a22"
 	});
 });
-Deno.test("7AD5C3", { permissions: "none" }, () => {
+Deno.test("Hex 7AD5C3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475",
 		expected: "51755b4ac5456b13218a19c5b9242f57c4a981e4d4ecdce09a3193362b808a579345d4881c2607a56534dd7f21956aff72c2f4173a6e7b6cc2212ba0e3daee1f"
 	});
 });
-Deno.test("DBDC17", { permissions: "none" }, () => {
+Deno.test("Hex DBDC17", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576",
 		expected: "dcc2c4beb9c1f2607b786c20c631972347034c1cc02fcc7d02ff01099cfe1c6989840ac213923629113aa8bad713ccf0fe4ce13264fb32b8b0fe372da382544a"
 	});
 });
-Deno.test("B28B5C", { permissions: "none" }, () => {
+Deno.test("Hex B28B5C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374757677",
 		expected: "3d55176acea4a7e3a65ffa9fb10a7a1767199cf077cee9f71532d67cd7c73c9f93cfc37ccdcc1fdef50aad46a504a650d298d597a3a9fa95c6c40cb71fa5e725"
 	});
 });
-Deno.test("A5516C", { permissions: "none" }, () => {
+Deno.test("Hex A5516C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778",
 		expected: "d07713c005de96dd21d2eb8bbeca66746ea51a31ae922a3e74864889540a48db27d7e4c90311638b224bf0201b501891754848113c266108d0adb13db71909c7"
 	});
 });
-Deno.test("9C3CCD", { permissions: "none" }, () => {
+Deno.test("Hex 9C3CCD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576777879",
 		expected: "58983c21433d950caa23e4bc18543b8e601c204318532152daf5e159a0cd1480183d29285c05f129cb0cc3164687928086ffe380158df1d394c6ac0d4288bca8"
 	});
 });
-Deno.test("F15DB7", { permissions: "none" }, () => {
+Deno.test("Hex F15DB7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a",
 		expected: "8100a8dc528d2b682ab4250801ba33f02a3e94c54dac0ae1482aa21f51ef3a82f3807e6facb0aeb05947bf7aa2adcb034356f90fa4560ede02201a37e411ec1a"
 	});
 });
-Deno.test("27623F", { permissions: "none" }, () => {
+Deno.test("Hex 27623F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b",
 		expected: "07025f1bb6c784f3fe49de5c14b936a5acacacaab33f6ac4d0e00ab6a12483d6bec00b4fe67c7ca5cc508c2a53efb5bfa5398769d843ff0d9e8b14d36a01a77f"
 	});
 });
-Deno.test("1DE176", { permissions: "none" }, () => {
+Deno.test("Hex 1DE176", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c",
 		expected: "ba6aefd972b6186e027a76273a4a723321a3f580cfa894da5a9ce8e721c828552c64dacee3a7fd2d743b5c35ad0c8efa71f8ce99bf96334710e2c2346e8f3c52"
 	});
 });
-Deno.test("19FBE5", { permissions: "none" }, () => {
+Deno.test("Hex 19FBE5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d",
 		expected: "e0721e02517aedfa4e7e9ba503e025fd46e714566dc889a84cbfe56a55dfbe2fc4938ac4120588335deac8ef3fa229adc9647f54ad2e3472234f9b34efc46543"
 	});
 });
-Deno.test("5F271E", { permissions: "none" }, () => {
+Deno.test("Hex 5F271E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e",
 		expected: "b6292669ccd38d5f01caae96ba272c76a879a45743afa0725d83b9ebb26665b731f1848c52f11972b6644f554c064fa90780dbbbf3a89d4fc31f67df3e5857ef"
 	});
 });
-Deno.test("2D01E7", { permissions: "none" }, () => {
+Deno.test("Hex 2D01E7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
 		expected: "2319e3789c47e2daa5fe807f61bec2a1a6537fa03f19ff32e87eecbfd64b7e0e8ccff439ac333b040f19b0c4ddd11a61e24ac1fe0f10a039806c5dcc0da3d115"
 	});
 });
-Deno.test("9F8447", { permissions: "none" }, () => {
+Deno.test("Hex 9F8447", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80",
 		expected: "f59711d44a031d5f97a9413c065d1e614c417ede998590325f49bad2fd444d3e4418be19aec4e11449ac1a57207898bc57d76a1bcf3566292c20c683a5c4648f"
 	});
 });
-Deno.test("2C9B36", { permissions: "none" }, () => {
+Deno.test("Hex 2C9B36", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081",
 		expected: "df0a9d0c212843a6a934e3902b2dd30d17fba5f969d2030b12a546d8a6a45e80cf5635f071f0452e9c919275da99bed51eb1173c1af0518726b75b0ec3bae2b5"
 	});
 });
-Deno.test("C1BE67", { permissions: "none" }, () => {
+Deno.test("Hex C1BE67", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182",
 		expected: "a3eb6e6c7bf2fb8b28bfe8b15e15bb500f781ecc86f778c3a4e655fc5869bf2846a245d4e33b7b14436a17e63be79b36655c226a50ffbc7124207b0202342db5"
 	});
 });
-Deno.test("FBE73F", { permissions: "none" }, () => {
+Deno.test("Hex FBE73F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283",
 		expected: "56d4cbcd070563426a017069425c2cd2ae540668287a5fb9dac432eb8ab1a353a30f2fe1f40d83333afe696a267795408a92fe7da07a0c1814cf77f36e105ee8"
 	});
 });
-Deno.test("60E2D3", { permissions: "none" }, () => {
+Deno.test("Hex 60E2D3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384",
 		expected: "e59b9987d428b3eda37d80abdb16cd2b0aef674c2b1dda4432ea91ee6c935c684b48b4428a8cc740e579a30deff35a803013820dd23f14ae1d8413b5c8672aec"
 	});
 });
-Deno.test("EBE5BF", { permissions: "none" }, () => {
+Deno.test("Hex EBE5BF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485",
 		expected: "cd9fcc99f99d4cc16d031900b2a736e1508db4b586814e6345857f354a70ccecb1df3b50a19adaf43c278efa423ff4bb6c523ec7fd7859b97b168a7ebff8467c"
 	});
 });
-Deno.test("ABA69F", { permissions: "none" }, () => {
+Deno.test("Hex ABA69F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586",
 		expected: "0602185d8c3a78738b99164b8bc6ffb21c7debebbf806372e0da44d121545597b9c662a255dc31542cf995ecbe6a50fb5e6e0ee4ef240fe557eded1188087e86"
 	});
 });
-Deno.test("633D4B", { permissions: "none" }, () => {
+Deno.test("Hex 633D4B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384858687",
 		expected: "c08afa5b927bf08097afc5fff9ca4e7800125c1f52f2af3553fa2b89e1e3015c4f87d5e0a48956ad31450b083dad147ffb5ec03434a26830cf37d103ab50c5da"
 	});
 });
-Deno.test("93F941", { permissions: "none" }, () => {
+Deno.test("Hex 93F941", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788",
 		expected: "36f1e1c11d6ef6bc3b536d505d544a871522c5c2a253067ec9933b6ec25464daf985525f5b9560a16d890259ac1bb5cc67c0c469cde133def000ea1d686f4f5d"
 	});
 });
-Deno.test("17FE1E", { permissions: "none" }, () => {
+Deno.test("Hex 17FE1E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586878889",
 		expected: "bf2ab2e2470f5438c3b689e66e7686fffa0cb1e1798ad3a86ff99075bf6138e33d9c0ce59afb24ac67a02af34428191a9a0a6041c07471b7c3b1a752d6fc0b8b"
 	});
 });
-Deno.test("354B23", { permissions: "none" }, () => {
+Deno.test("Hex 354B23", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a",
 		expected: "d400601f9728ccc4c92342d9787d8d28ab323af375ca5624b4bb91d17271fbae862e413be73f1f68e615b8c5c391be0dbd9144746eb339ad541547ba9c468a17"
 	});
 });
-Deno.test("4D4609", { permissions: "none" }, () => {
+Deno.test("Hex 4D4609", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b",
 		expected: "79fe2fe157eb85a038abb8ebbc647731d2c83f51b0ac6ee14aa284cb6a3549a4dcceb300740a825f52f5fb30b03b8c4d8b0f4aa67a63f4a94e3303c4eda4c02b"
 	});
 });
-Deno.test("70F9BC", { permissions: "none" }, () => {
+Deno.test("Hex 70F9BC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c",
 		expected: "75351313b52a8529298d8c186b1768666dcca8595317d7a4816eb88c062020c0c8efc554bb341b64688db5ccafc35f3c3cd09d6564b36d7b04a248e146980d4b"
 	});
 });
-Deno.test("0387C6", { permissions: "none" }, () => {
+Deno.test("Hex 0387C6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d",
 		expected: "e3128b1d311d02179d7f25f97a5a8bee2cc8c86303644fcd664e157d1fef00f23e46f9a5e8e5c890ce565bb6abd4302ce06469d52a5bd53e1c5a54d04649dc03"
 	});
 });
-Deno.test("426E11", { permissions: "none" }, () => {
+Deno.test("Hex 426E11", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e",
 		expected: "c2382a72d2d3ace9d5933d00b60827ed380cda08d0ba5f6dd41e29ee6dbe8ecb9235f06be95d83b6816a2fb7a5ad47035e8a4b69a4884b99e4bece58cab25d44"
 	});
 });
-Deno.test("3DA673", { permissions: "none" }, () => {
+Deno.test("Hex 3DA673", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
 		expected: "6b1c69460bbd50ac2ed6f32e6e887cfed407d47dcf0aaa60387fe320d780bd03eab6d7baeb2a07d10cd552a300341354ea9a5f03183a623f92a2d4d9f00926af"
 	});
 });
-Deno.test("4F4138", { permissions: "none" }, () => {
+Deno.test("Hex 4F4138", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90",
 		expected: "6cda206c80cdc9c44ba990e0328c314f819b142d00630404c48c05dc76d1b00ce4d72fc6a48e1469ddef609412c364820854214b4869af090f00d3c1ba443e1b"
 	});
 });
-Deno.test("B7A9FC", { permissions: "none" }, () => {
+Deno.test("Hex B7A9FC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091",
 		expected: "7ffc8c26fbd6a0f7a609e6e1939f6a9edf1b0b066641fb76c4f9602ed748d11602496b35355b1aa255850a509d2f8ee18c8f3e1d7dcbc37a136598f56a59ed17"
 	});
 });
-Deno.test("D415DB", { permissions: "none" }, () => {
+Deno.test("Hex D415DB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192",
 		expected: "70de1f08dd4e09d5fc151f17fc991a23abfc05104290d50468882efaf582b6ec2f14f577c0d68c3ad06626916e3c86e6daab6c53e5163e82b6bd0ce49fc0d8df"
 	});
 });
-Deno.test("D7C5C5", { permissions: "none" }, () => {
+Deno.test("Hex D7C5C5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293",
 		expected: "4f81935756ed35ee2058ee0c6a6110d6fac5cb6a4f46aa9411603f99965823b6da4838276c5c06bc7880e376d92758369ee7305bcec8d3cfd28ccabb7b4f0579"
 	});
 });
-Deno.test("49EC49", { permissions: "none" }, () => {
+Deno.test("Hex 49EC49", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394",
 		expected: "abcb61cb3683d18f27ad527908ed2d32a0426cb7bb4bf18061903a7dc42e7e76f982382304d18af8c80d91dd58dd47af76f8e2c36e28af2476b4bccf82e89fdf"
 	});
 });
-Deno.test("095649", { permissions: "none" }, () => {
+Deno.test("Hex 095649", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495",
 		expected: "02d261ad56a526331b643dd2186de9a82e72a58223cd1e723686c53d869b83b94632b7b647ab2afc0d522e29da3a5615b741d82852e0df41b66007dbcba90543"
 	});
 });
-Deno.test("1E41C5", { permissions: "none" }, () => {
+Deno.test("Hex 1E41C5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596",
 		expected: "c5832741fa30c5436823015383d297ff4c4a5d7276c3f902122066e04be5431b1a85faf73b918434f9300963d1dea9e8ac3924ef490226edeea5f743e410669f"
 	});
 });
-Deno.test("AC6D76", { permissions: "none" }, () => {
+Deno.test("Hex AC6D76", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394959697",
 		expected: "cfaeab268cd075a5a6aed515023a032d54f2f2ff733ce0cbc78db51db4504d675923f82746d6594606ad5d67734b11a67cc6a468c2032e43ca1a94c6273a985e"
 	});
 });
-Deno.test("13C4ED", { permissions: "none" }, () => {
+Deno.test("Hex 13C4ED", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798",
 		expected: "860850f92eb268272b67d133609bd64e34f61bf03f4c1738645c17fec818465d7ecd2be2907641130025fda79470ab731646e7f69440e8367ea76ac4cee8a1df"
 	});
 });
-Deno.test("1CBF36", { permissions: "none" }, () => {
+Deno.test("Hex 1CBF36", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596979899",
 		expected: "84b154ed29bbedefa648286839046f4b5aa34430e2d67f7496e4c39f2c7ea78995f69e1292200016f16ac3b37700e6c7e7861afc396b64a59a1dbf47a55c4bbc"
 	});
 });
-Deno.test("2CB745", { permissions: "none" }, () => {
+Deno.test("Hex 2CB745", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a",
 		expected: "aeeec260a5d8eff5ccab8b95da435a63ed7a21ea7fc7559413fd617e33609f8c290e64bbacc528f6c080262288b0f0a3219be223c991bee92e72349593e67638"
 	});
 });
-Deno.test("1E5F23", { permissions: "none" }, () => {
+Deno.test("Hex 1E5F23", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b",
 		expected: "8ad78a9f26601d127e8d2f2f976e63d19a054a17dcf59e0f013ab54a6887bbdffde7aaae117e0fbf3271016595b9d9c712c01b2c53e9655a382bc4522e616645"
 	});
 });
-Deno.test("04B358", { permissions: "none" }, () => {
+Deno.test("Hex 04B358", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c",
 		expected: "8934159dade1ac74147dfa282c75954fcef443ef25f80dfe9fb6ea633b8545111d08b34ef43fff17026c7964f5deac6d2b3c29dacf2747f022df5967dfdc1a0a"
 	});
 });
-Deno.test("9387AB", { permissions: "none" }, () => {
+Deno.test("Hex 9387AB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d",
 		expected: "cd36dd0b240614cf2fa2b9e959679dcdd72ec0cd58a43da3790a92f6cdeb9e1e795e478a0a47d371100d340c5cedcdbbc9e68b3f460818e5bdff7b4cda4c2744"
 	});
 });
-Deno.test("03CEF3", { permissions: "none" }, () => {
+Deno.test("Hex 03CEF3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e",
 		expected: "00df4e099b807137a85990f49d3a94315e5a5f7f7a6076b303e96b056fb93800111f479628e2f8db59aeb6ac70c3b61f51f9b46e80ffdeae25ebddb4af6cb4ee"
 	});
 });
-Deno.test("779CE7", { permissions: "none" }, () => {
+Deno.test("Hex 779CE7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
 		expected: "2b9c955e6caed4b7c9e246b86f9a1726e810c59d126cee66ed71bf015b83558a4b6d84d18dc3ff4620c2ffb722359fdef85ba0d4e2d22ecbe0ed784f99afe587"
 	});
 });
-Deno.test("C9D8B7", { permissions: "none" }, () => {
+Deno.test("Hex C9D8B7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0",
 		expected: "181df0a261a2f7d29ea5a15772715105d450a4b6c236f699f462d60ca76487feedfc9f5eb92df838e8fb5dc3694e84c5e0f4a10b761f506762be052c745a6ee8"
 	});
 });
-Deno.test("A62376", { permissions: "none" }, () => {
+Deno.test("Hex A62376", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1",
 		expected: "21fb203458bf3a7e9a80439f9a902899cd5de0139dfd56f7110c9dec8437b26bda63de2f565926d85edb1d6c6825669743dd9992653d13979544d5dc8228bfaa"
 	});
 });
-Deno.test("DC2A66", { permissions: "none" }, () => {
+Deno.test("Hex DC2A66", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2",
 		expected: "ef021f29c5ffb830e64b9aa9058dd660fd2fcb81c497a7e698bcfbf59de5ad4a86ff93c10a4b9d1ae5774725f9072dcde9e1f199bab91f8bff921864aa502eee"
 	});
 });
-Deno.test("6C779D", { permissions: "none" }, () => {
+Deno.test("Hex 6C779D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3",
 		expected: "b3cfda40526b7f1d37569bdfcdf911e5a6efe6b2ec90a0454c47b2c046bf130fc3b352b34df4813d48d33ab8e269b69b075676cb6d00a8dcf9e1f967ec191b2c"
 	});
 });
-Deno.test("E01C68", { permissions: "none" }, () => {
+Deno.test("Hex E01C68", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4",
 		expected: "b4c6c3b267071eefb9c8c72e0e2b941293641f8673cb70c1cc26ad1e73cf141755860ad19b34c2f34ed35bb52ec4507cc1fe59047743a5f0c6febde625e26091"
 	});
 });
-Deno.test("60E4E1", { permissions: "none" }, () => {
+Deno.test("Hex 60E4E1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5",
 		expected: "57a34f2bcca60d4b85103b830c9d7952a416be5263ae429c9e5e53fe8590a8f78ec65a51109ea85dcdf7b6223f9f2b340539fad81923dbf8edabf95129e4dff6"
 	});
 });
-Deno.test("B5294E", { permissions: "none" }, () => {
+Deno.test("Hex B5294E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6",
 		expected: "9cf46662fcd61a232277b685663b8b5da832dfd9a3b8ccfeec993ec6ac415ad07e048adfe414df272770dba867da5c1224c6fd0aa0c2187d426ac647e9887361"
 	});
 });
-Deno.test("C7D12E", { permissions: "none" }, () => {
+Deno.test("Hex C7D12E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7",
 		expected: "5ce1042ab4d542c2f9ee9d17262af8164098935bef173d0e18489b04841746cd2f2df866bd7da6e5ef9024c648023ec723ab9c62fd80285739d84f15d2ab515a"
 	});
 });
-Deno.test("A47E5B", { permissions: "none" }, () => {
+Deno.test("Hex A47E5B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8",
 		expected: "8488396bd4a8729b7a473178f232dadf3f0f8e22678ba5a43e041e72da1e2cf82194c307207a54cb8156293339eaec693ff66bfcd5efc65e95e4ecaf54530abd"
 	});
 });
-Deno.test("CF4118", { permissions: "none" }, () => {
+Deno.test("Hex CF4118", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9",
 		expected: "f598da901c3835bca560779037dfde9f0c51dc61c0b760fc1522d7b470ee63f5bdc6498476e86049ad86e4e21af2854a984cc905427d2f17f66b1f41c3da6f61"
 	});
 });
-Deno.test("F06293", { permissions: "none" }, () => {
+Deno.test("Hex F06293", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aa",
 		expected: "5f93269798cf02132107337660a8d7a177354c0212eb93e555e7c37a08aef3d8dce01217011cd965c04dd2c105f2e2b6cae5e4e6bcaf09dfbee3e0a6a6357c37"
 	});
 });
-Deno.test("089665", { permissions: "none" }, () => {
+Deno.test("Hex 089665", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaab",
 		expected: "0ecf581d47bac9230986faabd70c2f5b80e91066f0ec55a842937882286d2ca007bb4e973b0b091d52167ff7c4009c7ab4ad38fff1dceacdb7be81ef4a452952"
 	});
 });
-Deno.test("D6D899", { permissions: "none" }, () => {
+Deno.test("Hex D6D899", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabac",
 		expected: "5aeca8abe1528582b2a307b4009585498a3d467ca6101cb0c5126f9976056e9ffc123cc20c302b2a737f492c75d21f01512c90ca0541dfa56e950a321dcb28d8"
 	});
 });
-Deno.test("58A2AB", { permissions: "none" }, () => {
+Deno.test("Hex 58A2AB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacad",
 		expected: "732fbf8f1cb2b8329263ede27858fe46f8d3354d376bcda0548e7ce1fa9dd11f85eb661fe950b543aa635ca4d3f04ede5b32d6b656e5ce1c44d35c4a6c56cff8"
 	});
 });
-Deno.test("4F479E", { permissions: "none" }, () => {
+Deno.test("Hex 4F479E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadae",
 		expected: "d5e938735d63788c80100aefd18648d18cf272f69f20ff24cfe2895c088ad08b0104da1672a4eb26fc52545cc7d7a01b266cf546c403c45bd129eb41bdd9200b"
 	});
 });
-Deno.test("FC9068", { permissions: "none" }, () => {
+Deno.test("Hex FC9068", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeaf",
 		expected: "65a245b49352ee297d91af8c8be00528ac6e046dd83ac7bd465a98816dd68f3e00e1ae8f895327a7e9a8c9326598379a29c9fc91ec0c6eef08f3e2b216c11008"
 	});
 });
-Deno.test("4D1A82", { permissions: "none" }, () => {
+Deno.test("Hex 4D1A82", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0",
 		expected: "c95654b63019130ab45dd0fb4941b98aeb3af2a123913eca2ce99b3e97410a7bf8661cc7fbaa2bc1cf2b13113b1ed40a0118b88e5fffc3542759ea007ed4c58d"
 	});
 });
-Deno.test("546751", { permissions: "none" }, () => {
+Deno.test("Hex 546751", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1",
 		expected: "1eb262f38fa494431f017dad44c0dfb69324ac032f04b657fc91a88647bb74760f24e7c956514f0cf002990b182c1642b9b2426e96a61187e4e012f00e217d84"
 	});
 });
-Deno.test("61995F", { permissions: "none" }, () => {
+Deno.test("Hex 61995F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2",
 		expected: "3b955aeebfa5151ac1ab8e3f5cc1e3767084c842a575d36269836e97353d41622b731dddcd5f269550a3a5b87be1e90326340b6e0e62555815d9600597ac6ef9"
 	});
 });
-Deno.test("5B1176", { permissions: "none" }, () => {
+Deno.test("Hex 5B1176", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3",
 		expected: "68289f6605473ba0e4f241baf7477a9885426a858f19ef2a18b0d40ef8e41282ed5526b519799e270f13881327918278755711071d8511fe963e3b5606aa3716"
 	});
 });
-Deno.test("AA3E23", { permissions: "none" }, () => {
+Deno.test("Hex AA3E23", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4",
 		expected: "80a33787542612c38f6bcd7cd86cab460227509b1cbad5ec408a91413d51155a0476dadbf3a2518e4a6e77cc346622e347a469bf8baa5f04eb2d98705355d063"
 	});
 });
-Deno.test("68295C", { permissions: "none" }, () => {
+Deno.test("Hex 68295C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5",
 		expected: "34629bc6d831391c4cdf8af1b4b7b6b8e8ee17cf98c70e5dd586cd99f14b11df945166236a9571e6d591bb83ee4d164d46f6b9d8ef86ff865a81bfb91b00424b"
 	});
 });
-Deno.test("8B14D8", { permissions: "none" }, () => {
+Deno.test("Hex 8B14D8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6",
 		expected: "8b7cc339163863bb4383e542b0ef0e7cf36b84ad932cdf5a80419ec9ad692e7a7e784d2c7cb3796a18b8f800035f3aa06c824100611120a7bdeb35618ccb81b7"
 	});
 });
-Deno.test("EB028A", { permissions: "none" }, () => {
+Deno.test("Hex EB028A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7",
 		expected: "4f084e4939dd5a7f5a658fad58a18a15c25c32ec1c7fd5c5c6c3e892b3971aeaac308304ef17b1c47239ea4bb398b3fd6d4528d8de8e768ae0f1a5a5c6b5c297"
 	});
 });
-Deno.test("16331B", { permissions: "none" }, () => {
+Deno.test("Hex 16331B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8",
 		expected: "48f407a1af5b8009b2051742e8cf5cd5656669e7d722ee8e7bd202060849442168d8facc117c012bfb7bf449d99befff6a34aea203f1d8d352722be5014ec818"
 	});
 });
-Deno.test("16C31A", { permissions: "none" }, () => {
+Deno.test("Hex 16C31A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9",
 		expected: "a6aa82cd1e426f9a73bfa39a29037876114655b8c22d6d3ff8b638ae7dea6b17843e09e52eb66fa1e475e4a8a3de429b7d0f4a776fcb8bdc9b9fede7d52e815f"
 	});
 });
-Deno.test("E8C184", { permissions: "none" }, () => {
+Deno.test("Hex E8C184", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9ba",
 		expected: "5817027d6bdd00c5dd10ac593cd560372270775a18526d7e6f13872a2e20eab664625be7168ac4bd7c9e0ce7fc4099e0f48442e2c767191c6e1284e9b2ccea8c"
 	});
 });
-Deno.test("645DBC", { permissions: "none" }, () => {
+Deno.test("Hex 645DBC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babb",
 		expected: "08e41028340a45c74e4052b3a8d6389e22e043a1adab5e28d97619450d723469b620caa519b81c14523854f619fd3027e3847bd03276e60604a80ddb4de876d6"
 	});
 });
-Deno.test("AA22ED", { permissions: "none" }, () => {
+Deno.test("Hex AA22ED", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbc",
 		expected: "130b8420537eb07d72abda07c85acbd8b9a44f16321dd0422145f809673d30f2b5321326e2bff317ef3fef983c51c4f8ab24a325d298e34afce569a82555774c"
 	});
 });
-Deno.test("F2D0D3", { permissions: "none" }, () => {
+Deno.test("Hex F2D0D3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbd",
 		expected: "ac49b844afaa012e31c474ca263648844fd2f6307992c2f752aca02c3828965175794deee2d2ee95c61cd284f6b5a2d75e2ef2b29ee8149e77fb81447b2fd04b"
 	});
 });
-Deno.test("506738", { permissions: "none" }, () => {
+Deno.test("Hex 506738", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbe",
 		expected: "b9d7ca81cc60bb9578e44024e5a0a0be80f27336a6a9f4e53df3999cb191280b090e2ac2d29c5baad9d71415bdc129e69aa2667af6a7fd5e189fccdcee817340"
 	});
 });
-Deno.test("147D16", { permissions: "none" }, () => {
+Deno.test("Hex 147D16", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf",
 		expected: "a755e113386572c75ced61d719706070b9146048e42a9f8cd35667a088b42f08808abdf77e618abd959afc757379ca2c00bcc1a48390fa2bff618b1e0078a613"
 	});
 });
-Deno.test("846891", { permissions: "none" }, () => {
+Deno.test("Hex 846891", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0",
 		expected: "a73c7debed326f1c0db0795ee7d6e3946894b826b1f8101c56c823ba17168312e7f53fc7dbe52c3e11e69852c40485e2ef182477862ea6a34ec136e2dfeea6f4"
 	});
 });
-Deno.test("1B1A78", { permissions: "none" }, () => {
+Deno.test("Hex 1B1A78", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1",
 		expected: "6cb8f9d52c56d82cac28f39ea1593e8bb2506293ac0d68376a1709b62a46df14a4ae64b2d8fab76733a1ced2d548e3f3c6fcb49d40c3d5808e449cd83d1c2aa2"
 	});
 });
-Deno.test("F72E31", { permissions: "none" }, () => {
+Deno.test("Hex F72E31", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2",
 		expected: "683fa2b2369a10162c1c1c7b24bc970ee67da220564f32203f625696c0352a0b9ad96624362d952d84463c1106a2dba7a092599884b35a0b89c8f1b6a9b5a61e"
 	});
 });
-Deno.test("A14A86", { permissions: "none" }, () => {
+Deno.test("Hex A14A86", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3",
 		expected: "aad9ad44610118b77d508aeb1bbcd1c1b7d0171397fb510a401bbc0ec34623670d86a2dc3c8f3ab5a2044df730256727545f0860ce21a1eac717dfc48f5d228e"
 	});
 });
-Deno.test("ACCEAF", { permissions: "none" }, () => {
+Deno.test("Hex ACCEAF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4",
 		expected: "c42578de23b4c987d5e1ac4d689ed5de4b0417f9704bc6bce969fa13471585d62c2cb1212a944f397fc9ca2c3747c3beb694ec4c5be68828dda53ef43faec6c0"
 	});
 });
-Deno.test("91C09C", { permissions: "none" }, () => {
+Deno.test("Hex 91C09C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5",
 		expected: "470f00841ee8244e63ed2c7ea30e2e419897c197462ecccecf713b42a5065fff5914bc9b79affe8f6b657875e789ae213bd914cd35bd174d46e9d18bd843773d"
 	});
 });
-Deno.test("24BD0A", { permissions: "none" }, () => {
+Deno.test("Hex 24BD0A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6",
 		expected: "34fc4213730f47a5e9a3580f643e12945cfcb31bf206f6ad450ce528da3fa432e005d6b0ecce10dca7c5995f6aacc5150e1b009e19751e8309f8859531844374"
 	});
 });
-Deno.test("C58C7C", { permissions: "none" }, () => {
+Deno.test("Hex C58C7C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7",
 		expected: "fb3c1f0f56a56f8e316fdf5d853c8c872c39635d083634c3904fc3ac07d1b578e85ff0e480e92d44ade33b62e893ee32343e79ddf6ef292e89b582d312502314"
 	});
 });
-Deno.test("8D46FB", { permissions: "none" }, () => {
+Deno.test("Hex 8D46FB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8",
 		expected: "c7c97fc65dd2b9e3d3d607d31598d3f84261e9919251e9c8e57bb5f829377d5f73eabbed55c6c381180f29ad02e5be797ffec7e57bdecbc50ad3d062f0993ab0"
 	});
 });
-Deno.test("CE4039", { permissions: "none" }, () => {
+Deno.test("Hex CE4039", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9",
 		expected: "a57a49cdbe67ae7d9f797bb5cc7efc2df07f4e1b15955f85dae74b76e2ecb85afb6cd9eeed8888d5ca3ec5ab65d27a7b19e578475760a045ac3c92e13a938e77"
 	});
 });
-Deno.test("27CEED", { permissions: "none" }, () => {
+Deno.test("Hex 27CEED", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9ca",
 		expected: "c7143fce9614a17fd653aeb140726dc9c3dbb1de6cc581b2726897ec24b7a50359ad492243be66d9edd8c933b5b80e0b91bb61ea98056006516976fae8d99a35"
 	});
 });
-Deno.test("EFBD14", { permissions: "none" }, () => {
+Deno.test("Hex EFBD14", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacb",
 		expected: "65bb58d07f937e2d3c7e65385f9c54730b704105ccdb691f6e146d4ee8f6c086f49511035110a9ad6031fdceb943e0f9613bcb276dd40f0624ef0f924f809783"
 	});
 });
-Deno.test("4960D6", { permissions: "none" }, () => {
+Deno.test("Hex 4960D6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcc",
 		expected: "e540277f683b1186dd3b5b3f61433396581a35feb12002be8c6a6231fc40ffa70f08081bc58b2d94f7649543614a435faa2d62110e13dabc7b86629b63af9c24"
 	});
 });
-Deno.test("7DE16A", { permissions: "none" }, () => {
+Deno.test("Hex 7DE16A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccd",
 		expected: "418500878c5fbcb584c432f4285e05e49f2e3e075399a0dbfcf874ebf8c03d02bf16bc6989d161c77ca0786b05053c6c709433712319192128835cf0b660595b"
 	});
 });
-Deno.test("10D304", { permissions: "none" }, () => {
+Deno.test("Hex 10D304", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdce",
 		expected: "889090dbb1944bdc9433ee5ef1010c7a4a24a8e71ecea8e12a31318ce49dcab0aca5c3802334aab2cc84b14c6b9321fe586bf3f876f19cd406eb1127fb944801"
 	});
 });
-Deno.test("29AE1D", { permissions: "none" }, () => {
+Deno.test("Hex 29AE1D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecf",
 		expected: "53b6a28910aa92e27e536fb549cf9b9918791060898e0b9fe183577ff43b5e9c7689c745b32e412269837c31b89e6cc12bf76e13cad366b74ece48bb85fd09e9"
 	});
 });
-Deno.test("5F5369", { permissions: "none" }, () => {
+Deno.test("Hex 5F5369", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0",
 		expected: "7c092080c6a80d672409d081d3d177106bcd63567785140719490950ae07ae8fcaabbaaab330cfbcf7374482c220af2eadeeb73dcbb35ed823344e144e7d4899"
 	});
 });
-Deno.test("EA366C", { permissions: "none" }, () => {
+Deno.test("Hex EA366C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1",
 		expected: "9ccde566d2400509181111f32dde4cd63209fe59a30c114546ad2776d889a41bad8fa1bb468cb2f9d42ca9928a7770fef8e8ba4d0c812d9a1e75c3d8d2ccd75a"
 	});
 });
-Deno.test("CD3748", { permissions: "none" }, () => {
+Deno.test("Hex CD3748", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2",
 		expected: "6e293bf5d03fe43977cfe3f57ccdb3ae282a85455dca33f37f4b74f8398cc612433d755cbec412f8f82a3bd3bc4a278f7ecd0dfa9bbdc40be7a787c8f159b2df"
 	});
 });
-Deno.test("22F27B", { permissions: "none" }, () => {
+Deno.test("Hex 22F27B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3",
 		expected: "c56546fb2178456f336164c18b90deffc83ae2b5a3aca77b6884d36d2c1db39501b3e65e36c758c66e3188451fdb3515ee162c001f06c3e8cb573adf30f7a101"
 	});
 });
-Deno.test("9E117A", { permissions: "none" }, () => {
+Deno.test("Hex 9E117A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4",
 		expected: "6f82f89f299ebca2fe014b59bffe1aa84e88b1915fe256afb646fd8448af2b8891a7fab37a4ea6f9a50e6c317039d8cf878f4c8e1a0dd464f0b4d6ff1c7ea853"
 	});
 });
-Deno.test("12EA54", { permissions: "none" }, () => {
+Deno.test("Hex 12EA54", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5",
 		expected: "2b8599ff9c3d6198637ad51e57d1998b0d75313fe2dd61a533c964a6dd9607c6f723e9452ce46e014b1c1d6de77ba5b88c914d1c597bf1eae13474b4290e89b2"
 	});
 });
-Deno.test("C58E23", { permissions: "none" }, () => {
+Deno.test("Hex C58E23", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6",
 		expected: "08bf346d38e1df06c8260edb1da75579275948d5c0a0aa9ed2886f8856de5417a156998758f5b17e52f101ca957a71137473dfd18d7d209c4c10d9233c93691d"
 	});
 });
-Deno.test("683D93", { permissions: "none" }, () => {
+Deno.test("Hex 683D93", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7",
 		expected: "6df2156d773114d310b63db9ee5350d77e6bcf25b05fcd910f9b31bc42bb13fe8225ebcb2a23a62280777b6bf74e2cd0917c7640b43defe468cd1e18c943c66a"
 	});
 });
-Deno.test("730117", { permissions: "none" }, () => {
+Deno.test("Hex 730117", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8",
 		expected: "7c7038bc13a91151828a5ba82b4a96040f258a4dfb1b1373f0d359168afb0517a20b28a12d3644046be66b8d08d8ae7f6a923ea1c00187c6d11dc502bac71305"
 	});
 });
-Deno.test("0B843F", { permissions: "none" }, () => {
+Deno.test("Hex 0B843F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9",
 		expected: "bcd1b30d808fb739b987cbf154bea00da9d40380b861d4c1d6377122dadd61c0e59018b71941cfb62e00dcd70aeb9abf0473e80f0a7eca6b6dea246ab229dd2b"
 	});
 });
-Deno.test("482518", { permissions: "none" }, () => {
+Deno.test("Hex 482518", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9da",
 		expected: "7ed4468d968530fe7ab2c33540b26d8c3bd3ed44b34fbe8c2a9d7f805b5ada0ea252eeade4fce97f89728ad85bc8bb2430b1bef2cddd32c8446e59b8e8ba3c67"
 	});
 });
-Deno.test("A0060F", { permissions: "none" }, () => {
+Deno.test("Hex A0060F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadb",
 		expected: "6d30b7c6ce8a3236c0ca2f8d728b1088ca06983a8043e621d5dcf0c537d13b08791edeb01a3cf0943ec1c890ab6e29b146a236cd46bcb9d93bf516fb67c63fe5"
 	});
 });
-Deno.test("0777E4", { permissions: "none" }, () => {
+Deno.test("Hex 0777E4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdc",
 		expected: "97fe03cef31438508911bded975980a66029305dc5e3fa8ad1b4fb22fcdf5a19a733320327d8f71ccf496cb3a44a77af56e3dde73d3a5f176896cc57c9a5ad99"
 	});
 });
-Deno.test("A978A8", { permissions: "none" }, () => {
+Deno.test("Hex A978A8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdd",
 		expected: "785a9d0fbd21136dbce8fa7eafd63c9dad220052978416b31d9753eaa149097847ed9b30a65c70507eff01879149ed5cf0471d37798edc05abd56ad4a2cccb1d"
 	});
 });
-Deno.test("88E5C5", { permissions: "none" }, () => {
+Deno.test("Hex 88E5C5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcddde",
 		expected: "ad408d2abddfd37b3bf34794c1a3371d928ed7fc8d966225333584c5665817832a37c07f0dc7cb5aa874cd7d20fe8fab8eabcb9b33d2e0841f6e200960899d95"
 	});
 });
-Deno.test("797829", { permissions: "none" }, () => {
+Deno.test("Hex 797829", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf",
 		expected: "97668f745b6032fc815d9579322769dccd9501a5080029b8ae826befb6742331bd9f76efeb3e2b8e81a9786b282f5068a3a2424697a77c41876b7e753f4c7767"
 	});
 });
-Deno.test("20523B", { permissions: "none" }, () => {
+Deno.test("Hex 20523B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0",
 		expected: "26bb985f47e7fee0cfd252d4ef96bed42b9c370c1c6a3e8c9eb04ef7f7818b833a0d1f043ebafb911dc779e02740a02a44d3a1ea45ed4ad55e686c927cafe97e"
 	});
 });
-Deno.test("AD31CB", { permissions: "none" }, () => {
+Deno.test("Hex AD31CB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1",
 		expected: "5bfe2b1dcf7fe9b95088acedb575c19016c743b2e763bf5851ac407c9eda43715edfa48b4825492c5179593fff21351b76e8b7e034e4c53c79f61f29c479bd08"
 	});
 });
-Deno.test("E51EE1", { permissions: "none" }, () => {
+Deno.test("Hex E51EE1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2",
 		expected: "c76509ef72f4a6f9c9c40618ed52b2084f83502232e0ac8bdaf3264368e4d0180f6854c4abf4f6509c79caafc44cf3194afc57bd077bd7b3c9bda3d4b8775816"
 	});
 });
-Deno.test("75FD7E", { permissions: "none" }, () => {
+Deno.test("Hex 75FD7E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3",
 		expected: "d66f2beab990e354ccb910e4e9c7ac618c7b63ef292a96b552341de78dc46d3ec8cfabc699b50af41fda39cf1b0173660923510ad67faedef5207cffe8641d20"
 	});
 });
-Deno.test("831936", { permissions: "none" }, () => {
+Deno.test("Hex 831936", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4",
 		expected: "7d8f0672992b79be3a364d8e5904f4ab713bbc8ab01b4f309ad8ccf223ce1034a860dcb0b00550612cc2fa17f2969e18f22e1427d254b4a82b3a03a3eb394adf"
 	});
 });
-Deno.test("E1132F", { permissions: "none" }, () => {
+Deno.test("Hex E1132F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5",
 		expected: "a56d6725bfb3de47c1414adf25fc8f0fc9846f6987722bc06366d5ca4e89722925ebbc881418844075397a0ca89842c7b9e9e07e1d9d183ebeb39e120b483bf7"
 	});
 });
-Deno.test("EEBD3C", { permissions: "none" }, () => {
+Deno.test("Hex EEBD3C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6",
 		expected: "af5e03d7fe60c67e10313344434e79485a03a758d6dce985574745763c1c5c77d4fb3e6fb12230368370993bf90feed0c5d1607524562d7c09c0c210ed393d7c"
 	});
 });
-Deno.test("2455AA", { permissions: "none" }, () => {
+Deno.test("Hex 2455AA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7",
 		expected: "7a20540cc07bf72b582421fc342e82f52134b69841ec28ed189e2ea6a29dd2f82a640352d222b52f2911dc72a7dab31caadd80c6118f13c56b2a1e4373be0ea3"
 	});
 });
-Deno.test("BBCD5B", { permissions: "none" }, () => {
+Deno.test("Hex BBCD5B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8",
 		expected: "486f02c63e5467ea1fdde7e82bfacc2c1ba5d636d9f3d08b210da3f372f706ec218cc17ff60aef703bbe0c15c38ae55d286a684f864c78211ccab4178c92adba"
 	});
 });
-Deno.test("D63754", { permissions: "none" }, () => {
+Deno.test("Hex D63754", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9",
 		expected: "1c7a5c1dedcd04a921788f7eb23361ca1953b04b9c7aec35d65ea3e4996db26f281278ea4ae666ad81027d98af57262cdbfa4c085f4210568c7e15eec7805114"
 	});
 });
-Deno.test("9B73BD", { permissions: "none" }, () => {
+Deno.test("Hex 9B73BD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9ea",
 		expected: "9ce3fa9a860bdbd5378fd6d7b8b671c6cb7692910ce8f9b6cb4122cbcbe6ac06ca0422cef1225935053b7d193a81b9e972eb85a1d3074f14cbb5ec9f0573892d"
 	});
 });
-Deno.test("3CB3AC", { permissions: "none" }, () => {
+Deno.test("Hex 3CB3AC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaeb",
 		expected: "a91187be5c371c4265c174fd4653b8ab708551f83d1fee1cc1479581bc006d6fb78fcc9a5dee1db3666f508f9780a37593ebcccf5fbed39667dc6361e921f779"
 	});
 });
-Deno.test("D134C1", { permissions: "none" }, () => {
+Deno.test("Hex D134C1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebec",
 		expected: "4625767d7b1d3d3ed2fbc674af14e0244152f2a4021fcf3311505d89bd81e2f9f9a500c3b199914db49500b3c98d03ea93286751a686a3b875daab0ccd63b44f"
 	});
 });
-Deno.test("8A9A1D", { permissions: "none" }, () => {
+Deno.test("Hex 8A9A1D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebeced",
 		expected: "43dfdfe1b014fed3a2acabb7f3e9a182f2aa18019d27e3e6cdcf31a15b428e91e7b08cf5e5c376fce2d8a28ff85ab0a0a1656edb4a0a91532620096d9a5a652d"
 	});
 });
-Deno.test("AEE234", { permissions: "none" }, () => {
+Deno.test("Hex AEE234", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedee",
 		expected: "279e3202be3989ba3112772585177487e4fe3ee3eab49c2f7fa7fe87cfe7b80d3e0355edff6d031e6c96c795db1c6f041880ec3824defacf9263820a8e7327de"
 	});
 });
-Deno.test("2EF5D5", { permissions: "none" }, () => {
+Deno.test("Hex 2EF5D5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeef",
 		expected: "ea2d066ac229d4d4b616a8bedec734325224e4b4e58f1ae6dad7e40c2da29196c3b1ea9571dacc81e87328caa0211e09027b0524aa3f4a849917b3586747ebbb"
 	});
 });
-Deno.test("BDEC31", { permissions: "none" }, () => {
+Deno.test("Hex BDEC31", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0",
 		expected: "49f014f5c61822c899ab5cae51be4044a4495e777deb7da9b6d8490efbb87530adf293daf079f94c33b7044ef62e2e5bb3eb11e17304f8453ee6ce24f033ddb0"
 	});
 });
-Deno.test("21776A", { permissions: "none" }, () => {
+Deno.test("Hex 21776A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1",
 		expected: "9233490344e5b0dc5912671b7ae54cee7730dbe1f4c7d92a4d3e3aab50571708db51dcf9c2944591db651db32d22935b86944969be77d5b5feae6c3840a8db26"
 	});
 });
-Deno.test("72ED51", { permissions: "none" }, () => {
+Deno.test("Hex 72ED51", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2",
 		expected: "b6e75e6f4c7f453b7465d25b5ac8c7196902eaa953875228c8634e16e2ae1f38bc3275304335f5989eccc1e34167d4e68d7719968fba8e2fe67947c35c48e806"
 	});
 });
-Deno.test("93343E", { permissions: "none" }, () => {
+Deno.test("Hex 93343E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3",
 		expected: "cc14ca665af1483efbc3af80080e650d5046a3932f4f51f3fe90a0705ec25104adf07839265dc51d43401411246e474f0d5e5637af94767283d53e0617e981f4"
 	});
 });
-Deno.test("4547C8", { permissions: "none" }, () => {
+Deno.test("Hex 4547C8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4",
 		expected: "230a1c857cb2e7852e41b647e90e4585d2d881e1734dc38955356e8dd7bff39053092c6b38e236e1899525647073dddf6895d64206325e7647f275567b255909"
 	});
 });
-Deno.test("734BD1", { permissions: "none" }, () => {
+Deno.test("Hex 734BD1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5",
 		expected: "cbb65321ac436e2ffdab2936359ce49023f7dee7614ef28d173c3d27c5d1bffa51553d433f8ee3c9e49c05a2b883cce954c9a8093b80612a0cdd4732e041f995"
 	});
 });
-Deno.test("467D67", { permissions: "none" }, () => {
+Deno.test("Hex 467D67", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6",
 		expected: "3e7e570074337275efb51315588034c3cf0dddca20b4612e0bd5b881e7e5476d319ce4fe9f19186e4c0826f44f131eb048e65be242b1172c63badb123ab0cbe8"
 	});
 });
-Deno.test("9A066E", { permissions: "none" }, () => {
+Deno.test("Hex 9A066E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7",
 		expected: "d32e9ec02d38d4e1b8249df8dcb00c5b9c68eb8922672e3505393b6a210ba56f9496e5ee0490ef387c3cdec061f06bc0382d9304cafbb8e0cd33d57029e62df2"
 	});
 });
-Deno.test("75B0DE", { permissions: "none" }, () => {
+Deno.test("Hex 75B0DE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8",
 		expected: "8c1512466089f05b3775c262b62d22b83854a83218130b4ec91b3ccbd293d2a54302cecaab9b100c68d1e6ddc8f07cddbdfe6fdaaaf099cc09d6b725879c6369"
 	});
 });
-Deno.test("9830FB", { permissions: "none" }, () => {
+Deno.test("Hex 9830FB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9",
 		expected: "91a7f61c97c2911e4c812ef71d780ad8fa788794561d08303fd1c1cb608a46a12563086ec5b39d471aed94fb0f6c678a43b8792932f9028d772a22768ea23a9b"
 	});
 });
-Deno.test("75F8D6", { permissions: "none" }, () => {
+Deno.test("Hex 75F8D6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fa",
 		expected: "4f6bb222a395e8b18f6ba155477aed3f0729ac9e83e16d31a2a8bc655422b837c891c6199e6f0d75799e3b691525c581953517f252c4b9e3a27a28fbaf49644c"
 	});
 });
-Deno.test("C5B3D2", { permissions: "none" }, () => {
+Deno.test("Hex C5B3D2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafb",
 		expected: "5d06c07e7a646c413a501c3f4bb2fc38127de7509b7077c4d9b5613201c1aa02fd5f79d2745915dd57fbcb4ce08695f6efc0cb3d2d330e19b4b0e6004ea6471e"
 	});
 });
-Deno.test("A69BC2", { permissions: "none" }, () => {
+Deno.test("Hex A69BC2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfc",
 		expected: "b96756e57909968f14b796a5d30f4c9d671472cf82c8cfb2caca7ac7a44ca0a14c9842d00c82e337502c94d5960aca4c492ea7b0df919ddf1aada2a275bb10d4"
 	});
 });
-Deno.test("7F1D22", { permissions: "none" }, () => {
+Deno.test("Hex 7F1D22", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfd",
 		expected: "ff0a015e98db9c99f03977710aac3e658c0d896f6d71d618ba79dc6cf72ac75b7c038eb6862dede4543e145413a6368d69f5722c827ba3ef25b6ae6440d39276"
 	});
 });
-Deno.test("28A75B", { permissions: "none" }, () => {
+Deno.test("Hex 28A75B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe",
 		expected: "5b21c5fd8868367612474fa2e70e9cfa2201ffeee8fafab5797ad58fefa17c9b5b107da4a3db6320baaf2c8617d5a51df914ae88da3867c2d41f0cc14fa67928"
 	});
 });
-Deno.test("ACC11F", { permissions: "none" }, () => {
+Deno.test("Hex ACC11F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "10ebb67700b1868efb4417987acf4690ae9d972fb7a590c2f02871799aaa4786b5e996e8f0f4eb981fc214b005f42d2ff4233499391653df7aefcbc13fc51568"
 	});
 });
-Deno.test("8BFFE2", { permissions: "none" }, () => {
+Deno.test("Hex 8BFFE2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "961f6dd1e4dd30f63901690c512e78e4b45e4742ed197c3c5e45c549fd25f2e4187b0bc9fe30492b16b0d0bc4ef9b0f34c7003fac09a5ef1532e69430234cebd"
 	});
 });
-Deno.test("D4B6BF", { permissions: "none" }, () => {
+Deno.test("Hex D4B6BF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "da2cfbe2d8409a0f38026113884f84b50156371ae304c4430173d08a99d9fb1b983164a3770706d537f49e0c916d9f32b95cc37a95b99d857436f0232c88a965"
 	});
 });
-Deno.test("F768F9", { permissions: "none" }, () => {
+Deno.test("Hex F768F9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "33d0825dddf7ada99b0e7e307104ad07ca9cfd9692214f1561356315e784f3e5a17e364ae9dbb14cb2036df932b77f4b292761365fb328de7afdc6d8998f5fc1"
 	});
 });
-Deno.test("2CB0D2", { permissions: "none" }, () => {
+Deno.test("Hex 2CB0D2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "beaa5a3d08f3807143cf621d95cd690514d0b49efff9c91d24b59241ec0eefa5f60196d407048bba8d2146828ebcb0488d8842fd56bb4f6df8e19c4b4daab8ac"
 	});
 });
-Deno.test("11BA38", { permissions: "none" }, () => {
+Deno.test("Hex 11BA38", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001020304",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "098084b51fd13deae5f4320de94a688ee07baea2800486689a8636117b46c1f4c1f6af7f74ae7c857600456a58a3af251dc4723a64cc7c0a5ab6d9cac91c20bb"
 	});
 });
-Deno.test("817132", { permissions: "none" }, () => {
+Deno.test("Hex 817132", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "6044540d560853eb1c57df0077dd381094781cdb9073e5b1b3d3f6c7829e12066bbaca96d989a690de72ca3133a83652ba284a6d62942b271ffa2620c9e75b1f"
 	});
 });
-Deno.test("4C1658", { permissions: "none" }, () => {
+Deno.test("Hex 4C1658", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203040506",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7a8cfe9b90f75f7ecb3acc053aaed6193112b6f6a4aeeb3f65d3de541942deb9e2228152a3c4bbbe72fc3b12629528cfbb09fe630f0474339f54abf453e2ed52"
 	});
 });
-Deno.test("A043FA", { permissions: "none" }, () => {
+Deno.test("Hex A043FA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "0001020304050607",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "380beaf6ea7cc9365e270ef0e6f3a64fb902acae51dd5512f84259ad2c91f4bc4108db73192a5bbfb0cbcf71e46c3e21aee1c5e860dc96e8eb0b7b8426e6abe9"
 	});
 });
-Deno.test("82FAC6", { permissions: "none" }, () => {
+Deno.test("Hex 82FAC6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "60fe3c4535e1b59d9a61ea8500bfac41a69dffb1ceadd9aca323e9a625b64da5763bad7226da02b9c8c4f1a5de140ac5a6c1124e4f718ce0b28ea47393aa6637"
 	});
 });
-Deno.test("943308", { permissions: "none" }, () => {
+Deno.test("Hex 943308", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "00010203040506070809",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4fe181f54ad63a2983feaaf77d1e7235c2beb17fa328b6d9505bda327df19fc37f02c4b6f0368ce23147313a8e5738b5fa2a95b29de1c7f8264eb77b69f585cd"
 	});
 });
-Deno.test("8B9527", { permissions: "none" }, () => {
+Deno.test("Hex 8B9527", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f228773ce3f3a42b5f144d63237a72d99693adb8837d0e112a8a0f8ffff2c362857ac49c11ec740d1500749dac9b1f4548108bf3155794dcc9e4082849e2b85b"
 	});
 });
-Deno.test("CABE3D", { permissions: "none" }, () => {
+Deno.test("Hex CABE3D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "962452a8455cc56c8511317e3b1f3b2c37df75f588e94325fdd77070359cf63a9ae6e930936fdf8e1e08ffca440cfb72c28f06d89a2151d1c46cd5b268ef8563"
 	});
 });
-Deno.test("AD1D5D", { permissions: "none" }, () => {
+Deno.test("Hex AD1D5D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "43d44bfa18768c59896bf7ed1765cb2d14af8c260266039099b25a603e4ddc5039d6ef3a91847d1088d401c0c7e847781a8a590d33a3c6cb4df0fab1c2f22355"
 	});
 });
-Deno.test("CBBEAC", { permissions: "none" }, () => {
+Deno.test("Hex CBBEAC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "dcffa9d58c2a4ca2cdbb0c7aa4c4c1d45165190089f4e983bb1c2cab4aaeff1fa2b5ee516fecd780540240bf37e56c8bcca7fab980e1e61c9400d8a9a5b14ac6"
 	});
 });
-Deno.test("7F3D97", { permissions: "none" }, () => {
+Deno.test("Hex 7F3D97", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "6fbf31b45ab0c0b8dad1c0f5f4061379912dde5aa922099a030b725c73346c524291adef89d2f6fd8dfcda6d07dad811a9314536c2915ed45da34947e83de34e"
 	});
 });
-Deno.test("A14868", { permissions: "none" }, () => {
+Deno.test("Hex A14868", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "a0c65bddde8adef57282b04b11e7bc8aab105b99231b750c021f4a735cb1bcfab87553bba3abb0c3e64a0b6955285185a0bd35fb8cfde557329bebb1f629ee93"
 	});
 });
-Deno.test("1E4249", { permissions: "none" }, () => {
+Deno.test("Hex 1E4249", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f99d815550558e81eca2f96718aed10d86f3f1cfb675cce06b0eff02f617c5a42c5aa760270f2679da2677c5aeb94f1142277f21c7f79f3c4f0cce4ed8ee62b1"
 	});
 });
-Deno.test("9AED53", { permissions: "none" }, () => {
+Deno.test("Hex 9AED53", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "95391da8fc7b917a2044b3d6f5374e1ca072b41454d572c7356c05fd4bc1e0f40b8bb8b4a9f6bce9be2c4623c399b0dca0dab05cb7281b71a21b0ebcd9e55670"
 	});
 });
-Deno.test("05C369", { permissions: "none" }, () => {
+Deno.test("Hex 05C369", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "04b9cd3d20d221c09ac86913d3dc63041989a9a1e694f1e639a3ba7e451840f750c2fc191d56ad61f2e7936bc0ac8e094b60caeed878c18799045402d61ceaf9"
 	});
 });
-Deno.test("7735C8", { permissions: "none" }, () => {
+Deno.test("Hex 7735C8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ec0e0ef707e4ed6c0c66f9e089e4954b058030d2dd86398fe84059631f9ee591d9d77375355149178c0cf8f8e7c49ed2a5e4f95488a2247067c208510fadc44c"
 	});
 });
-Deno.test("2246D2", { permissions: "none" }, () => {
+Deno.test("Hex 2246D2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011121314",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "9a37cce273b79c09913677510eaf7688e89b3314d3532fd2764c39de022a2945b5710d13517af8ddc0316624e73bec1ce67df15228302036f330ab0cb4d218dd"
 	});
 });
-Deno.test("DC3224", { permissions: "none" }, () => {
+Deno.test("Hex DC3224", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4cf9bb8fb3d4de8b38b2f262d3c40f46dfe747e8fc0a414c193d9fcf753106ce47a18f172f12e8a2f1c26726545358e5ee28c9e2213a8787aafbc516d2343152"
 	});
 });
-Deno.test("A1C49E", { permissions: "none" }, () => {
+Deno.test("Hex A1C49E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213141516",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "64e0c63af9c808fd893137129867fd91939d53f2af04be4fa268006100069b2d69daa5c5d8ed7fddcb2a70eeecdf2b105dd46a1e3b7311728f639ab489326bc9"
 	});
 });
-Deno.test("2769BD", { permissions: "none" }, () => {
+Deno.test("Hex 2769BD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f1011121314151617",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5e9c93158d659b2def06b0c3c7565045542662d6eee8a96a89b78ade09fe8b3dcc096d4fe48815d88d8f82620156602af541955e1f6ca30dce14e254c326b88f"
 	});
 });
-Deno.test("28A52A", { permissions: "none" }, () => {
+Deno.test("Hex 28A52A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7775dff889458dd11aef417276853e21335eb88e4dec9cfb4e9edb49820088551a2ca60339f12066101169f0dfe84b098fddb148d9da6b3d613df263889ad64b"
 	});
 });
-Deno.test("A180DD", { permissions: "none" }, () => {
+Deno.test("Hex A180DD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f10111213141516171819",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f0d2805afbb91f743951351a6d024f9353a23c7ce1fc2b051b3a8b968c233f46f50f806ecb1568ffaa0b60661e334b21dde04f8fa155ac740eeb42e20b60d764"
 	});
 });
-Deno.test("273C74", { permissions: "none" }, () => {
+Deno.test("Hex 273C74", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "86a2af316e7d7754201b942e275364ac12ea8962ab5bd8d7fb276dc5fbffc8f9a28cae4e4867df6780d9b72524160927c855da5b6078e0b554aa91e31cb9ca1d"
 	});
 });
-Deno.test("8A56D7", { permissions: "none" }, () => {
+Deno.test("Hex 8A56D7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "10bdf0caa0802705e706369baf8a3f79d72c0a03a80675a7bbb00be3a45e516424d1ee88efb56f6d5777545ae6e27765c3a8f5e493fc308915638933a1dfee55"
 	});
 });
-Deno.test("27E471", { permissions: "none" }, () => {
+Deno.test("Hex 27E471", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b01781092b1748459e2e4ec178696627bf4ebafebba774ecf018b79a68aeb84917bf0b84bb79d17b743151144cd66b7b33a4b9e52c76c4e112050ff5385b7f0b"
 	});
 });
-Deno.test("AF4395", { permissions: "none" }, () => {
+Deno.test("Hex AF4395", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c6dbc61dec6eaeac81e3d5f755203c8e220551534a0b2fd105a91889945a638550204f44093dd998c076205dffad703a0e5cd3c7f438a7e634cd59fededb539e"
 	});
 });
-Deno.test("F30DE7", { permissions: "none" }, () => {
+Deno.test("Hex F30DE7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "eba51acffb4cea31db4b8d87e9bf7dd48fe97b0253ae67aa580f9ac4a9d941f2bea518ee286818cc9f633f2a3b9fb68e594b48cdd6d515bf1d52ba6c85a203a7"
 	});
 });
-Deno.test("01FAE3", { permissions: "none" }, () => {
+Deno.test("Hex 01FAE3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "86221f3ada52037b72224f105d7999231c5e5534d03da9d9c0a12acb68460cd375daf8e24386286f9668f72326dbf99ba094392437d398e95bb8161d717f8991"
 	});
 });
-Deno.test("475D2C", { permissions: "none" }, () => {
+Deno.test("Hex 475D2C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5595e05c13a7ec4dc8f41fb70cb50a71bce17c024ff6de7af618d0cc4e9c32d9570d6d3ea45b86525491030c0d8f2b1836d5778c1ce735c17707df364d054347"
 	});
 });
-Deno.test("CC2091", { permissions: "none" }, () => {
+Deno.test("Hex CC2091", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ce0f4f6aca89590a37fe034dd74dd5fa65eb1cbd0a41508aaddc09351a3cea6d18cb2189c54b700c009f4cbf0521c7ea01be61c5ae09cb54f27bc1b44d658c82"
 	});
 });
-Deno.test("DB05F7", { permissions: "none" }, () => {
+Deno.test("Hex DB05F7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7ee80b06a215a3bca970c77cda8761822bc103d44fa4b33f4d07dcb997e36d55298bceae12241b3fa07fa63be5576068da387b8d5859aeab701369848b176d42"
 	});
 });
-Deno.test("4084F3", { permissions: "none" }, () => {
+Deno.test("Hex 4084F3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "940a84b6a84d109aab208c024c6ce9647676ba0aaa11f86dbb7018f9fd2220a6d901a9027f9abcf935372727cbf09ebd61a2a2eeb87653e8ecad1bab85dc8327"
 	});
 });
-Deno.test("36683C", { permissions: "none" }, () => {
+Deno.test("Hex 36683C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2020b78264a82d9f4151141adba8d44bf20c5ec062eee9b595a11f9e84901bf148f298e0c9f8777dcdbc7cc4670aac356cc2ad8ccb1629f16f6a76bcefbee760"
 	});
 });
-Deno.test("04426B", { permissions: "none" }, () => {
+Deno.test("Hex 04426B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d1b897b0e075ba68ab572adf9d9c436663e43eb3d8e62d92fc49c9be214e6f27873fe215a65170e6bea902408a25b49506f47babd07cecf7113ec10c5dd31252"
 	});
 });
-Deno.test("BFD7E9", { permissions: "none" }, () => {
+Deno.test("Hex BFD7E9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b14d0c62abfa469a357177e594c10c194243ed2025ab8aa5ad2fa41ad318e0ff48cd5e60bec07b13634a711d2326e488a985f31e31153399e73088efc86a5c55"
 	});
 });
-Deno.test("D15579", { permissions: "none" }, () => {
+Deno.test("Hex D15579", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4169c5cc808d2697dc2a82430dc23e3cd356dc70a94566810502b8d655b39abf9e7f902fe717e0389219859e1945df1af6ada42e4ccda55a197b7100a30c30a1"
 	});
 });
-Deno.test("22BA51", { permissions: "none" }, () => {
+Deno.test("Hex 22BA51", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "258a4edb113d66c839c8b1c91f15f35ade609f11cd7f8681a4045b9fef7b0b24c82cda06a5f2067b368825e3914e53d6948ede92efd6e8387fa2e537239b5bee"
 	});
 });
-Deno.test("3D8E5D", { permissions: "none" }, () => {
+Deno.test("Hex 3D8E5D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20212223242526272829",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "79d2d8696d30f30fb34657761171a11e6c3f1e64cbe7bebee159cb95bfaf812b4f411e2f26d9c421dc2c284a3342d823ec293849e42d1e46b0a4ac1e3c86abaa"
 	});
 });
-Deno.test("0D6BC5", { permissions: "none" }, () => {
+Deno.test("Hex 0D6BC5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8b9436010dc5dee992ae38aea97f2cd63b946d94fedd2ec9671dcde3bd4ce9564d555c66c15bb2b900df72edb6b891ebcadfeff63c9ea4036a998be7973981e7"
 	});
 });
-Deno.test("05D83E", { permissions: "none" }, () => {
+Deno.test("Hex 05D83E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c8f68e696ed28242bf997f5b3b34959508e42d613810f1e2a435c96ed2ff560c7022f361a9234b9837feee90bf47922ee0fd5f8ddf823718d86d1e16c6090071"
 	});
 });
-Deno.test("3D4D0A", { permissions: "none" }, () => {
+Deno.test("Hex 3D4D0A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b02d3eee4860d5868b2c39ce39bfe81011290564dd678c85e8783f29302dfc1399ba95b6b53cd9ebbf400cca1db0ab67e19a325f2d115812d25d00978ad1bca4"
 	});
 });
-Deno.test("3AA625", { permissions: "none" }, () => {
+Deno.test("Hex 3AA625", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7693ea73af3ac4dad21ca0d8da85b3118a7d1c6024cfaf557699868217bc0c2f44a199bc6c0edd519798ba05bd5b1b4484346a47c2cadf6bf30b785cc88b2baf"
 	});
 });
-Deno.test("EE696C", { permissions: "none" }, () => {
+Deno.test("Hex EE696C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "a0e5c1c0031c02e48b7f09a5e896ee9aef2f17fc9e18e997d7f6cac7ae316422c2b1e77984e5f3a73cb45deed5d3f84600105e6ee38f2d090c7d0442ea34c46d"
 	});
 });
-Deno.test("9FBC2D", { permissions: "none" }, () => {
+Deno.test("Hex 9FBC2D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "41daa6adcfdb69f1440c37b596440165c15ada596813e2e22f060fcd551f24dee8e04ba6890387886ceec4a7a0d7fc6b44506392ec3822c0d8c1acfc7d5aebe8"
 	});
 });
-Deno.test("27C962", { permissions: "none" }, () => {
+Deno.test("Hex 27C962", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "14d4d40d5984d84c5cf7523b7798b254e275a3a8cc0a1bd06ebc0bee726856acc3cbf516ff667cda2058ad5c3412254460a82c92187041363cc77a4dc215e487"
 	});
 });
-Deno.test("4ECC5B", { permissions: "none" }, () => {
+Deno.test("Hex 4ECC5B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d0e7a1e2b9a447fee83e2277e9ff8010c2f375ae12fa7aaa8ca5a6317868a26a367a0b69fbc1cf32a55d34eb370663016f3d2110230eba754028a56f54acf57c"
 	});
 });
-Deno.test("B7B018", { permissions: "none" }, () => {
+Deno.test("Hex B7B018", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e771aa8db5a3e043e8178f39a0857ba04a3f18e4aa05743cf8d222b0b095825350ba422f63382a23d92e4149074e816a36c1cd28284d146267940b31f8818ea2"
 	});
 });
-Deno.test("F0F79A", { permissions: "none" }, () => {
+Deno.test("Hex F0F79A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "feb4fd6f9e87a56bef398b3284d2bda5b5b0e166583a66b61e538457ff0584872c21a32962b9928ffab58de4af2edd4e15d8b35570523207ff4e2a5aa7754caa"
 	});
 });
-Deno.test("F8C9CC", { permissions: "none" }, () => {
+Deno.test("Hex F8C9CC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "462f17bf005fb1c1b9e671779f665209ec2873e3e411f98dabf240a1d5ec3f95ce6796b6fc23fe171903b502023467dec7273ff74879b92967a2a43a5a183d33"
 	});
 });
-Deno.test("691919", { permissions: "none" }, () => {
+Deno.test("Hex 691919", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d3338193b64553dbd38d144bea71c5915bb110e2d88180dbc5db364fd6171df317fc7268831b5aef75e4342b2fad8797ba39eddcef80e6ec08159350b1ad696d"
 	});
 });
-Deno.test("E5453F", { permissions: "none" }, () => {
+Deno.test("Hex E5453F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e1590d585a3d39f7cb599abd479070966409a6846d4377acf4471d065d5db94129cc9be92573b05ed226be1e9b7cb0cabe87918589f80dadd4ef5ef25a93d28e"
 	});
 });
-Deno.test("36D34A", { permissions: "none" }, () => {
+Deno.test("Hex 36D34A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f8f3726ac5a26cc80132493a6fedcb0e60760c09cfc84cad178175986819665e76842d7b9fedf76dddebf5d3f56faaad4477587af21606d396ae570d8e719af2"
 	});
 });
-Deno.test("FF0F0E", { permissions: "none" }, () => {
+Deno.test("Hex FF0F0E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "30186055c07949948183c850e9a756cc09937e247d9d928e869e20bafc3cd9721719d34e04a0899b92c736084550186886efba2e790d8be6ebf040b209c439a4"
 	});
 });
-Deno.test("362273", { permissions: "none" }, () => {
+Deno.test("Hex 362273", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f30313233343536373839",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f3c4276cb863637712c241c444c5cc1e3554e0fddb174d035819dd83eb700b4ce88df3ab3841ba02085e1a99b4e17310c5341075c0458ba376c95a6818fbb3e2"
 	});
 });
-Deno.test("6A73DA", { permissions: "none" }, () => {
+Deno.test("Hex 6A73DA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0aa007c4dd9d5832393040a1583c930bca7dc5e77ea53add7e2b3f7c8e231368043520d4a3ef53c969b6bbfd025946f632bd7f765d53c21003b8f983f75e2a6a"
 	});
 });
-Deno.test("3CDDAE", { permissions: "none" }, () => {
+Deno.test("Hex 3CDDAE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "08e9464720533b23a04ec24f7ae8c103145f765387d738777d3d343477fd1c58db052142cab754ea674378e18766c53542f71970171cc4f81694246b717d7564"
 	});
 });
-Deno.test("5F730E", { permissions: "none" }, () => {
+Deno.test("Hex 5F730E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d37ff7ad297993e7ec21e0f1b4b5ae719cdc83c5db687527f27516cbffa822888a6810ee5c1ca7bfe3321119be1ab7bfa0a502671c8329494df7ad6f522d440f"
 	});
 });
-Deno.test("FCDBC9", { permissions: "none" }, () => {
+Deno.test("Hex FCDBC9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "dd9042f6e464dcf86b1262f6accfafbd8cfd902ed3ed89abf78ffa482dbdeeb6969842394c9a1168ae3d481a017842f660002d42447c6b22f7b72f21aae021c9"
 	});
 });
-Deno.test("F8B28C", { permissions: "none" }, () => {
+Deno.test("Hex F8B28C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "bd965bf31e87d70327536f2a341cebc4768eca275fa05ef98f7f1b71a0351298de006fba73fe6733ed01d75801b4a928e54231b38e38c562b2e33ea1284992fa"
 	});
 });
-Deno.test("6D98CA", { permissions: "none" }, () => {
+Deno.test("Hex 6D98CA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "65676d800617972fbd87e4b9514e1c67402b7a331096d3bfac22f1abb95374abc942f16e9ab0ead33b87c91968a6e509e119ff07787b3ef483e1dcdccf6e3022"
 	});
 });
-Deno.test("64EDE4", { permissions: "none" }, () => {
+Deno.test("Hex 64EDE4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "939fa189699c5d2c81ddd1ffc1fa207c970b6a3685bb29ce1d3e99d42f2f7442da53e95a72907314f4588399a3ff5b0a92beb3f6be2694f9f86ecf2952d5b41c"
 	});
 });
-Deno.test("09F7AD", { permissions: "none" }, () => {
+Deno.test("Hex 09F7AD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c516541701863f91005f314108ceece3c643e04fc8c42fd2ff556220e616aaa6a48aeb97a84bad74782e8dff96a1a2fa949339d722edcaa32b57067041df88cc"
 	});
 });
-Deno.test("F26408", { permissions: "none" }, () => {
+Deno.test("Hex F26408", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "987fd6e0d6857c553eaebb3d34970a2c2f6e89a3548f492521722b80a1c21a153892346d2cba6444212d56da9a26e324dccbc0dcde85d4d2ee4399eec5a64e8f"
 	});
 });
-Deno.test("E93B82", { permissions: "none" }, () => {
+Deno.test("Hex E93B82", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ae56deb1c2328d9c4017706bce6e99d41349053ba9d336d677c4c27d9fd50ae6aee17e853154e1f4fe7672346da2eaa31eea53fcf24a22804f11d03da6abfc2b"
 	});
 });
-Deno.test("F85C48", { permissions: "none" }, () => {
+Deno.test("Hex F85C48", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "49d6a608c9bde4491870498572ac31aac3fa40938b38a7818f72383eb040ad39532bc06571e13d767e6945ab77c0bdc3b0284253343f9f6c1244ebf2ff0df866"
 	});
 });
-Deno.test("F04A7C", { permissions: "none" }, () => {
+Deno.test("Hex F04A7C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "da582ad8c5370b4469af862aa6467a2293b2b28bd80ae0e91f425ad3d47249fdf98825cc86f14028c3308c9804c78bfeeeee461444ce243687e1a50522456a1d"
 	});
 });
-Deno.test("5C1A15", { permissions: "none" }, () => {
+Deno.test("Hex 5C1A15", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d5266aa3331194aef852eed86d7b5b2633a0af1c735906f2e13279f14931a9fc3b0eac5ce9245273bd1aa92905abe16278ef7efd47694789a7283b77da3c70f8"
 	});
 });
-Deno.test("2E6D5F", { permissions: "none" }, () => {
+Deno.test("Hex 2E6D5F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f4041424344454647",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2962734c28252186a9a1111c732ad4de4506d4b4480916303eb7991d659ccda07a9911914bc75c418ab7a4541757ad054796e26797feaf36e9f6ad43f14b35a4"
 	});
 });
-Deno.test("15F4CA", { permissions: "none" }, () => {
+Deno.test("Hex 15F4CA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e8b79ec5d06e111bdfafd71e9f5760f00ac8ac5d8bf768f9ff6f08b8f026096b1cc3a4c973333019f1e3553e77da3f98cb9f542e0a90e5f8a940cc58e59844b3"
 	});
 });
-Deno.test("25E534", { permissions: "none" }, () => {
+Deno.test("Hex 25E534", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f40414243444546474849",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "dfb320c44f9d41d1efdcc015f08dd5539e526e39c87d509ae6812a969e5431bf4fa7d91ffd03b981e0d544cf72d7b1c0374f8801482e6dea2ef903877eba675e"
 	});
 });
-Deno.test("EF1584", { permissions: "none" }, () => {
+Deno.test("Hex EF1584", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d88675118fdb55a5fb365ac2af1d217bf526ce1ee9c94b2f0090b2c58a06ca58187d7fe57c7bed9d26fca067b4110eefcd9a0a345de872abe20de368001b0745"
 	});
 });
-Deno.test("299EF4", { permissions: "none" }, () => {
+Deno.test("Hex 299EF4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b893f2fc41f7b0dd6e2f6aa2e0370c0cff7df09e3acfcc0e920b6e6fad0ef747c40668417d342b80d2351e8c175f20897a062e9765e6c67b539b6ba8b9170545"
 	});
 });
-Deno.test("FDA648", { permissions: "none" }, () => {
+Deno.test("Hex FDA648", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "6c67ec5697accd235c59b486d7b70baeedcbd4aa64ebd4eef3c7eac189561a726250aec4d48cadcafbbe2ce3c16ce2d691a8cce06e8879556d4483ed7165c063"
 	});
 });
-Deno.test("D21E01", { permissions: "none" }, () => {
+Deno.test("Hex D21E01", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f1aa2b044f8f0c638a3f362e677b5d891d6fd2ab0765f6ee1e4987de057ead357883d9b405b9d609eea1b869d97fb16d9b51017c553f3b93c0a1e0f1296fedcd"
 	});
 });
-Deno.test("9BDE34", { permissions: "none" }, () => {
+Deno.test("Hex 9BDE34", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "cbaa259572d4aebfc1917acddc582b9f8dfaa928a198ca7acd0f2aa76a134a90252e6298a65b08186a350d5b7626699f8cb721a3ea5921b753ae3a2dce24ba3a"
 	});
 });
-Deno.test("2FAD26", { permissions: "none" }, () => {
+Deno.test("Hex 2FAD26", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "fa1549c9796cd4d303dcf452c1fbd5744fd9b9b47003d920b92de34839d07ef2a29ded68f6fc9e6c45e071a2e48bd50c5084e96b657dd0404045a1ddefe282ed"
 	});
 });
-Deno.test("8022DF", { permissions: "none" }, () => {
+Deno.test("Hex 8022DF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5cf2ac897ab444dcb5c8d87c495dbdb34e1838b6b629427caa51702ad0f9688525f13bec503a3c3a2c80a65e0b5715e8afab00ffa56ec455a49a1ad30aa24fcd"
 	});
 });
-Deno.test("D2B82B", { permissions: "none" }, () => {
+Deno.test("Hex D2B82B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "9aaf80207bace17bb7ab145757d5696bde32406ef22b44292ef65d4519c3bb2ad41a59b62cc3e94b6fa96d32a7faadae28af7d35097219aa3fd8cda31e40c275"
 	});
 });
-Deno.test("1C0F3F", { permissions: "none" }, () => {
+Deno.test("Hex 1C0F3F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "af88b163402c86745cb650c2988fb95211b94b03ef290eed9662034241fd51cf398f8073e369354c43eae1052f9b63b08191caa138aa54fea889cc7024236897"
 	});
 });
-Deno.test("9CE099", { permissions: "none" }, () => {
+Deno.test("Hex 9CE099", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "48fa7d64e1ceee27b9864db5ada4b53d00c9bc7626555813d3cd6730ab3cc06ff342d727905e33171bde6e8476e77fb1720861e94b73a2c538d254746285f430"
 	});
 });
-Deno.test("0E9E8E", { permissions: "none" }, () => {
+Deno.test("Hex 0E9E8E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0e6fd97a85e904f87bfe85bbeb34f69e1f18105cf4ed4f87aec36c6e8b5f68bd2a6f3dc8a9ecb2b61db4eedb6b2ea10bf9cb0251fb0f8b344abf7f366b6de5ab"
 	});
 });
-Deno.test("7CB5AC", { permissions: "none" }, () => {
+Deno.test("Hex 7CB5AC", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "06622da5787176287fdc8fed440bad187d830099c94e6d04c8e9c954cda70c8bb9e1fc4a6d0baa831b9b78ef6648681a4867a11da93ee36e5e6a37d87fc63f6f"
 	});
 });
-Deno.test("B24537", { permissions: "none" }, () => {
+Deno.test("Hex B24537", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1da6772b58fabf9c61f68d412c82f182c0236d7d575ef0b58dd22458d643cd1dfc93b03871c316d8430d312995d4197f0874c99172ba004a01ee295abac24e46"
 	});
 });
-Deno.test("D022E8", { permissions: "none" }, () => {
+Deno.test("Hex D022E8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f5051525354555657",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3cd2d9320b7b1d5fb9aab951a76023fa667be14a9124e394513918a3f44096ae4904ba0ffc150b63bc7ab1eeb9a6e257e5c8f000a70394a5afd842715de15f29"
 	});
 });
-Deno.test("6E1F0F", { permissions: "none" }, () => {
+Deno.test("Hex 6E1F0F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "04cdc14f7434e0b4be70cb41db4c779a88eaef6accebcb41f2d42fffe7f32a8e281b5c103a27021d0d08362250753cdf70292195a53a48728ceb5844c2d98bab"
 	});
 });
-Deno.test("23CCA7", { permissions: "none" }, () => {
+Deno.test("Hex 23CCA7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f50515253545556575859",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "9071b7a8a075d0095b8fb3ae5113785735ab98e2b52faf91d5b89e44aac5b5d4ebbf91223b0ff4c71905da55342e64655d6ef8c89a4768c3f93a6dc0366b5bc8"
 	});
 });
-Deno.test("13DEF9", { permissions: "none" }, () => {
+Deno.test("Hex 13DEF9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ebb30240dd96c7bc8d0abe49aa4edcbb4afdc51ff9aaf720d3f9e7fbb0f9c6d6571350501769fc4ebd0b2141247ff400d4fd4be414edf37757bb90a32ac5c65a"
 	});
 });
-Deno.test("6E0399", { permissions: "none" }, () => {
+Deno.test("Hex 6E0399", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8532c58bf3c8015d9d1cbe00eef1f5082f8f3632fbe9f1ed4f9dfb1fa79e8283066d77c44c4af943d76b300364aecbd0648c8a8939bd204123f4b56260422dec"
 	});
 });
-Deno.test("E37904", { permissions: "none" }, () => {
+Deno.test("Hex E37904", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "fe9846d64f7c7708696f840e2d76cb4408b6595c2f81ec6a28a7f2f20cb88cfe6ac0b9e9b8244f08bd7095c350c1d0842f64fb01bb7f532dfcd47371b0aeeb79"
 	});
 });
-Deno.test("A7F7DF", { permissions: "none" }, () => {
+Deno.test("Hex A7F7DF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "28f17ea6fb6c42092dc264257e29746321fb5bdaea9873c2a7fa9d8f53818e899e161bc77dfe8090afd82bf2266c5c1bc930a8d1547624439e662ef695f26f24"
 	});
 });
-Deno.test("667EA3", { permissions: "none" }, () => {
+Deno.test("Hex 667EA3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ec6b7d7f030d4850acae3cb615c21dd25206d63e84d1db8d957370737ba0e98467ea0ce274c66199901eaec18a08525715f53bfdb0aacb613d342ebdceeddc3b"
 	});
 });
-Deno.test("45E461", { permissions: "none" }, () => {
+Deno.test("Hex 45E461", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b403d3691c03b0d3418df327d5860d34bbfcc4519bfbce36bf33b208385fadb9186bc78a76c489d89fd57e7dc75412d23bcd1dae8470ce9274754bb8585b13c5"
 	});
 });
-Deno.test("597747", { permissions: "none" }, () => {
+Deno.test("Hex 597747", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "31fc79738b8772b3f55cd8178813b3b52d0db5a419d30ba9495c4b9da0219fac6df8e7c23a811551a62b827f256ecdb8124ac8a6792ccfecc3b3012722e94463"
 	});
 });
-Deno.test("914BC5", { permissions: "none" }, () => {
+Deno.test("Hex 914BC5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "bb2039ec287091bcc9642fc90049e73732e02e577e2862b32216ae9bedcd730c4c284ef3968c368b7d37584f97bd4b4dc6ef6127acfe2e6ae2509124e66c8af4"
 	});
 });
-Deno.test("93A21A", { permissions: "none" }, () => {
+Deno.test("Hex 93A21A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f53d68d13f45edfcb9bd415e2831e938350d5380d3432278fc1c0c381fcb7c65c82dafe051d8c8b0d44e0974a0e59ec7bf7ed0459f86e96f329fc79752510fd3"
 	});
 });
-Deno.test("3A20CD", { permissions: "none" }, () => {
+Deno.test("Hex 3A20CD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8d568c7984f0ecdf7640fbc483b5d8c9f86634f6f43291841b309a350ab9c1137d24066b09da9944bac54d5bb6580d836047aac74ab724b887ebf93d4b32eca9"
 	});
 });
-Deno.test("651569", { permissions: "none" }, () => {
+Deno.test("Hex 651569", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c0b65ce5a96ff774c456cac3b5f2c4cd359b4ff53ef93a3da0778be4900d1e8da1601e769e8f1b02d2a2f8c5b9fa10b44f1c186985468feeb008730283a6657d"
 	});
 });
-Deno.test("4C75F8", { permissions: "none" }, () => {
+Deno.test("Hex 4C75F8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4900bba6f5fb103ece8ec96ada13a5c3c85488e05551da6b6b33d988e611ec0fe2e3c2aa48ea6ae8986a3a231b223c5d27cec2eadde91ce07981ee652862d1e4"
 	});
 });
-Deno.test("39B372", { permissions: "none" }, () => {
+Deno.test("Hex 39B372", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c7f5c37c7285f927f76443414d4357ff789647d7a005a5a787e03c346b57f49f21b64fa9cf4b7e45573e23049017567121a9c3d4b2b73ec5e9413577525db45a"
 	});
 });
-Deno.test("DA3E6B", { permissions: "none" }, () => {
+Deno.test("Hex DA3E6B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f6061626364656667",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ec7096330736fdb2d64b5653e7475da746c23a4613a82687a28062d3236364284ac01720ffb406cfe265c0df626a188c9e5963ace5d3d5bb363e32c38c2190a6"
 	});
 });
-Deno.test("2C9E82", { permissions: "none" }, () => {
+Deno.test("Hex 2C9E82", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "82e744c75f4649ec52b80771a77d475a3bc091989556960e276a5f9ead92a03f718742cdcfeaee5cb85c44af198adc43a4a428f5f0c2ddb0be36059f06d7df73"
 	});
 });
-Deno.test("53AC53", { permissions: "none" }, () => {
+Deno.test("Hex 53AC53", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f60616263646566676869",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2834b7a7170f1f5b68559ab78c1050ec21c919740b784a9072f6e5d69f828d70c919c5039fb148e39e2c8a52118378b064ca8d5001cd10a5478387b966715ed6"
 	});
 });
-Deno.test("1F943C", { permissions: "none" }, () => {
+Deno.test("Hex 1F943C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "16b4ada883f72f853bb7ef253efcab0c3e2161687ad61543a0d2824f91c1f81347d86be709b16996e17f2dd486927b0288ad38d13063c4a9672c39397d3789b6"
 	});
 });
-Deno.test("84F1C5", { permissions: "none" }, () => {
+Deno.test("Hex 84F1C5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "78d048f3a69d8b54ae0ed63a573ae350d89f7c6cf1f3688930de899afa037697629b314e5cd303aa62feea72a25bf42b304b6c6bcb27fae21c16d925e1fbdac3"
 	});
 });
-Deno.test("F7B82A", { permissions: "none" }, () => {
+Deno.test("Hex F7B82A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0f746a48749287ada77a82961f05a4da4abdb7d77b1220f836d09ec814359c0ec0239b8c7b9ff9e02f569d1b301ef67c4612d1de4f730f81c12c40cc063c5caa"
 	});
 });
-Deno.test("8180B5", { permissions: "none" }, () => {
+Deno.test("Hex 8180B5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f0fc859d3bd195fbdc2d591e4cdac15179ec0f1dc821c11df1f0c1d26e6260aaa65b79fafacafd7d3ad61e600f250905f5878c87452897647a35b995bcadc3a3"
 	});
 });
-Deno.test("425588", { permissions: "none" }, () => {
+Deno.test("Hex 425588", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2620f687e8625f6a412460b42e2cef67634208ce10a0cbd4dff7044a41b7880077e9f8dc3b8d1216d3376a21e015b58fb279b521d83f9388c7382c8505590b9b"
 	});
 });
-Deno.test("2A4A03", { permissions: "none" }, () => {
+Deno.test("Hex 2A4A03", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "227e3aed8d2cb10b918fcb04f9de3e6d0a57e08476d93759cd7b2ed54a1cbf0239c528fb04bbf288253e601d3bc38b21794afef90b17094a182cac557745e75f"
 	});
 });
-Deno.test("0C711B", { permissions: "none" }, () => {
+Deno.test("Hex 0C711B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1a929901b09c25f27d6b35be7b2f1c4745131fdebca7f3e2451926720434e0db6e74fd693ad29b777dc3355c592a361c4873b01133a57c2e3b7075cbdb86f4fc"
 	});
 });
-Deno.test("CEFD17", { permissions: "none" }, () => {
+Deno.test("Hex CEFD17", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5fd7968bc2fe34f220b5e3dc5af9571742d73b7d60819f2888b629072b96a9d8ab2d91b82d0a9aaba61bbd39958132fcc4257023d1eca591b3054e2dc81c8200"
 	});
 });
-Deno.test("E28231", { permissions: "none" }, () => {
+Deno.test("Hex E28231", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "dfcce8cf32870cc6a503eadafc87fd6f78918b9b4d0737db6810be996b5497e7e5cc80e312f61e71ff3e9624436073156403f735f56b0b01845c18f6caf772e6"
 	});
 });
-Deno.test("1DA603", { permissions: "none" }, () => {
+Deno.test("Hex 1DA603", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "02f7ef3a9ce0fff960f67032b296efca3061f4934d690749f2d01c35c81c14f39a67fa350bc8a0359bf1724bffc3bca6d7c7bba4791fd522a3ad353c02ec5aa8"
 	});
 });
-Deno.test("24E75B", { permissions: "none" }, () => {
+Deno.test("Hex 24E75B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "64be5c6aba65d594844ae78bb022e5bebe127fd6b6ffa5a13703855ab63b624dcd1a363f99203f632ec386f3ea767fc992e8ed9686586aa27555a8599d5b808f"
 	});
 });
-Deno.test("94C376", { permissions: "none" }, () => {
+Deno.test("Hex 94C376", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f78585505c4eaa54a8b5be70a61e735e0ff97af944ddb3001e35d86c4e2199d976104b6ae31750a36a726ed285064f5981b503889fef822fcdc2898dddb7889a"
 	});
 });
-Deno.test("94471B", { permissions: "none" }, () => {
+Deno.test("Hex 94471B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e4b5566033869572edfd87479a5bb73c80e8759b91232879d96b1dda36c012076ee5a2ed7ae2de63ef8406a06aea82c188031b560beafb583fb3de9e57952a7e"
 	});
 });
-Deno.test("ED14CE", { permissions: "none" }, () => {
+Deno.test("Hex ED14CE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f7071727374757677",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e1b3e7ed867f6c9484a2a97f7715f25e25294e992e41f6a7c161ffc2adc6daaeb7113102d5e6090287fe6ad94ce5d6b739c6ca240b05c76fb73f25dd024bf935"
 	});
 });
-Deno.test("B77AD4", { permissions: "none" }, () => {
+Deno.test("Hex B77AD4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "85fd085fdc12a080983df07bd7012b0d402a0f4043fcb2775adf0bad174f9b08d1676e476985785c0a5dcc41dbff6d95ef4d66a3fbdc4a74b82ba52da0512b74"
 	});
 });
-Deno.test("9BEB4A", { permissions: "none" }, () => {
+Deno.test("Hex 9BEB4A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f70717273747576777879",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "aed8fa764b0fbff821e05233d2f7b0900ec44d826f95e93c343c1bc3ba5a24374b1d616e7e7aba453a0ada5e4fab5382409e0d42ce9c2bc7fb39a99c340c20f0"
 	});
 });
-Deno.test("3F633C", { permissions: "none" }, () => {
+Deno.test("Hex 3F633C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7ba3b2e297233522eeb343bd3ebcfd835a04007735e87f0ca300cbee6d416565162171581e4020ff4cf176450f1291ea2285cb9ebffe4c56660627685145051c"
 	});
 });
-Deno.test("E402B2", { permissions: "none" }, () => {
+Deno.test("Hex E402B2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "de748bcf89ec88084721e16b85f30adb1a6134d664b5843569babc5bbd1a15ca9b61803c901a4fef32965a1749c9f3a4e243e173939dc5a8dc495c671ab52145"
 	});
 });
-Deno.test("CDD1B2", { permissions: "none" }, () => {
+Deno.test("Hex CDD1B2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "aaf4d2bdf200a919706d9842dce16c98140d34bc433df320aba9bd429e549aa7a3397652a4d768277786cf993cde2338673ed2e6b66c961fefb82cd20c93338f"
 	});
 });
-Deno.test("CFD862", { permissions: "none" }, () => {
+Deno.test("Hex CFD862", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c408218968b788bf864f0997e6bc4c3dba68b276e2125a4843296052ff93bf5767b8cdce7131f0876430c1165fec6c4f47adaa4fd8bcfacef463b5d3d0fa61a0"
 	});
 });
-Deno.test("F5E5A2", { permissions: "none" }, () => {
+Deno.test("Hex F5E5A2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "76d2d819c92bce55fa8e092ab1bf9b9eab237a25267986cacf2b8ee14d214d730dc9a5aa2d7b596e86a1fd8fa0804c77402d2fcd45083688b218b1cdfa0dcbcb"
 	});
 });
-Deno.test("DE622A", { permissions: "none" }, () => {
+Deno.test("Hex DE622A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "72065ee4dd91c2d8509fa1fc28a37c7fc9fa7d5b3f8ad3d0d7a25626b57b1b44788d4caf806290425f9890a3a2a35a905ab4b37acfd0da6e4517b2525c9651e4"
 	});
 });
-Deno.test("9087E5", { permissions: "none" }, () => {
+Deno.test("Hex 9087E5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "64475dfe7600d7171bea0b394e27c9b00d8e74dd1e416a79473682ad3dfdbb706631558055cfc8a40e07bd015a4540dcdea15883cbbf31412df1de1cd4152b91"
 	});
 });
-Deno.test("0766BA", { permissions: "none" }, () => {
+Deno.test("Hex 0766BA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "12cd1674a4488a5d7c2b3160d2e2c4b58371bedad793418d6f19c6ee385d70b3e06739369d4df910edb0b0a54cbff43d54544cd37ab3a06cfa0a3ddac8b66c89"
 	});
 });
-Deno.test("2AA026", { permissions: "none" }, () => {
+Deno.test("Hex 2AA026", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "60756966479dedc6dd4bcff8ea7d1d4ce4d4af2e7b097e32e3763518441147cc12b3c0ee6d2ecabf1198cec92e86a3616fba4f4e872f5825330adbb4c1dee444"
 	});
 });
-Deno.test("839E0E", { permissions: "none" }, () => {
+Deno.test("Hex 839E0E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "a7803bcb71bc1d0f4383dde1e0612e04f872b715ad30815c2249cf34abb8b024915cb2fc9f4e7cc4c8cfd45be2d5a91eab0941c7d270e2da4ca4a9f7ac68663a"
 	});
 });
-Deno.test("069238", { permissions: "none" }, () => {
+Deno.test("Hex 069238", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b84ef6a7229a34a750d9a98ee2529871816b87fbe3bc45b45fa5ae82d5141540211165c3c5d7a7476ba5a4aa06d66476f0d9dc49a3f1ee72c3acabd498967414"
 	});
 });
-Deno.test("19C3A9", { permissions: "none" }, () => {
+Deno.test("Hex 19C3A9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "fae4b6d8efc3f8c8e64d001dabec3a21f544e82714745251b2b4b393f2f43e0da3d403c64db95a2cb6e23ebb7b9e94cdd5ddac54f07c4a61bd3cb10aa6f93b49"
 	});
 });
-Deno.test("9205F7", { permissions: "none" }, () => {
+Deno.test("Hex 9205F7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "34f7286605a122369540141ded79b8957255da2d4155abbf5a8dbb89c8eb7ede8eeef1daa46dc29d751d045dc3b1d658bb64b80ff8589eddb3824b13da235a6b"
 	});
 });
-Deno.test("D4A434", { permissions: "none" }, () => {
+Deno.test("Hex D4A434", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f8081828384858687",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3b3b48434be27b9eababba43bf6b35f14b30f6a88dc2e750c358470d6b3aa3c18e47db4017fa55106d8252f016371a00f5f8b070b74ba5f23cffc5511c9f09f0"
 	});
 });
-Deno.test("3CBF6B", { permissions: "none" }, () => {
+Deno.test("Hex 3CBF6B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ba289ebd6562c48c3e10a8ad6ce02e73433d1e93d7c9279d4d60a7e879ee11f441a000f48ed9f7c4ed87a45136d7dccdca482109c78a51062b3ba4044ada2469"
 	});
 });
-Deno.test("C14412", { permissions: "none" }, () => {
+Deno.test("Hex C14412", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f80818283848586878889",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "022939e2386c5a37049856c850a2bb10a13dfea4212b4c732a8840a9ffa5faf54875c5448816b2785a007da8a8d2bc7d71a54e4e6571f10b600cbdb25d13ede3"
 	});
 });
-Deno.test("B46FFA", { permissions: "none" }, () => {
+Deno.test("Hex B46FFA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e6fec19d89ce8717b1a087024670fe026f6c7cbda11caef959bb2d351bf856f8055d1c0ebdaaa9d1b17886fc2c562b5e99642fc064710c0d3488a02b5ed7f6fd"
 	});
 });
-Deno.test("D3FB7B", { permissions: "none" }, () => {
+Deno.test("Hex D3FB7B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "94c96f02a8f576aca32ba61c2b206f907285d9299b83ac175c209a8d43d53bfe683dd1d83e7549cb906c28f59ab7c46f8751366a28c39dd5fe2693c9019666c8"
 	});
 });
-Deno.test("3C708C", { permissions: "none" }, () => {
+Deno.test("Hex 3C708C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "31a0cd215ebd2cb61de5b9edc91e6195e31c59a5648d5c9f737e125b2605708f2e325ab3381c8dce1a3e958886f1ecdc60318f882cfe20a24191352e617b0f21"
 	});
 });
-Deno.test("2496EF", { permissions: "none" }, () => {
+Deno.test("Hex 2496EF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "91ab504a522dce78779f4c6c6ba2e6b6db5565c76d3e7e7c920caf7f757ef9db7c8fcf10e57f03379ea9bf75eb59895d96e149800b6aae01db778bb90afbc989"
 	});
 });
-Deno.test("CF6E9A", { permissions: "none" }, () => {
+Deno.test("Hex CF6E9A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d85cabc6bd5b1a01a5afd8c6734740da9fd1c1acc6db29bfc8a2e5b668b028b6b3154bfb8703fa3180251d589ad38040ceb707c4bad1b5343cb426b61eaa49c1"
 	});
 });
-Deno.test("B8757F", { permissions: "none" }, () => {
+Deno.test("Hex B8757F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d62efbec2ca9c1f8bd66ce8b3f6a898cb3f7566ba6568c618ad1feb2b65b76c3ce1dd20f7395372faf28427f61c9278049cf0140df434f5633048c86b81e0399"
 	});
 });
-Deno.test("1A846E", { permissions: "none" }, () => {
+Deno.test("Hex 1A846E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7c8fdc6175439e2c3db15bafa7fb06143a6a23bc90f449e79deef73c3d492a671715c193b6fea9f036050b946069856b897e08c00768f5ee5ddcf70b7cd6d0e0"
 	});
 });
-Deno.test("E15613", { permissions: "none" }, () => {
+Deno.test("Hex E15613", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "58602ee7468e6bc9df21bd51b23c005f72d6cb013f0a1b48cbec5eca299299f97f09f54a9a01483eaeb315a6478bad37ba47ca1347c7c8fc9e6695592c91d723"
 	});
 });
-Deno.test("89F45C", { permissions: "none" }, () => {
+Deno.test("Hex 89F45C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "27f5b79ed256b050993d793496edf4807c1d85a7b0a67c9c4fa99860750b0ae66989670a8ffd7856d7ce411599e58c4d77b232a62bef64d15275be46a68235ff"
 	});
 });
-Deno.test("13C1EA", { permissions: "none" }, () => {
+Deno.test("Hex 13C1EA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3957a976b9f1887bf004a8dca942c92d2b37ea52600f25e0c9bc5707d0279c00c6e85a839b0d2d8eb59c51d94788ebe62474a791cadf52cccf20f5070b6573fc"
 	});
 });
-Deno.test("317AAB", { permissions: "none" }, () => {
+Deno.test("Hex 317AAB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "eaa2376d55380bf772ecca9cb0aa4668c95c707162fa86d518c8ce0ca9bf7362b9f2a0adc3ff59922df921b94567e81e452f6c1a07fc817cebe99604b3505d38"
 	});
 });
-Deno.test("2D5CE7", { permissions: "none" }, () => {
+Deno.test("Hex 2D5CE7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c1e2c78b6b2734e2480ec550434cb5d613111adcc21d475545c3b1b7e6ff12444476e5c055132e2229dc0f807044bb919b1a5662dd38a9ee65e243a3911aed1a"
 	});
 });
-Deno.test("D0AF7D", { permissions: "none" }, () => {
+Deno.test("Hex D0AF7D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8ab48713389dd0fcf9f965d3ce66b1e559a1f8c58741d67683cd971354f452e62d0207a65e436c5d5d8f8ee71c6abfe50e669004c302b31a7ea8311d4a916051"
 	});
 });
-Deno.test("8B8C05", { permissions: "none" }, () => {
+Deno.test("Hex 8B8C05", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f9091929394959697",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "24ce0addaa4c65038bd1b1c0f1452a0b128777aabc94a29df2fd6c7e2f85f8ab9ac7eff516b0e0a825c84a24cfe492eaad0a6308e46dd42fe8333ab971bb30ca"
 	});
 });
-Deno.test("69722E", { permissions: "none" }, () => {
+Deno.test("Hex 69722E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5154f929ee03045b6b0c0004fa778edee1d139893267cc84825ad7b36c63de32798e4a166d24686561354f63b00709a1364b3c241de3febf0754045897467cd4"
 	});
 });
-Deno.test("1F3344", { permissions: "none" }, () => {
+Deno.test("Hex 1F3344", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f90919293949596979899",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e74e907920fd87bd5ad636dd11085e50ee70459c443e1ce5809af2bc2eba39f9e6d7128e0e3712c316da06f4705d78a4838e28121d4344a2c79c5e0db307a677"
 	});
 });
-Deno.test("0E51DA", { permissions: "none" }, () => {
+Deno.test("Hex 0E51DA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "bf91a22334bac20f3fd80663b3cd06c4e8802f30e6b59f90d3035cc9798a217ed5a31abbda7fa6842827bdf2a7a1c21f6fcfccbb54c6c52926f32da816269be1"
 	});
 });
-Deno.test("DFBF64", { permissions: "none" }, () => {
+Deno.test("Hex DFBF64", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d9d5c74be5121b0bd742f26bffb8c89f89171f3f934913492b0903c271bbe2b3395ef259669bef43b57f7fcc3027db01823f6baee66e4f9fead4d6726c741fce"
 	});
 });
-Deno.test("F454FD", { permissions: "none" }, () => {
+Deno.test("Hex F454FD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "50c8b8cf34cd879f80e2faab3230b0c0e1cc3e9dcadeb1b9d97ab923415dd9a1fe38addd5c11756c67990b256e95ad6d8f9fedce10bf1c90679cde0ecf1be347"
 	});
 });
-Deno.test("F6265A", { permissions: "none" }, () => {
+Deno.test("Hex F6265A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0a386e7cd5dd9b77a035e09fe6fee2c8ce61b5383c87ea43205059c5e4cd4f4408319bb0a82360f6a58e6c9ce3f487c446063bf813bc6ba535e17fc1826cfc91"
 	});
 });
-Deno.test("D8F08E", { permissions: "none" }, () => {
+Deno.test("Hex D8F08E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1f1459cb6b61cbac5f0efe8fc487538f42548987fcd56221cfa7beb22504769e792c45adfb1d6b3d60d7b749c8a75b0bdf14e8ea721b95dca538ca6e25711209"
 	});
 });
-Deno.test("5F20B6", { permissions: "none" }, () => {
+Deno.test("Hex 5F20B6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e58b3836b7d8fedbb50ca5725c6571e74c0785e97821dab8b6298c10e4c079d4a6cdf22f0fedb55032925c16748115f01a105e77e00cee3d07924dc0d8f90659"
 	});
 });
-Deno.test("BB1D7E", { permissions: "none" }, () => {
+Deno.test("Hex BB1D7E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b929cc6505f020158672deda56d0db081a2ee34c00c1100029bdf8ea98034fa4bf3e8655ec697fe36f40553c5bb46801644a627d3342f4fc92b61f03290fb381"
 	});
 });
-Deno.test("D0BAED", { permissions: "none" }, () => {
+Deno.test("Hex D0BAED", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "72d353994b49d3e03153929a1e4d4f188ee58ab9e72ee8e512f29bc773913819ce057ddd7002c0433ee0a16114e3d156dd2c4a7e80ee53378b8670f23e33ef56"
 	});
 });
-Deno.test("ED646B", { permissions: "none" }, () => {
+Deno.test("Hex ED646B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c70ef9bfd775d408176737a0736d68517ce1aaad7e81a93c8c1ed967ea214f56c8a377b1763e676615b60f3988241eae6eab9685a5124929d28188f29eab06f7"
 	});
 });
-Deno.test("DB2E43", { permissions: "none" }, () => {
+Deno.test("Hex DB2E43", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c230f0802679cb33822ef8b3b21bf7a9a28942092901d7dac3760300831026cf354c9232df3e084d9903130c601f63c1f4a4a4b8106e468cd443bbe5a734f45f"
 	});
 });
-Deno.test("C0EB39", { permissions: "none" }, () => {
+Deno.test("Hex C0EB39", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "6f43094cafb5ebf1f7a4937ec50f56a4c9da303cbb55ac1f27f1f1976cd96beda9464f0e7b9c54620b8a9fba983164b8be3578425a024f5fe199c36356b88972"
 	});
 });
-Deno.test("9491BF", { permissions: "none" }, () => {
+Deno.test("Hex 9491BF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3745273f4c38225db2337381871a0c6aafd3af9b018c88aa02025850a5dc3a42a1a3e03e56cbf1b0876d63a441f1d2856a39b8801eb5af325201c415d65e97fe"
 	});
 });
-Deno.test("A83455", { permissions: "none" }, () => {
+Deno.test("Hex A83455", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c50c44cca3ec3edaae779a7e179450ebdda2f97067c690aa6c5a4ac7c30139bb27c0df4db3220e63cb110d64f37ffe078db72653e2daacf93ae3f0a2d1a7eb2e"
 	});
 });
-Deno.test("2FBB95", { permissions: "none" }, () => {
+Deno.test("Hex 2FBB95", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8aef263e385cbc61e19b28914243262af5afe8726af3ce39a79c27028cf3ecd3f8d2dfd9cfc9ad91b58f6f20778fd5f02894a3d91c7d57d1e4b866a7f364b6be"
 	});
 });
-Deno.test("A5E987", { permissions: "none" }, () => {
+Deno.test("Hex A5E987", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "28696141de6e2d9bcb3235578a66166c1448d3e905a1b482d423be4bc5369bc8c74dae0acc9cc123e1d8ddce9f97917e8c019c552da32d39d2219b9abf0fa8c8"
 	});
 });
-Deno.test("BBE313", { permissions: "none" }, () => {
+Deno.test("Hex BBE313", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2fb9eb2085830181903a9dafe3db428ee15be7662224efd643371fb25646aee716e531eca69b2bdc8233f1a8081fa43da1500302975a77f42fa592136710e9dc"
 	});
 });
-Deno.test("4747C6", { permissions: "none" }, () => {
+Deno.test("Hex 4747C6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aa",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "66f9a7143f7a3314a669bf2e24bbb35014261d639f495b6c9c1f104fe8e320aca60d4550d69d52edbd5a3cdeb4014ae65b1d87aa770b69ae5c15f4330b0b0ad8"
 	});
 });
-Deno.test("7D3F0F", { permissions: "none" }, () => {
+Deno.test("Hex 7D3F0F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaab",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f4c4dd1d594c3565e3e25ca43dad82f62abea4835ed4cd811bcd975e46279828d44d4c62c3679f1b7f7b9dd4571d7b49557347b8c5460cbdc1bef690fb2a08c0"
 	});
 });
-Deno.test("1A8A97", { permissions: "none" }, () => {
+Deno.test("Hex 1A8A97", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabac",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8f1dc9649c3a84551f8f6e91cac68242a43b1f8f328ee92280257387fa7559aa6db12e4aeadc2d26099178749c6864b357f3f83b2fb3efa8d2a8db056bed6bcc"
 	});
 });
-Deno.test("EB2519", { permissions: "none" }, () => {
+Deno.test("Hex EB2519", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacad",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3139c1a7f97afd1675d460ebbc07f2728aa150df849624511ee04b743ba0a833092f18c12dc91b4dd243f333402f59fe28abdbbbae301e7b659c7a26d5c0f979"
 	});
 });
-Deno.test("135657", { permissions: "none" }, () => {
+Deno.test("Hex 135657", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadae",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "06f94a2996158a819fe34c40de3cf0379fd9fb85b3e363ba3926a0e7d960e3f4c2e0c70c7ce0ccb2a64fc29869f6e7ab12bd4d3f14fce943279027e785fb5c29"
 	});
 });
-Deno.test("EAFE24", { permissions: "none" }, () => {
+Deno.test("Hex EAFE24", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeaf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c29c399ef3eee8961e87565c1ce263925fc3d0ce267d13e48dd9e732ee67b0f69fad56401b0f10fcaac119201046cca28c5b14abdea3212ae65562f7f138db3d"
 	});
 });
-Deno.test("E497D9", { permissions: "none" }, () => {
+Deno.test("Hex E497D9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4cec4c9df52eef05c3f6faaa9791bc7445937183224ecc37a1e58d0132d35617531d7e795f52af7b1eb9d147de1292d345fe341823f8e6bc1e5badca5c656108"
 	});
 });
-Deno.test("07AAC2", { permissions: "none" }, () => {
+Deno.test("Hex 07AAC2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "898bfbae93b3e18d00697eab7d9704fa36ec339d076131cefdf30edbe8d9cc81c3a80b129659b163a323bab9793d4feed92d54dae966c77529764a09be88db45"
 	});
 });
-Deno.test("99CBA5", { permissions: "none" }, () => {
+Deno.test("Hex 99CBA5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ee9bd0469d3aaf4f14035be48a2c3b84d9b4b1fff1d945e1f1c1d38980a951be197b25fe22c731f20aeacc930ba9c4a1f4762227617ad350fdabb4e80273a0f4"
 	});
 });
-Deno.test("DDDB7F", { permissions: "none" }, () => {
+Deno.test("Hex DDDB7F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3d4d3113300581cd96acbf091c3d0f3c310138cd6979e6026cde623e2dd1b24d4a8638bed1073344783ad0649cc6305ccec04beb49f31c633088a99b65130267"
 	});
 });
-Deno.test("09AF86", { permissions: "none" }, () => {
+Deno.test("Hex 09AF86", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "95c0591ad91f921ac7be6d9ce37e0663ed8011c1cfd6d0162a5572e94368bac02024485e6a39854aa46fe38e97d6c6b1947cd272d86b06bb5b2f78b9b68d559d"
 	});
 });
-Deno.test("5A0946", { permissions: "none" }, () => {
+Deno.test("Hex 5A0946", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "227b79ded368153bf46c0a3ca978bfdbef31f3024a5665842468490b0ff748ae04e7832ed4c9f49de9b1706709d623e5c8c15e3caecae8d5e433430ff72f20eb"
 	});
 });
-Deno.test("24B263", { permissions: "none" }, () => {
+Deno.test("Hex 24B263", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5d34f3952f0105eef88ae8b64c6ce95ebfade0e02c69b08762a8712d2e4911ad3f941fc4034dc9b2e479fdbcd279b902faf5d838bb2e0c6495d372b5b7029813"
 	});
 });
-Deno.test("34DE03", { permissions: "none" }, () => {
+Deno.test("Hex 34DE03", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7f939bf8353abce49e77f14f3750af20b7b03902e1a1e7fb6aaf76d0259cd401a83190f15640e74f3e6c5a90e839c7821f6474757f75c7bf9002084ddc7a62dc"
 	});
 });
-Deno.test("3FD804", { permissions: "none" }, () => {
+Deno.test("Hex 3FD804", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "062b61a2f9a33a71d7d0a06119644c70b0716a504de7e5e1be49bd7b86e7ed6817714f9f0fc313d06129597e9a2235ec8521de36f7290a90ccfc1ffa6d0aee29"
 	});
 });
-Deno.test("57402B", { permissions: "none" }, () => {
+Deno.test("Hex 57402B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f29e01eeae64311eb7f1c6422f946bf7bea36379523e7b2bbaba7d1d34a22d5ea5f1c5a09d5ce1fe682cced9a4798d1a05b46cd72dff5c1b355440b2a2d476bc"
 	});
 });
-Deno.test("0A97F3", { permissions: "none" }, () => {
+Deno.test("Hex 0A97F3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9ba",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ec38cd3bbab3ef35d7cb6d5c914298351d8a9dc97fcee051a8a02f58e3ed6184d0b7810a5615411ab1b95209c3c810114fdeb22452084e77f3f847c6dbaafe16"
 	});
 });
-Deno.test("25C2C4", { permissions: "none" }, () => {
+Deno.test("Hex 25C2C4", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c2aef5e0ca43e82641565b8cb943aa8ba53550caef793b6532fafad94b816082f0113a3ea2f63608ab40437ecc0f0229cb8fa224dcf1c478a67d9b64162b92d1"
 	});
 });
-Deno.test("D108E7", { permissions: "none" }, () => {
+Deno.test("Hex D108E7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "15f534efff7105cd1c254d074e27d5898b89313b7d366dc2d7d87113fa7d53aae13f6dba487ad8103d5e854c91fdb6e1e74b2ef6d1431769c30767dde067a35c"
 	});
 });
-Deno.test("942E5D", { permissions: "none" }, () => {
+Deno.test("Hex 942E5D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "89acbca0b169897a0a2714c2df8c95b5b79cb69390142b7d6018bb3e3076b099b79a964152a9d912b1b86412b7e372e9cecad7f25d4cbab8a317be36492a67d7"
 	});
 });
-Deno.test("5BCB57", { permissions: "none" }, () => {
+Deno.test("Hex 5BCB57", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbe",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e3c0739190ed849c9c962fd9dbb55e207e624fcac1eb417691515499eea8d8267b7e8f1287a63633af5011fde8c4ddf55bfdf722edf88831414f2cfaed59cb9a"
 	});
 });
-Deno.test("EB05B3", { permissions: "none" }, () => {
+Deno.test("Hex EB05B3", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8d6cf87c08380d2d1506eee46fd4222d21d8c04e585fbfd08269c98f702833a156326a0724656400ee09351d57b440175e2a5de93cc5f80db6daf83576cf75fa"
 	});
 });
-Deno.test("28401C", { permissions: "none" }, () => {
+Deno.test("Hex 28401C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "da24bede383666d563eeed37f6319baf20d5c75d1635a6ba5ef4cfa1ac95487e96f8c08af600aab87c986ebad49fc70a58b4890b9c876e091016daf49e1d322e"
 	});
 });
-Deno.test("6DC925", { permissions: "none" }, () => {
+Deno.test("Hex 6DC925", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f9d1d1b1e87ea7ae753a029750cc1cf3d0157d41805e245c5617bb934e732f0ae3180b78e05bfe76c7c3051e3e3ac78b9b50c05142657e1e03215d6ec7bfd0fc"
 	});
 });
-Deno.test("E11682", { permissions: "none" }, () => {
+Deno.test("Hex E11682", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "11b7bc1668032048aa43343de476395e814bbbc223678db951a1b03a021efac948cfbe215f97fe9a72a2f6bc039e3956bfa417c1a9f10d6d7ba5d3d32ff323e5"
 	});
 });
-Deno.test("17D5DE", { permissions: "none" }, () => {
+Deno.test("Hex 17D5DE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b8d9000e4fc2b066edb91afee8e7eb0f24e3a201db8b6793c0608581e628ed0bcc4e5aa6787992a4bcc44e288093e63ee83abd0bc3ec6d0934a674a4da13838a"
 	});
 });
-Deno.test("2B45B2", { permissions: "none" }, () => {
+Deno.test("Hex 2B45B2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ce325e294f9b6719d6b61278276ae06a2564c03bb0b783fafe785bdf89c7d5acd83e78756d301b445699024eaeb77b54d477336ec2a4f332f2b3f88765ddb0c3"
 	});
 });
-Deno.test("3CB479", { permissions: "none" }, () => {
+Deno.test("Hex 3CB479", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "29acc30e9603ae2fccf90bf97e6cc463ebe28c1b2f9b4b765e70537c25c702a29dcbfbf14c99c54345ba2b51f17b77b5f15db92bbad8fa95c471f5d070a137cc"
 	});
 });
-Deno.test("454088", { permissions: "none" }, () => {
+Deno.test("Hex 454088", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3379cbaae562a87b4c0425550ffdd6bfe1203f0d666cc7ea095be407a5dfe61ee91441cd5154b3e53b4f5fb31ad4c7a9ad5c7af4ae679aa51a54003a54ca6b2d"
 	});
 });
-Deno.test("07FE87", { permissions: "none" }, () => {
+Deno.test("Hex 07FE87", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3095a349d245708c7cf550118703d7302c27b60af5d4e67fc978f8a4e60953c7a04f92fcf41aee64321ccb707a895851552b1e37b00bc5e6b72fa5bcef9e3fff"
 	});
 });
-Deno.test("CB85BB", { permissions: "none" }, () => {
+Deno.test("Hex CB85BB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "07262d738b09321f4dbccec4bb26f48cb0f0ed246ce0b31b9a6e7bc683049f1f3e5545f28ce932dd985c5ab0f43bd6de0770560af329065ed2e49d34624c2cbb"
 	});
 });
-Deno.test("B2EB76", { permissions: "none" }, () => {
+Deno.test("Hex B2EB76", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b6405eca8ee3316c87061cc6ec18dba53e6c250c63ba1f3bae9e55dd3498036af08cd272aa24d713c6020d77ab2f3919af1a32f307420618ab97e73953994fb4"
 	});
 });
-Deno.test("46FFFA", { permissions: "none" }, () => {
+Deno.test("Hex 46FFFA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9ca",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "7ee682f63148ee45f6e5315da81e5c6e557c2c34641fc509c7a5701088c38a74756168e2cd8d351e88fd1a451f360a01f5b2580f9b5a2e8cfc138f3dd59a3ffc"
 	});
 });
-Deno.test("FCE432", { permissions: "none" }, () => {
+Deno.test("Hex FCE432", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1d263c179d6b268f6fa016f3a4f29e943891125ed8593c81256059f5a7b44af2dcb2030d175c00e62ecaf7ee96682aa07ab20a611024a28532b1c25b86657902"
 	});
 });
-Deno.test("A0CA6F", { permissions: "none" }, () => {
+Deno.test("Hex A0CA6F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "106d132cbdb4cd2597812846e2bc1bf732fec5f0a5f65dbb39ec4e6dc64ab2ce6d24630d0f15a805c3540025d84afa98e36703c3dbee713e72dde8465bc1be7e"
 	});
 });
-Deno.test("02C9E1", { permissions: "none" }, () => {
+Deno.test("Hex 02C9E1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0e79968226650667a8d862ea8da4891af56a4e3a8b6d1750e394f0dea76d640d85077bcec2cc86886e506751b4f6a5838f7f0b5fef765d9dc90dcdcbaf079f08"
 	});
 });
-Deno.test("890D6F", { permissions: "none" }, () => {
+Deno.test("Hex 890D6F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdce",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "521156a82ab0c4e566e5844d5e31ad9aaf144bbd5a464fdca34dbd5717e8ff711d3ffebbfa085d67fe996a34f6d3e4e60b1396bf4b1610c263bdbb834d560816"
 	});
 });
-Deno.test("F0E545", { permissions: "none" }, () => {
+Deno.test("Hex F0E545", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1aba88befc55bc25efbce02db8b9933e46f57661baeabeb21cc2574d2a518a3cba5dc5a38e49713440b25f9c744e75f6b85c9d8f4681f676160f6105357b8406"
 	});
 });
-Deno.test("A39F9E", { permissions: "none" }, () => {
+Deno.test("Hex A39F9E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5a9949fcb2c473cda968ac1b5d08566dc2d816d960f57e63b898fa701cf8ebd3f59b124d95bfbbedc5f1cf0e17d5eaed0c02c50b69d8a402cabcca4433b51fd4"
 	});
 });
-Deno.test("8C4FD9", { permissions: "none" }, () => {
+Deno.test("Hex 8C4FD9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b0cead09807c672af2eb2b0f06dde46cf5370e15a4096b1a7d7cbb36ec31c205fbefca00b7a4162fa89fb4fb3eb78d79770c23f44e7206664ce3cd931c291e5d"
 	});
 });
-Deno.test("7C67C8", { permissions: "none" }, () => {
+Deno.test("Hex 7C67C8", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "bb6664931ec97044e45b2ae420ae1c551a8874bc937d08e969399c3964ebdba8346cdd5d09caafe4c28ba7ec788191ceca65ddd6f95f18583e040d0f30d0364d"
 	});
 });
-Deno.test("37479B", { permissions: "none" }, () => {
+Deno.test("Hex 37479B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "65bc770a5faa3792369803683e844b0be7ee96f29f6d6a35568006bd5590f9a4ef639b7a8061c7b0424b66b60ac34af3119905f33a9d8c3ae18382ca9b689900"
 	});
 });
-Deno.test("812CCF", { permissions: "none" }, () => {
+Deno.test("Hex 812CCF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "ea9b4dca333336aaf839a45c6eaa48b8cb4c7ddabffea4f643d6357ea6628a480a5b45f2b052c1b07d1fedca918b6f1139d80f74c24510dcbaa4be70eacc1b06"
 	});
 });
-Deno.test("C04B71", { permissions: "none" }, () => {
+Deno.test("Hex C04B71", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "e6342fb4a780ad975d0e24bce149989b91d360557e87994f6b457b895575cc02d0c15bad3ce7577f4c63927ff13f3e381ff7e72bdbe745324844a9d27e3f1c01"
 	});
 });
-Deno.test("CC9E22", { permissions: "none" }, () => {
+Deno.test("Hex CC9E22", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3e209c9b33e8e461178ab46b1c64b49a07fb745f1c8bc95fbfb94c6b87c69516651b264ef980937fad41238b91ddc011a5dd777c7efd4494b4b6ecd3a9c22ac0"
 	});
 });
-Deno.test("90F34C", { permissions: "none" }, () => {
+Deno.test("Hex 90F34C", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "fd6a3d5b1875d80486d6e69694a56dbb04a99a4d051f15db2689776ba1c4882e6d462a603b7015dc9f4b7450f05394303b8652cfb404a266962c41bae6e18a94"
 	});
 });
-Deno.test("C16E95", { permissions: "none" }, () => {
+Deno.test("Hex C16E95", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "951e27517e6bad9e4195fc8671dee3e7e9be69cee1422cb9fecfce0dba875f7b310b93ee3a3d558f941f635f668ff832d2c1d033c5e2f0997e4c66f147344e02"
 	});
 });
-Deno.test("15B102", { permissions: "none" }, () => {
+Deno.test("Hex 15B102", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8eba2f874f1ae84041903c7c4253c82292530fc8509550bfdc34c95c7e2889d5650b0ad8cb988e5c4894cb87fbfbb19612ea93ccc4c5cad17158b9763464b492"
 	});
 });
-Deno.test("BBAFCB", { permissions: "none" }, () => {
+Deno.test("Hex BBAFCB", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9da",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "16f712eaa1b7c6354719a8e7dbdfaf55e4063a4d277d947550019b38dfb564830911057d50506136e2394c3b28945cc964967d54e3000c2181626cfb9b73efd2"
 	});
 });
-Deno.test("FC5BBD", { permissions: "none" }, () => {
+Deno.test("Hex FC5BBD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c39639e7d5c7fb8cdd0fd3e6a52096039437122f21c78f1679cea9d78a734c56ecbeb28654b4f18e342c331f6f7229ec4b4bc281b2d80a6eb50043f31796c88c"
 	});
 });
-Deno.test("4F750B", { permissions: "none" }, () => {
+Deno.test("Hex 4F750B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "72d081af99f8a173dcc9a0ac4eb3557405639a29084b54a40172912a2f8a395129d5536f0918e902f9e8fa6000995f4168ddc5f893011be6a0dbc9b8a1a3f5bb"
 	});
 });
-Deno.test("525CA2", { permissions: "none" }, () => {
+Deno.test("Hex 525CA2", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c11aa81e5efd24d5fc27ee586cfd8847fbb0e27601ccece5ecca0198e3c7765393bb74457c7e7a27eb9170350e1fb53857177506be3e762cc0f14d8c3afe9077"
 	});
 });
-Deno.test("D3EF95", { permissions: "none" }, () => {
+Deno.test("Hex D3EF95", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcddde",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c28f2150b452e6c0c424bcde6f8d72007f9310fed7f2f87de0dbb64f4479d6c1441ba66f44b2accee61609177ed340128b407ecec7c64bbe50d63d22d8627727"
 	});
 });
-Deno.test("8A7A9A", { permissions: "none" }, () => {
+Deno.test("Hex 8A7A9A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f63d88122877ec30b8c8b00d22e89000a966426112bd44166e2f525b769ccbe9b286d437a0129130dde1a86c43e04bedb594e671d98283afe64ce331de9828fd"
 	});
 });
-Deno.test("0DE612", { permissions: "none" }, () => {
+Deno.test("Hex 0DE612", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "348b0532880b88a6614a8d7408c3f913357fbb60e995c60205be9139e74998aede7f4581e42f6b52698f7fa1219708c14498067fd1e09502de83a77dd281150c"
 	});
 });
-Deno.test("1951A1", { permissions: "none" }, () => {
+Deno.test("Hex 1951A1", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "5133dc8bef725359dff59792d85eaf75b7e1dcd1978b01c35b1b85fcebc63388ad99a17b6346a217dc1a9622ebd122ecf6913c4d31a6b52a695b86af00d741a0"
 	});
 });
-Deno.test("E66756", { permissions: "none" }, () => {
+Deno.test("Hex E66756", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "2753c4c0e98ecad806e88780ec27fccd0f5c1ab547f9e4bf1659d192c23aa2cc971b58b6802580baef8adc3b776ef7086b2545c2987f348ee3719cdef258c403"
 	});
 });
-Deno.test("937AB6", { permissions: "none" }, () => {
+Deno.test("Hex 937AB6", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b1663573ce4b9d8caefc865012f3e39714b9898a5da6ce17c25a6a47931a9ddb9bbe98adaa553beed436e89578455416c2a52a525cf2862b8d1d49a2531b7391"
 	});
 });
-Deno.test("E349A7", { permissions: "none" }, () => {
+Deno.test("Hex E349A7", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "64f58bd6bfc856f5e873b2a2956ea0eda0d6db0da39c8c7fc67c9f9feefcff3072cdf9e6ea37f69a44f0c61aa0da3693c2db5b54960c0281a088151db42b11e8"
 	});
 });
-Deno.test("BF57A9", { permissions: "none" }, () => {
+Deno.test("Hex BF57A9", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0764c7be28125d9065c4b98a69d60aede703547c66a12e17e1c618994132f5ef82482c1e3fe3146cc65376cc109f0138ed9a80e49f1f3c7d610d2f2432f20605"
 	});
 });
-Deno.test("88CB09", { permissions: "none" }, () => {
+Deno.test("Hex 88CB09", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "f748784398a2ff03ebeb07e155e66116a839741a336e32da71ec696001f0ad1b25cd48c69cfca7265eca1dd71904a0ce748ac4124f3571076dfa7116a9cf00e9"
 	});
 });
-Deno.test("06B71A", { permissions: "none" }, () => {
+Deno.test("Hex 06B71A", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3f0dbc0186bceb6b785ba78d2a2a013c910be157bdaffae81bb6663b1a73722f7f1228795f3ecada87cf6ef0078474af73f31eca0cc200ed975b6893f761cb6d"
 	});
 });
-Deno.test("C0E618", { permissions: "none" }, () => {
+Deno.test("Hex C0E618", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d4762cd4599876ca75b2b8fe249944dbd27ace741fdab93616cbc6e425460feb51d4e7adcc38180e7fc47c89024a7f56191adb878dfde4ead62223f5a2610efe"
 	});
 });
-Deno.test("66F1FA", { permissions: "none" }, () => {
+Deno.test("Hex 66F1FA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "cd36b3d5b4c91b90fcbba79513cfee1907d8645a162afd0cd4cf4192d4a5f4c892183a8eacdb2b6b6a9d9aa8c11ac1b261b380dbee24ca468f1bfd043c58eefe"
 	});
 });
-Deno.test("090C9B", { permissions: "none" }, () => {
+Deno.test("Hex 090C9B", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9ea",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "98593452281661a53c48a9d8cd790826c1a1ce567738053d0bee4a91a3d5bd92eefdbabebe3204f2031ca5f781bda99ef5d8ae56e5b04a9e1ecd21b0eb05d3e1"
 	});
 });
-Deno.test("9FECFD", { permissions: "none" }, () => {
+Deno.test("Hex 9FECFD", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaeb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "771f57dd2775ccdab55921d3e8e30ccf484d61fe1c1b9c2ae819d0fb2a12fab9be70c4a7a138da84e8280435daade5bbe66af0836a154f817fb17f3397e725a3"
 	});
 });
-Deno.test("A13FAF", { permissions: "none" }, () => {
+Deno.test("Hex A13FAF", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebec",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "c60897c6f828e21f16fbb5f15b323f87b6c8955eabf1d38061f707f608abdd993fac3070633e286cf8339ce295dd352df4b4b40b2f29da1dd50b3a05d079e6bb"
 	});
 });
-Deno.test("346BD5", { permissions: "none" }, () => {
+Deno.test("Hex 346BD5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebeced",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "8210cd2c2d3b135c2cf07fa0d1433cd771f325d075c6469d9c7f1ba0943cd4ab09808cabf4acb9ce5bb88b498929b4b847f681ad2c490d042db2aec94214b06b"
 	});
 });
-Deno.test("EB0137", { permissions: "none" }, () => {
+Deno.test("Hex EB0137", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedee",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1d4edfffd8fd80f7e4107840fa3aa31e32598491e4af7013c197a65b7f36dd3ac4b478456111cd4309d9243510782fa31b7c4c95fa951520d020eb7e5c36e4ef"
 	});
 });
-Deno.test("51EE98", { permissions: "none" }, () => {
+Deno.test("Hex 51EE98", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeef",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "af8e6e91fab46ce4873e1a50a8ef448cc29121f7f74deef34a71ef89cc00d9274bc6c2454bbb3230d8b2ec94c62b1dec85f3593bfa30ea6f7a44d7c09465a253"
 	});
 });
-Deno.test("0FE913", { permissions: "none" }, () => {
+Deno.test("Hex 0FE913", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "29fd384ed4906f2d13aa9fe7af905990938bed807f1832454a372ab412eea1f5625a1fcc9ac8343b7c67c5aba6e0b1cc4644654913692c6b39eb9187ceacd3ec"
 	});
 });
-Deno.test("C4187E", { permissions: "none" }, () => {
+Deno.test("Hex C4187E", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "a268c7885d9874a51c44dffed8ea53e94f78456e0b2ed99ff5a3924760813826d960a15edbedbb5de5226ba4b074e71b05c55b9756bb79e55c02754c2c7b6c8a"
 	});
 });
-Deno.test("C58BEE", { permissions: "none" }, () => {
+Deno.test("Hex C58BEE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "0cf8545488d56a86817cd7ecb10f7116b7ea530a45b6ea497b6c72c997e09e3d0da8698f46bb006fc977c2cd3d1177463ac9057fdd1662c85d0c126443c10473"
 	});
 });
-Deno.test("13ABEE", { permissions: "none" }, () => {
+Deno.test("Hex 13ABEE", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b39614268fdd8781515e2cfebf89b4d5402bab10c226e6344e6b9ae000fb0d6c79cb2f3ec80e80eaeb1980d2f8698916bd2e9f747236655116649cd3ca23a837"
 	});
 });
-Deno.test("3EAFDA", { permissions: "none" }, () => {
+Deno.test("Hex 3EAFDA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "74bef092fc6f1e5dba3663a3fb003b2a5ba257496536d99f62b9d73f8f9eb3ce9ff3eec709eb883655ec9eb896b9128f2afc89cf7d1ab58a72f4a3bf034d2b4a"
 	});
 });
-Deno.test("566F29", { permissions: "none" }, () => {
+Deno.test("Hex 566F29", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "3a988d38d75611f3ef38b8774980b33e573b6c57bee0469ba5eed9b44f29945e7347967fba2c162e1c3be7f310f2f75ee2381e7bfd6b3f0baea8d95dfb1dafb1"
 	});
 });
-Deno.test("9884CA", { permissions: "none" }, () => {
+Deno.test("Hex 9884CA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "58aedfce6f67ddc85a28c992f1c0bd0969f041e66f1ee88020a125cbfcfebcd61709c9c4eba192c15e69f020d462486019fa8dea0cd7a42921a19d2fe546d43d"
 	});
 });
-Deno.test("4F19AA", { permissions: "none" }, () => {
+Deno.test("Hex 4F19AA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "9347bd291473e6b4e368437b8e561e065f649a6d8ada479ad09b1999a8f26b91cf6120fd3bfe014e83f23acfa4c0ad7b3712b2c3c0733270663112ccd9285cd9"
 	});
 });
-Deno.test("D416ED", { permissions: "none" }, () => {
+Deno.test("Hex D416ED", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "b32163e7c5dbb5f51fdc11d2eac875efbbcb7e7699090a7e7ff8a8d50795af5d74d9ff98543ef8cdf89ac13d0485278756e0ef00c817745661e1d59fe38e7537"
 	});
 });
-Deno.test("C6059D", { permissions: "none" }, () => {
+Deno.test("Hex C6059D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "1085d78307b1c4b008c57a2e7e5b234658a0a82e4ff1e4aaac72b312fda0fe27d233bc5b10e9cc17fdc7697b540c7d95eb215a19a1a0e20e1abfa126efd568c7"
 	});
 });
-Deno.test("D02AF5", { permissions: "none" }, () => {
+Deno.test("Hex D02AF5", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fa",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "4e5c734c7dde011d83eac2b7347b373594f92d7091b9ca34cb9c6f39bdf5a8d2f134379e16d822f6522170ccf2ddd55c84b9e6c64fc927ac4cf8dfb2a17701f2"
 	});
 });
-Deno.test("CB185F", { permissions: "none" }, () => {
+Deno.test("Hex CB185F", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafb",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "695d83bd990a1117b3d0ce06cc888027d12a054c2677fd82f0d4fbfc93575523e7991a5e35a3752e9b70ce62992e268a877744cdd435f5f130869c9a2074b338"
 	});
 });
-Deno.test("7DAB74", { permissions: "none" }, () => {
+Deno.test("Hex 7DAB74", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfc",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "a6213743568e3b3158b9184301f3690847554c68457cb40fc9a4b8cfd8d4a118c301a07737aeda0f929c68913c5f51c80394f53bff1c3e83b2e40ca97eba9e15"
 	});
 });
-Deno.test("D8FDDA", { permissions: "none" }, () => {
+Deno.test("Hex D8FDDA", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfd",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "d444bfa2362a96df213d070e33fa841f51334e4e76866b8139e8af3bb3398be2dfaddcbc56b9146de9f68118dc5829e74b0c28d7711907b121f9161cb92b69a9"
 	});
 });
-Deno.test("9AFF8D", { permissions: "none" }, () => {
+Deno.test("Hex 9AFF8D", { permissions: "none" }, () => {
 	testerFromHex({
 		data: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe",
 		key: "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
 		expected: "142709d62e28fcccd0af97fad0f8465b971e82201dc51070faa0372aa43e92484be1c1e73ba10906d5d1853db6a4106e0a7bf9800d373d6dee2d46d62ef2a461"
 	});
+});
+async function testerStream(filePath: string): Promise<void> {
+	const sampleText = await Deno.readTextFile(filePath);
+	const hashFromText = new Blake2B({ data: sampleText }).hash();
+	await using sampleFile = await Deno.open(filePath);
+	const hashFromStream = (await new Blake2B().updateFromStream(sampleFile.readable)).hash();
+	deepStrictEqual(hashFromText, hashFromStream);
+}
+Deno.test("Stream 1", {
+	permissions: {
+		read: true
+	}
+}, async () => {
+	await testerStream("./LICENSE.md");
+});
+Deno.test("Stream 2", {
+	permissions: {
+		read: true
+	}
+}, async () => {
+	await testerStream("./README.md");
+});
+Deno.test("Stream 3", {
+	permissions: {
+		read: true
+	}
+}, async () => {
+	await testerStream("./deno.jsonc");
 });
