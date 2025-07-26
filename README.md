@@ -8,7 +8,10 @@
 
 An ECMAScript (JavaScript & TypeScript) module to get the non-cryptographic hash of the data with algorithm Blake.
 
-Currently supported variants of 2B and 2S.
+## 🌟 Features
+
+- Support custom output length.
+- Support variants of 2B and 2S.
 
 ## 🔰 Begin
 
