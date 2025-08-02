@@ -1,8 +1,8 @@
 import {
 	get32,
 	iv,
-	normalizeInput,
 	sigma,
+	toUint8Array,
 	type Blake2AcceptDataType,
 	type Blake2Options
 } from "./_common.ts";
@@ -176,7 +176,7 @@ export class Blake2S {
 		if (this.#freezed) {
 			throw new Error(`Instance is freezed!`);
 		}
-		const dataFmt: Uint8Array = normalizeInput(data);
+		const dataFmt: Uint8Array = toUint8Array(data);
 		for (const byte of dataFmt) {
 			if (this.#c === 64) {
 				// Buffer full?

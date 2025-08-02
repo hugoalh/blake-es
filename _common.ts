@@ -39,6 +39,9 @@ export const sigma: Uint8Array = Uint8Array.from([
 export function get32(v: Uint8Array, i: number): number {
 	return (v[i] ^ (v[i + 1] << 8) ^ (v[i + 2] << 16) ^ (v[i + 3] << 24));
 }
-export function normalizeInput(input: string | Uint8Array): Uint8Array {
-	return ((input instanceof Uint8Array) ? input : new TextEncoder().encode(input));
+export function toUint8Array(input: string | Uint8Array): Uint8Array {
+	if (typeof input === "string") {
+		return new TextEncoder().encode(input);
+	}
+	return Uint8Array.from(input);
 }

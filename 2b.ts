@@ -1,8 +1,8 @@
 import {
 	get32,
 	iv,
-	normalizeInput,
 	sigma,
+	toUint8Array,
 	type Blake2AcceptDataType,
 	type Blake2Options
 } from "./_common.ts";
@@ -119,13 +119,13 @@ export class Blake2B {
 			if (salt.length !== 16) {
 				throw new TypeError(`Parameter \`salt\` is not a valid key which length is 16!`);
 			}
-			this.#parameterBlock.set(normalizeInput(salt), 32);
+			this.#parameterBlock.set(toUint8Array(salt), 32);
 		}
 		if (typeof personal !== "undefined") {
 			if (personal.length !== 16) {
 				throw new TypeError(`Parameter \`personal\` is not a valid key which length is 16!`);
 			}
-			this.#parameterBlock.set(normalizeInput(personal), 48);
+			this.#parameterBlock.set(toUint8Array(personal), 48);
 		}
 		// Initialize hash state
 		for (let i: number = 0; i < 16; i++) {
@@ -283,7 +283,7 @@ export class Blake2B {
 		if (this.#freezed) {
 			throw new Error(`Instance is freezed!`);
 		}
-		const dataFmt: Uint8Array = normalizeInput(data);
+		const dataFmt: Uint8Array = toUint8Array(data);
 		for (const byte of dataFmt) {
 			if (this.#c === 128) {
 				// Buffer full?
