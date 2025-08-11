@@ -283,7 +283,8 @@ export class Blake2B {
 		if (this.#freezed) {
 			throw new Error(`Instance is freezed!`);
 		}
-		for (const byte of toUint8Array(data)) {
+		const dataFmt: Uint8Array = toUint8Array(data);
+		for (const byte of dataFmt) {
 			if (this.#c === 128) {
 				// Buffer full?
 				this.#t += this.#c; // Add counters
