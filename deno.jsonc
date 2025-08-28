@@ -57,20 +57,20 @@
 			"description": "Build package for NPM."
 		},
 		"npm-check": {
-			"command": "deno task --cwd $(deno task npm-var-distribution-absolute) --eval $(deno task npm-check-raw)",
+			"command": "deno task --cwd $(deno task npm-var-distribution-absolute) --eval $(deno task npm-check-command)",
 			"description": "Check package for NPM."
 		},
-		"npm-check-raw": {
-			"command": "npm publish --dry-run",
-			"description": "Check package for NPM."
+		"npm-check-command": {
+			"command": "echo \"npm publish --dry-run\"",
+			"description": "Get command for check package for NPM."
 		},
 		"npm-publish": {
-			"command": "deno task --cwd $(deno task npm-var-distribution-absolute) --eval $(deno task npm-publish-raw)",
+			"command": "deno task --cwd $(deno task npm-var-distribution-absolute) --eval $(deno task npm-publish-command)",
 			"description": "Publish package to NPM."
 		},
-		"npm-publish-raw": {
-			"command": "npm publish --tag publish",
-			"description": "Publish package to NPM."
+		"npm-publish-command": {
+			"command": "echo \"npm publish --tag publish\"",
+			"description": "Get command for publish package to NPM."
 		},
 		"npm-var-distribution-absolute": {
 			"command": "deno eval --no-config --no-lock --no-npm --no-remote \"import { join as joinPath } from \\\"node:path\\\"; console.log(joinPath(Deno.env.get(\\\"INIT_CWD\\\"), \\\"$(deno task npm-var-distribution-relative)\\\"));\"",

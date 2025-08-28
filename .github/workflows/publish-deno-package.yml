@@ -70,7 +70,7 @@ jobs:
           [Boolean]$NPMBuild = $Null -ine $Config.tasks.'npm-build'
           [Boolean]$NPMDistributionAbsolute = $Null -ine $Config.tasks.'npm-var-distribution-absolute'
           [Boolean]$NPMPublish = $Env:CDV_NPM_PUBLISH_DISPATCH -ieq 'auto' $Null -ine $Config.tasks.'npm-publish'
-          [Boolean]$NPMPublishRaw = $Null -ine $Config.tasks.'npm-publish-raw'.command
+          [Boolean]$NPMPublishCommand = $Null -ine $Config.tasks.'npm-publish-command'
           Add-Content -LiteralPath $Env:GITHUB_STEP_SUMMARY -Value @"
           # Dispatch
 
@@ -81,7 +81,7 @@ jobs:
             - **Build:** $($NPMBuild ? '✔️' : '❌')
             - **DistributionAbsolute:** $($NPMDistributionAbsolute ? '✔️' : '❌')
             - **Publish:** $($NPMPublish ? '✔️' : '❌')
-              - **Raw:** $($NPMPublishRaw ? '✔️' : '❌')
+              - **Command:** $($NPMPublishCommand ? '✔️' : '❌')
           "@
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_BUILD=$(($Null -ine $Config.tasks.build).ToString().ToLower())"
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_JSR_PUBLISH=$($JSRPublish.ToString().ToLower())"
@@ -92,7 +92,10 @@ jobs:
               deno task npm-var-distribution-absolute |
                 Join-String -Separator ''
             ).Trim())"
-            Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_PUBLISH_RAW=$($Config.tasks.'npm-publish-raw'.command)"
+            Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_PUBLISH_COMMAND=$((
+              deno task npm-publish-command |
+                Join-String -Separator ''
+            ).Trim())"
           }
       - name: "Build Repository"
         id: "build-general"
@@ -120,7 +123,7 @@ jobs:
           include-hidden-files: "true"
     outputs:
       npm-publish: "${{env.CDV_NPM_PUBLISH}}"
-      npm-publish-raw: "${{env.CDV_NPM_PUBLISH_RAW}}"
+      npm-publish-command: "${{env.CDV_NPM_PUBLISH_COMMAND}}"
       npm-snapshot: "${{steps.snapshot-npm.outputs.artifact-id}}"
   npm:
     name: "NPM"
@@ -129,7 +132,7 @@ jobs:
       id-token: "write"
     needs:
       - "main"
-    if: "${{!cancelled() && needs.main.outputs.npm-publish == 'true' && needs.main.outputs.npm-publish-raw != '' && needs.main.outputs.npm-snapshot != ''}}"
+    if: "${{!cancelled() && needs.main.outputs.npm-publish == 'true' && needs.main.outputs.npm-publish-command != '' && needs.main.outputs.npm-snapshot != ''}}"
     runs-on: "ubuntu-latest"
     env:
       NODE_AUTH_TOKEN: "${{secrets.NPM_TOKEN}}"
@@ -171,7 +174,7 @@ jobs:
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_PACKAGE_NAME=$($Manifest.Name)" -Confirm:$False -Encoding 'UTF8NoBOM'
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_PACKAGE_VERSION=$($Manifest.version)" -Confirm:$False -Encoding 'UTF8NoBOM'
       - name: "Publish Package"
-        run: "${{needs.main.outputs.npm-publish-raw}}"
+        run: "${{needs.main.outputs.npm-publish-command}}"
       - name: "Await Registry Update"
         shell: "pwsh"
         run: |-

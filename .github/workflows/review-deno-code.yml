@@ -68,7 +68,7 @@ jobs:
           [Boolean]$NPMCheck = $Null -ine $Config.tasks.'npm-check'
           [Boolean]$NPMDistributionAbsolute = $Null -ine $Config.tasks.'npm-var-distribution-absolute'
           [Boolean]$NPMPublish = $Null -ine $Config.tasks.'npm-publish'
-          [Boolean]$NPMPublishRaw = $Null -ine $Config.tasks.'npm-publish-raw'.command
+          [Boolean]$NPMPublishCommand = $Null -ine $Config.tasks.'npm-publish-command'
           If ($Env:CDV_RUN_LITE -ieq 'false') {
             Add-Content -LiteralPath $Env:GITHUB_STEP_SUMMARY -Value @"
           # Dispatch
@@ -82,7 +82,7 @@ jobs:
             - **Check:** $($NPMCheck ? '✔️' : '❌')
             - **DistributionAbsolute:** $($NPMDistributionAbsolute ? '✔️' : '❌')
             - **Publish:** $($NPMPublish ? '✔️' : '❌')
-              - **Raw:** $($NPMPublishRaw ? '✔️' : '❌')
+              - **Command:** $($NPMPublishCommand ? '✔️' : '❌')
           "@
           }
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_BUILD=$($Build.ToString().ToLower())"
