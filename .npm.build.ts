@@ -1,19 +1,19 @@
-import {
-	getMetadataFromConfig,
-	invokeDenoNodeJSTransformer
-} from "DNT";
-const configJSR = await getMetadataFromConfig("jsr.jsonc");
+import { invokeDenoNodeJSTransformer } from "DNT";
+import { parse as parseJSONC } from "STD_JSONC";
+const jsrManifest = parseJSONC(await Deno.readTextFile("./jsr.jsonc"));
 await invokeDenoNodeJSTransformer({
-	copyAssets: [
+	copyEntries: [
 		"LICENSE.md",
 		"README.md"
 	],
-	entrypoints: configJSR.getExports(),
-	fixInjectedImports: true,
+	//@ts-ignore Lazy type.
+	entrypointsScript: jsrManifest.exports,
 	generateDeclarationMap: true,
 	metadata: {
-		name: configJSR.getName(),
-		version: configJSR.getVersion(),
+		//@ts-ignore Lazy type.
+		name: jsrManifest.name,
+		//@ts-ignore Lazy type.
+		version: jsrManifest.version,
 		description: "A module to get the non-cryptographic hash of the data with algorithm Blake.",
 		keywords: [
 			"blake",
