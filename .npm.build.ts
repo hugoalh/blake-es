@@ -31,10 +31,6 @@ await invokeDenoNodeJSTransformer({
 			type: "git",
 			url: "git+https://github.com/hugoalh/blake-es.git"
 		},
-		scripts: {
-		},
-		engines: {
-		},
 		private: false,
 		publishConfig: {
 			access: "public"
