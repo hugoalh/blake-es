@@ -9,7 +9,7 @@ import {
 export type {
 	Blake2AcceptDataType,
 	Blake2Options
-} from "./_common.ts";
+}
 const sigma64: Uint8Array = Uint8Array.from([...Array.from(sigma), ...Array.from(sigma).slice(0, 32)].map((x: number): number => {
 	return (x * 2);
 }));

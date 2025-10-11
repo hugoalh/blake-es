@@ -9,7 +9,7 @@ import {
 export type {
 	Blake2AcceptDataType,
 	Blake2Options
-} from "./_common.ts";
+}
 /** Initialization vector with trim. */
 const ivTrim: Uint32Array = Uint32Array.from(Array.from(iv).filter((_value: number, index: number): boolean => {
 	return ((index + 1) % 2 === 0);
