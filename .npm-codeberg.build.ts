@@ -36,6 +36,6 @@ await invokeDenoNodeJSTransformer({
 			access: "public"
 		}
 	},
-	outputDirectory: "dist/codeberg-npm",
+	outputDirectory: "dist/npm-codeberg",
 	outputDirectoryPreEmpty: true
 });
