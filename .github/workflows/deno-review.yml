@@ -139,6 +139,10 @@ jobs:
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_KAKI87_CHECK=$($NPMKaKi87Check.ToString().ToLower())"
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_NPM_BUILD=$($NPMNPMBuild.ToString().ToLower())"
           Add-Content -LiteralPath $Env:GITHUB_ENV -Value "CDV_NPM_NPM_CHECK=$($NPMNPMCheck.ToString().ToLower())"
+      - name: "Check Dependencies Update"
+        if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_RUN_LITE == 'false'}}"
+        run: |-
+          deno outdated
       - name: "Check For Remote"
         if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_RUN_LITE == 'false'}}"
         shell: "pwsh"
@@ -146,14 +150,14 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSNativeCommandUseErrorActionPreference = $True
           Get-ChildItem -LiteralPath '.\' -File -Recurse -Name
+      - name: "Check Code"
+        if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_RUN_LITE == 'false'}}"
+        run: |-
+          deno check
       - name: "Lint Code"
         if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_RUN_LITE == 'false'}}"
         run: |-
           deno lint --permit-no-files
-      - name: "Check Dependencies Update"
-        if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_RUN_LITE == 'false'}}"
-        run: |-
-          deno outdated
       - name: "Build Repository"
         if: "${{!cancelled() && steps.analyze.outcome == 'success' && env.CDV_BUILD == 'true'}}"
         run: |-
