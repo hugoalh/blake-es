@@ -59,11 +59,11 @@ jobs:
       - name: "Setup Deno"
         uses: "denoland/setup-deno@v2"
         with:
-          deno-version: "^2.6.4"
+          deno-version: "^2.7.12"
       - name: "Setup NodeJS"
         uses: "actions/setup-node@v6"
         with:
-          node-version: "lts/*"
+          node-version: "^24.15.0"
           check-latest: true
       - name: "Get Cache Path"
         shell: "pwsh"

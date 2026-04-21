@@ -15,7 +15,7 @@
 	},
 	"lint": {
 		"plugins": [
-			"jsr:@hugoalh/deno-lint-rules@^0.13.0/presets/library"
+			"jsr:@hugoalh/deno-lint-rules@^0.14.0/presets/library"
 		],
 		"rules": {
 			"tags": [
@@ -77,18 +77,18 @@
 			"command": "deno run --allow-all --no-prompt --quiet NPP --cleanup --cwd \"dist/npm-github\" --ignore-ppv --provenance false --registry \"npm.pkg.github.com\"",
 			"description": "Publish to GitHub NPM."
 		},
-		// "npm-kaki87-build": {
-		// 	"command": "deno run --allow-all --no-prompt --quiet .npm-kaki87.build.ts",
-		// 	"description": "Build for KaKi87 NPM."
-		// },
-		// "npm-kaki87-check": {
-		// 	"command": "deno task npm-kaki87-publish --dry-run",
-		// 	"description": "Check for KaKi87 NPM."
-		// },
-		// "npm-kaki87-publish": {
-		// 	"command": "deno run --allow-all --no-prompt --quiet NPP --cleanup --cwd \"dist/npm-kaki87\" --ignore-ppv --provenance false --registry \"git.kaki87.net/api/packages/hugoalh/npm\"",
-		// 	"description": "Publish to KaKi87 NPM."
-		// },
+		"npm-kaki87-build": {
+			"command": "deno run --allow-all --no-prompt --quiet .npm-kaki87.build.ts",
+			"description": "Build for KaKi87 NPM."
+		},
+		"npm-kaki87-check": {
+			"command": "deno task npm-kaki87-publish --dry-run",
+			"description": "Check for KaKi87 NPM."
+		},
+		"npm-kaki87-publish": {
+			"command": "deno run --allow-all --no-prompt --quiet NPP --cleanup --cwd \"dist/npm-kaki87\" --ignore-ppv --provenance false --registry \"git.kaki87.net/api/packages/hugoalh/npm\"",
+			"description": "Publish to KaKi87 NPM."
+		},
 		"npm-npm-build": {
 			"command": "deno run --allow-all --no-prompt --quiet .npm-npm.build.ts",
 			"description": "Build for NPM."
