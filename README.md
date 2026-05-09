@@ -4,8 +4,8 @@
 
 🔗
 [GitHub](https://github.com/hugoalh/blake-es)
-[JSR](https://jsr.io/@hugoalh/blake)
-[NPM](https://www.npmjs.com/package/@hugoalh/blake)
+● [JSR](https://jsr.io/@hugoalh/blake)
+● [NPM](https://www.npmjs.com/package/@hugoalh/blake)
 
 An ECMAScript module to get the non-cryptographic hash of the data with algorithm Blake.
 
