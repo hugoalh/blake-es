@@ -3,7 +3,8 @@
 [**⚖️** MIT](./LICENSE.md)
 
 🔗
-[GitHub](https://github.com/hugoalh/blake-es)
+[DistBoard @hugoalh](https://hugoalh.github.io/distboard/blake_ecmascript)
+● [GitHub](https://github.com/hugoalh/blake-es)
 ● [JSR](https://jsr.io/@hugoalh/blake)
 ● [NPM](https://www.npmjs.com/package/@hugoalh/blake)
 
