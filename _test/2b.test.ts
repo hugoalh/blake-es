@@ -1,6 +1,6 @@
 import { deepStrictEqual } from "node:assert";
-import * as hex from "./hex.ts";
 import { Blake2B } from "../2b.ts";
+import * as hex from "./hex.ts";
 interface TesterFromHexParameters {
 	data: string;
 	expected: string;
