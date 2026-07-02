@@ -7,6 +7,7 @@ authors:
   - name: "HUGOALH"
     alias: "hugoalh"
 repository-code: "https://github.com/hugoalh/blake-es"
+abstract: "An ECMAScript module to get the non-cryptographic hash of the data with algorithm Blake."
 keywords:
   - "blake"
   - "blake2b"
