@@ -1,6 +1,5 @@
 import { deepStrictEqual } from "node:assert";
-import { Blake2B } from "../2b.ts";
-import * as hex from "./hex.ts";
+import { Blake2B } from "./2b.ts";
 interface TesterFromHexParameters {
 	data: string;
 	expected: string;
@@ -33,11 +32,11 @@ function testerFromHex(params: TesterFromHexParameters): void {
 		salt
 	}: TesterFromHexParameters = params;
 	const instance = new Blake2B({
-		data: hex.fromHex(data),
-		key: (typeof key === "undefined") ? undefined : hex.fromHex(key),
+		data: Uint8Array.fromHex(data),
+		key: (typeof key === "undefined") ? undefined : Uint8Array.fromHex(key),
 		length,
-		personal: (typeof personal === "undefined") ? undefined : hex.fromHex(personal),
-		salt: (typeof salt === "undefined") ? undefined : hex.fromHex(salt)
+		personal: (typeof personal === "undefined") ? undefined : Uint8Array.fromHex(personal),
+		salt: (typeof salt === "undefined") ? undefined : Uint8Array.fromHex(salt)
 	});
 	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
 }
