@@ -9,7 +9,7 @@ import {
 export type {
 	Blake2AcceptDataType,
 	Blake2Options
-}
+} from "./_common.ts";
 /** Initialization vector with trim. */
 const ivTrim: Uint32Array = Uint32Array.from(Array.from(iv).filter((_value: number, index: number): boolean => {
 	return ((index + 1) % 2 === 0);
@@ -162,9 +162,7 @@ export class Blake2S {
 	 * @returns {string}
 	 */
 	hashHex(): string {
-		this.#hashHex ??= Array.from(this.hash(), (byte: number): string => {
-			return byte.toString(16).toUpperCase().padStart(2, "0");
-		}).join("");
+		this.#hashHex ??= this.hash().toHex().toUpperCase();
 		return this.#hashHex;
 	}
 	/**
