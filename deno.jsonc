@@ -35,7 +35,7 @@
 	},
 	"lint": {
 		"plugins": [
-			"jsr:@hugoalh/deno-lint-rules@^0.18.0/presets/library"
+			"jsr:@hugoalh/deno-lint-rules@^0.18.2/presets/library"
 		],
 		"rules": {
 			"tags": [
