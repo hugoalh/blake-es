@@ -27,20 +27,7 @@ Any runtime which support ECMAScript should able to use this; These runtimes are
 
 This does not request any runtime permission.
 
-## #️⃣ Sources & Entrypoints
-
-- GitHub Raw
-  ```
-  https://raw.githubusercontent.com/hugoalh/blake-es/{Tag}/mod.ts
-  ```
-- JSR
-  ```
-  jsr:@hugoalh/blake[@{Tag}]
-  ```
-- NPM
-  ```
-  npm:@hugoalh/blake[@{Tag}]
-  ```
+## #️⃣ Entrypoints
 
 | **Name** | **Path** | **Description** |
 |:--|:--|:--|
@@ -49,8 +36,7 @@ This does not request any runtime permission.
 | `./2s` | `./2s.ts` | Variant of 2S. |
 
 > [!NOTE]
-> - Different runtimes have vary support for the sources and entrypoints, visit the runtime documentation for more information.
-> - It is recommended to include tag for immutability.
+> - Different runtimes have vary support for the entrypoints, visit the runtime documentation for more information.
 > - These are not part of the public APIs hence should not be used:
 >   - Benchmark/Test file (e.g.: `example.bench.ts`, `example.test.ts`).
 >   - Entrypoint name or path include any underscore prefix (e.g.: `_example.ts`, `foo/_example.ts`).
