@@ -21,12 +21,10 @@ function testerFromHex(params: TesterFromHexParameters): void {
 		key,
 		length
 	}: TesterFromHexParameters = params;
-	const instance = new Blake2S({
-		data: Uint8Array.fromHex(data),
+	deepStrictEqual(new Blake2S({
 		key: (typeof key === "undefined") ? undefined : Uint8Array.fromHex(key),
 		length
-	});
-	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
+	}).update(Uint8Array.fromHex(data)).hashHex(), expected.toUpperCase());
 }
 Deno.test("Hex 060B47", { permissions: "none" }, () => {
 	testerFromHex({
@@ -3358,7 +3356,7 @@ Deno.test("Hex F71FCB", { permissions: "none" }, () => {
 });
 async function testerStream(filePath: string): Promise<void> {
 	const sampleText = await Deno.readTextFile(filePath);
-	const hashFromText = new Blake2S({ data: sampleText }).hash();
+	const hashFromText = new Blake2S().update(sampleText).hash();
 	await using sampleFile = await Deno.open(filePath);
 	const hashFromStream = (await new Blake2S().updateFromStream(sampleFile.readable)).hash();
 	deepStrictEqual(hashFromText, hashFromStream);

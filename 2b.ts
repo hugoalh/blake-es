@@ -94,16 +94,16 @@ export class Blake2B {
 	#v: Uint32Array = new Uint32Array(32);
 	/**
 	 * Initialize.
-	 * @param {Blake2BOptions} [input={}] Input. Data can append later via the method {@linkcode Blake2B.update} and {@linkcode Blake2B.updateFromStream}.
+	 * @param {Blake2BOptions} [options={}] Options.
 	 */
-	constructor(input: Blake2BOptions = {}) {
+	constructor(options: Blake2BOptions = {}) {
 		const {
 			data,
 			key,
 			length = 64,
 			personal,
 			salt
-		}: Blake2BOptions = input;
+		}: Blake2BOptions = options;
 		if (!(Number.isSafeInteger(length) && length > 0 && length <= 64)) {
 			throw new TypeError(`Parameter \`length\` is not a valid number which is integer and in range 1 ~ 64!`);
 		}

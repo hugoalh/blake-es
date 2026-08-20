@@ -42,14 +42,14 @@ export class Blake2S {
 	#v: Uint32Array = new Uint32Array(16);
 	/**
 	 * Initialize.
-	 * @param {Blake2Options} [input={}] Input. Data can append later via the method {@linkcode Blake2S.update} and {@linkcode Blake2S.updateFromStream}.
+	 * @param {Blake2Options} [options={}] Options.
 	 */
-	constructor(input: Blake2Options = {}) {
+	constructor(options: Blake2Options = {}) {
 		const {
 			data,
 			key,
 			length = 32
-		}: Blake2Options = input;
+		}: Blake2Options = options;
 		if (!(Number.isSafeInteger(length) && length > 0 && length <= 32)) {
 			throw new TypeError(`Parameter \`length\` is not a valid number which is integer and in range 1 ~ 32!`);
 		}

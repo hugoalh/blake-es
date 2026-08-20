@@ -10,17 +10,14 @@ interface TesterFromHexParameters {
 }
 Deno.test("Direct 1", { permissions: "none" }, () => {
 	const data = "";
-	deepStrictEqual(new Blake2B({
-		data,
-		length: 48
-	}).hashHex(), "B32811423377F52D7862286EE1A72EE540524380FDA1724A6F25D7978C6FD3244A6CAF0498812673C5E05EF583825100");
-	deepStrictEqual(new Blake2B({ data }).hashHex(), "786A02F742015903C6C6FD852552D272912F4740E15847618A86E217F71F5419D25E1031AFEE585313896444934EB04B903A685B1448B755D56F701AFE9BE2CE");
+	deepStrictEqual(new Blake2B({ length: 48 }).update(data).hashHex(), "B32811423377F52D7862286EE1A72EE540524380FDA1724A6F25D7978C6FD3244A6CAF0498812673C5E05EF583825100");
+	deepStrictEqual(new Blake2B().update(data).hashHex(), "786A02F742015903C6C6FD852552D272912F4740E15847618A86E217F71F5419D25E1031AFEE585313896444934EB04B903A685B1448B755D56F701AFE9BE2CE");
 });
 Deno.test("Direct 2", { permissions: "none" }, () => {
-	deepStrictEqual(new Blake2B({ data: "The quick brown fox jumps over the lazy dog" }).hashHex(), "A8ADD4BDDDFD93E4877D2746E62817B116364A1FA7BC148D95090BC7333B3673F82401CF7AA2E4CB1ECD90296E3F14CB5413F8ED77BE73045B13914CDCD6A918");
+	deepStrictEqual(new Blake2B().update("The quick brown fox jumps over the lazy dog").hashHex(), "A8ADD4BDDDFD93E4877D2746E62817B116364A1FA7BC148D95090BC7333B3673F82401CF7AA2E4CB1ECD90296E3F14CB5413F8ED77BE73045B13914CDCD6A918");
 });
 Deno.test("Direct 3", { permissions: "none" }, () => {
-	deepStrictEqual(new Blake2B({ data: "The quick brown fox jumps over the lazy dof" }).hashHex(), "AB6B007747D8068C02E25A6008DB8A77C218D94F3B40D2291A7DC8A62090A744C082EA27AF01521A102E42F480A31E9844053F456B4B41E8AA78BBE5C12957BB");
+	deepStrictEqual(new Blake2B().update("The quick brown fox jumps over the lazy dof").hashHex(), "AB6B007747D8068C02E25A6008DB8A77C218D94F3B40D2291A7DC8A62090A744C082EA27AF01521A102E42F480A31E9844053F456B4B41E8AA78BBE5C12957BB");
 });
 function testerFromHex(params: TesterFromHexParameters): void {
 	const {
@@ -31,14 +28,12 @@ function testerFromHex(params: TesterFromHexParameters): void {
 		personal,
 		salt
 	}: TesterFromHexParameters = params;
-	const instance = new Blake2B({
-		data: Uint8Array.fromHex(data),
+	deepStrictEqual(new Blake2B({
 		key: (typeof key === "undefined") ? undefined : Uint8Array.fromHex(key),
 		length,
 		personal: (typeof personal === "undefined") ? undefined : Uint8Array.fromHex(personal),
 		salt: (typeof salt === "undefined") ? undefined : Uint8Array.fromHex(salt)
-	});
-	deepStrictEqual(instance.hashHex(), expected.toUpperCase());
+	}).update(Uint8Array.fromHex(data)).hashHex(), expected.toUpperCase());
 }
 Deno.test("Hex 5E8DE7", { permissions: "none" }, () => {
 	testerFromHex({
@@ -7337,7 +7332,7 @@ Deno.test("Hex 9AFF8D", { permissions: "none" }, () => {
 });
 async function testerStream(filePath: string): Promise<void> {
 	const sampleText = await Deno.readTextFile(filePath);
-	const hashFromText = new Blake2B({ data: sampleText }).hash();
+	const hashFromText = new Blake2B().update(sampleText).hash();
 	await using sampleFile = await Deno.open(filePath);
 	const hashFromStream = (await new Blake2B().updateFromStream(sampleFile.readable)).hash();
 	deepStrictEqual(hashFromText, hashFromStream);
