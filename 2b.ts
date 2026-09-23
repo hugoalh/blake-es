@@ -98,7 +98,6 @@ export class Blake2B {
 	 */
 	constructor(options: Blake2BOptions = {}) {
 		const {
-			data,
 			key,
 			length = 64,
 			personal,
@@ -135,9 +134,6 @@ export class Blake2B {
 		if (typeof key !== "undefined") {
 			this.update(key);
 			this.#c = 128;
-		}
-		if (typeof data !== "undefined") {
-			this.update(data);
 		}
 	}
 	/**

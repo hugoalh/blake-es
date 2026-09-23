@@ -46,7 +46,6 @@ export class Blake2S {
 	 */
 	constructor(options: Blake2Options = {}) {
 		const {
-			data,
 			key,
 			length = 32
 		}: Blake2Options = options;
@@ -62,9 +61,6 @@ export class Blake2S {
 		if (typeof key !== "undefined") {
 			this.update(key);
 			this.#c = 64;
-		}
-		if (typeof data !== "undefined") {
-			this.update(data);
 		}
 	}
 	/**

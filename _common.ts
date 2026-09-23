@@ -7,11 +7,6 @@ export type Blake2AcceptDataType =
 	| Uint8Array;
 export interface Blake2Options {
 	/**
-	 * Data.
-	 * @deprecated Append data via the method `Blake2.update` or `Blake2.updateFromStream` instead.
-	 */
-	data?: Blake2AcceptDataType;
-	/**
 	 * Key.
 	 */
 	key?: Uint8Array;
