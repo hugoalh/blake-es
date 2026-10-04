@@ -1,5 +1,9 @@
 {
 	"$schema": "https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/config-file.v1.json",
+	"compilerOptions": {
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true
+	},
 	"fmt": {
 		"angularNextControlFlowSameLine": true,
 		"bracePosition": "sameLine",
@@ -34,7 +38,7 @@
 	},
 	"lint": {
 		"plugins": [
-			"jsr:@hugoalh/deno-lint-rules@^0.19.2/presets/library"
+			"jsr:@hugoalh/deno-lint-rules@^0.20.0/presets/library"
 		],
 		"rules": {
 			"tags": [
