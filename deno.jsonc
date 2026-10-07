@@ -107,20 +107,6 @@
 			"command": "deno run --allow-all --no-prompt --quiet NPP --workspace \"dist/npm-github\" --registry \"npm.pkg.github.com\"",
 			"description": "Publish to NPM GitHub."
 		},
-		/*
-		"npm-kaki87-build": {
-			"command": "deno run --allow-all --no-prompt --quiet .npm-kaki87.build.ts",
-			"description": "Build for NPM KaKi87."
-		},
-		"npm-kaki87-check": {
-			"command": "deno task npm-kaki87-publish --dry-run",
-			"description": "Check for NPM KaKi87."
-		},
-		"npm-kaki87-publish": {
-			"command": "deno run --allow-all --no-prompt --quiet NPP --workspace \"dist/npm-kaki87\" --registry \"git.kaki87.net/api/packages/hugoalh/npm\"",
-			"description": "Publish to NPM KaKi87."
-		},
-		*/
 		"npm-npm-build": {
 			"command": "deno run --allow-all --no-prompt --quiet .npm-npm.build.ts",
 			"description": "Build for NPM NPM."
