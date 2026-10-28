@@ -151,7 +151,7 @@ export class Blake2S {
 				this.#hashUint8Array[i] = this.#h[i >> 2] >> (8 * (i & 3)) & 0xFF;
 			}
 		}
-		return Uint8Array.from(this.#hashUint8Array);
+		return structuredClone(this.#hashUint8Array);
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
@@ -170,8 +170,8 @@ export class Blake2S {
 		if (this.#freezed) {
 			throw new Error(`Instance is freezed!`);
 		}
-		const dataFmt: Uint8Array = toUint8Array(data);
-		for (const byte of dataFmt) {
+		const bytes: Uint8Array = toUint8Array(data);
+		for (const byte of bytes) {
 			if (this.#c === 64) {
 				// Buffer full?
 				this.#t += this.#c; // Add counters

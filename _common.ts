@@ -41,5 +41,5 @@ export function toUint8Array(input: string | Uint8Array): Uint8Array {
 	if (typeof input === "string") {
 		return new TextEncoder().encode(input);
 	}
-	return Uint8Array.from(input);
+	return structuredClone(input);
 }
